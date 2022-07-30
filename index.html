@@ -53,7 +53,8 @@
       <label for="message">Purpose of Visit?</label>
       <textarea id="message" name="message" placeholder="Enter purpose of visit.." style="height:200px"></textarea>
 
-      <button id="submit_msg" type="button">Schedule Meeting</button>
+      <button id="submit_msg" type="button">Schedule Meeting</button><br>
+       <button id="get_msg" type="button">Get Meeting</button>
     </form>
   </body>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
@@ -93,6 +94,29 @@
             console.error("Message could not be sent: ", error);
         });
       }
+      
+      var get_firebase = function(){
+        alert("getting data!")
+        var db = firebase.firestore();
+var messages = db.collection("messages");
+        var query = messages.where("lname", "==", "Konkol"),where("fname", "==", "Chuck"),where("date", "==", "2022-08-26T12:45");
+       .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            document.getElementById("fname") = doc.data().fname;
+       document.getElementById("lname") = doc.data().lname;;
+       document.getElementById("cname") = doc.data().cname;;
+       document.getElementById("date") = doc.data().date;;
+       document.getElementById("email") = doc.data().email;;
+       document.getElementById("message") = doc.data().message;;
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+      }
 
       var contact_submit = function(){
         var fname = document.getElementById("fname");
@@ -115,6 +139,7 @@
       }
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
+       document.getElementById("get_msg").addEventListener("click", get_firebase);
     })();
   </script>
 </html>
