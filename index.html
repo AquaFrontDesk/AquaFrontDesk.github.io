@@ -98,12 +98,17 @@
       var get_firebase = function(){
         alert("getting data!")
         var db = firebase.firestore();
-       var aqua = db.collectionGroup('messages').where('lastname', '==', 'Konkol');
-aqua.get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data());
+    db.collection("messages").where("lastname", "==", "Konkol")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
     });
-});
       }
 
       var contact_submit = function(){
