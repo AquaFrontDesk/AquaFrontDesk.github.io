@@ -33,16 +33,25 @@
   </head>
   <body>
     <form>
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your name..">
+      <label for="fname">First Name</label>
+      <input type="text" id="fname" name="fname" placeholder="First Name..">
+      
+       <label for="lname">Last Name</label>
+      <input type="text" id="lname" name="lname" placeholder="Last name..">
+      
+           <label for="cname">Company</label>
+      <input type="text" id="cname" name="cname" placeholder="Company Name..">
 
       <label for="email">email</label>
-      <input type="email" id="email" name="email" placeholder="Your email..">
+      <input type="email" id="email" name="email" placeholder="Email..">
+      
+       <label for="date">Date</label>
+      <textarea id="date" name="date" placeholder="example: 08/15/2022" style="height:200px"></textarea>
 
       <label for="message">Subject</label>
       <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
 
-      <button id="submit_msg" type="button">Submit</button>
+      <button id="submit_msg" type="button">Schedule Meeting</button>
     </form>
   </body>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
@@ -66,7 +75,10 @@
         var db = firebase.firestore();
 
         db.collection("messages").add({
-            name: data["name"],
+            firstname: data["fname"],
+          lastname: data["lname"],
+          company: data["cname"],
+          date: data["date"],
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
@@ -81,14 +93,20 @@
       }
 
       var contact_submit = function(){
-        var name = document.getElementById("name");
+        var fname = document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var cname = document.getElementById("cname");
+          var date = document.getElementById("date");
         var email = document.getElementById("email");
         var msg = document.getElementById("message");
 
         var data = {
-          "name": name.value,
+          "fname": fname.value,
+               "lname": lname.value,
+               "cname": cname.value,
           "email": email.value,
-          "msg": msg.value
+          "msg": msg.value,
+          "date": date.value
         }
         push_to_firebase(data);
 
