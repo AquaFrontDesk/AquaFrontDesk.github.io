@@ -98,7 +98,7 @@
       var get_firebase = function(){
         alert("getting data!")
         var db = firebase.firestore();
-        var query = db.collection("messages").where("lname", "==", "Konkol").where("fname", "==", "Chuck").where("date", "==", "2022-08-26T12:45");
+        var query = db.collection("messages").where("lname", "==", "Konkol").where("fname", "==", "Chuck").where("date", "==", "2022-08-24T11:30");
      query.get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
