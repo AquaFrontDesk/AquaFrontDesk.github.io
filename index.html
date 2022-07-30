@@ -103,12 +103,6 @@
     querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-            document.getElementById("fname") = doc.data().fname;
-       document.getElementById("lname") = doc.data().lname;
-       document.getElementById("cname") = doc.data().cname;
-       document.getElementById("date") = doc.data().date;
-       document.getElementById("email") = doc.data().email;
-       document.getElementById("message") = doc.data().message;
         });
     })
     .catch((error) => {
