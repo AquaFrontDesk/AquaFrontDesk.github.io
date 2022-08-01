@@ -122,10 +122,13 @@
          var get_fname = document.getElementById("fname");
         var get_lname = document.getElementById("lname");
           var get_date = document.getElementById("date");
-     console.log(get_fname.toString());
-         console.log(get_lname.toString());
-         console.log(get_date.toString());
-    db.collection("messages").where("lastname", "==",get_lname.toString()).where("firstname", "==",get_fname.toString()).where("date", "==", get_date.toString())
+         var get_fname = '${get_fname}';
+        var get_lname = '${get_lname}';
+          var get_date = '${get_date}';
+     console.log(get_fname);
+         console.log(get_lname );
+         console.log(get_date);
+    db.collection("messages").where("lastname", "==",get_lname).where("firstname", "==",get_fname).where("date", "==", get_date)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
