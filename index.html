@@ -173,10 +173,10 @@ tr:nth-child(even) {
     });
       }
       
-       var loadfromid = function(data1,data2,data3){
+       var loadfromid = function(data){
         alert("getting data!")
         var db = firebase.firestore();
-    db.collection("messages").where("lastname", "==",data1).where("firstname", "==",data2).where("date", "==", data3)
+    db.collection("messages").where("lastname", "==",data["lname"]).where("firstname", "==",data["fname"]).where("date", "==", data["date"])
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -213,8 +213,16 @@ tr:nth-child(even) {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
         //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
-          var id = "'" + doc.data().date + "'";
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + '<a href="javascript:loaddb(' + doc.data().lastname + ',' + doc.data().firstname + ',' + id + ')">Edit</a>' + '</td></tr>');
+           var data = {
+          "login": doc.data().login,
+          "fname": doc.data().firstname,
+               "lname": doc.data().lastname,
+               "cname": doc.data().company,
+          "email": doc.data().email,
+          "msg": doc.data().message,
+          "date":doc.data().date
+        }
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + '<a href="javascript:loaddb(' + data + ')">Edit</a>' + '</td></tr>');
         });
                   document.write("</table>");
        document.head.innerHTML = header;
