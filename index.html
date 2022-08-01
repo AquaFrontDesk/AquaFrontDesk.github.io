@@ -76,7 +76,7 @@ tr:nth-child(even) {
        <button id="get_msg" type="button">Get One Meeting (Requires fields marked with ***)</button>
          <button id="update_db" type="button">Update Meeting</button>
           <button id="get_id" type="button">Get All Meetings By Employee (Requires field marked with **)</button>
-      
+ 
       
     </form>
             </div>
@@ -99,6 +99,7 @@ tr:nth-child(even) {
       firebase.initializeApp(firebaseConfig);
       
       document.getElementById("update_db").disabled = true;
+      document.getElementById('get_msg').style.visibility = 'hidden';
 
       var push_to_firebase = function(data){
         var db = firebase.firestore();
