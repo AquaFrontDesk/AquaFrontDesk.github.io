@@ -88,7 +88,7 @@
             timestamp: Date.now()
         })
         .then(function(doc) {
-    console.log("Message sent, ID: ", doc.id);
+            console.log("doc added");
             location.reload();
   }).catch(function(error) {
     console.log("Error getting document:", error);
@@ -108,7 +108,7 @@
             message: data["msg"],
             timestamp: Date.now()
 }) .then(function(doc) {
-    console.log("Message sent, ID: ", doc.id);
+    console.log("doc updated");
             location.reload();
   }).catch(function(error) {
     console.log("Error getting document:", error);
