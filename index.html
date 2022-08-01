@@ -86,7 +86,7 @@
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
-        });
+        })
         .then(function(doc) {
     if (doc.exists) {
       console.log("Document data:", doc.data());
@@ -112,8 +112,8 @@
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
-});
-        .then(function(doc) {
+})
+          .then(function(doc) {
     if (doc.exists) {
       console.log("Document data:", doc.data());
       location.reload();
