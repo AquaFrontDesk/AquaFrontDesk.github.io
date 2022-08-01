@@ -211,12 +211,13 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         }); 
+           document.getElementById('update_db').style.visibility = 'visible';
+        document.getElementById('submit_msg').style.visibility = 'hidden';
          document.getElementById("update_db").disabled = false;
         document.getElementById("submit_msg").disabled = true;
     })
     .catch((error) => {
-              document.getElementById("update_db").disabled = true;
-        document.getElementById("submit_msg").disabled = false;
+    
         console.log("Error getting documents: ", error);
     });
       }
@@ -242,12 +243,10 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         });
-        document.getElementById("update_db").disabled = false;
-        document.getElementById("submit_msg").disabled = true;
+                 document.getElementById('update_db').style.visibility = 'visible';
+        document.getElementById('submit_msg').style.visibility = 'hidden';
     })
     .catch((error) => {
-               document.getElementById("update_db").disabled = true;
-        document.getElementById("submit_msg").disabled = false;
         console.log("Error getting documents: ", error);
     });
       }
@@ -283,12 +282,10 @@ tr:nth-child(even) {
         });
                   document.write("</table>");
        document.head.innerHTML = header;
-             document.getElementById("update_db").disabled = false;
-        document.getElementById("submit_msg").disabled = true;
+                document.getElementById('update_db').style.visibility = 'visible';
+        document.getElementById('submit_msg').style.visibility = 'hidden';
     })
     .catch((error) => {
-             document.getElementById("update_db").disabled = true;
-        document.getElementById("submit_msg").disabled = false;
         console.log("Error getting documents: ", error);
     });
            }
