@@ -124,7 +124,6 @@ tr:nth-child(even) {
       }
       
       var update = function(data){
-        alert("Schedule was created successfully!")
         var db = firebase.firestore();
           var key = data["fname"] + data["lname"] + data["date"];
         db.collection("messages").doc(key).update({
@@ -137,6 +136,7 @@ tr:nth-child(even) {
             message: data["msg"],
             timestamp: Date.now()
 }) .then(function(doc) {
+                  alert("Schedule was updated successfully!")
     console.log("doc updated");
             location.reload();
   }).catch(function(error) {
@@ -184,7 +184,6 @@ tr:nth-child(even) {
       }
       
        var get_data = function(data){
-        alert("getting data!")
         var db = firebase.firestore();
          var get_fname = data["fname"];
         var get_lname = data["lname"];
@@ -216,7 +215,6 @@ tr:nth-child(even) {
       }
       
        var loadfromid = function(data){
-        alert("getting data!")
         var db = firebase.firestore();
     db.collection("messages").where("lastname", "==",data["lname"]).where("firstname", "==",data["fname"]).where("date", "==", data["date"])
     .get()
