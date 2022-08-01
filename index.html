@@ -102,7 +102,8 @@ tr:nth-child(even) {
       
       document.getElementById("update_db").disabled = true;
       document.getElementById('get_msg').style.visibility = 'hidden';
-
+      document.getElementById('update_db').style.visibility = 'hidden';
+      
       var push_to_firebase = function(data){
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
@@ -174,6 +175,8 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         });
+        document.getElementById('update_db').style.visibility = 'visible';
+       document.getElementById('submit_msg').style.visibility = 'hidden';
        document.getElementById("update_db").disabled = false;
         document.getElementById("submit_msg").disabled = true;
     })
