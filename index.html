@@ -33,8 +33,12 @@
     <title>Schedule Visitor to Aqua-Aerobic Systems, Inc</title>
   </head>
   <body>
+       <div id="container">
     <h1>Schedule Visitor to Aqua-Aerobic Systems, Inc</h1> 
     <form>
+       <label for="login">Aqua Employee Network Login ID</label>
+      <input type="text" id="login" name="login" placeholder="Example: Chuck Konkol Network Login is: ckonkol">
+      
       <label for="fname">First Name ***</label>
       <input type="text" id="fname" name="fname" placeholder="Enter their first name..">
       
@@ -56,8 +60,10 @@
       <button id="submit_msg" type="button">Schedule Meeting</button><br>
        <button id="get_msg" type="button">Get Meeting (*** marked fields required)</button>
          <button id="update_db" type="button">Update Meeting</button>
+          <button id="get_id" type="button">Get By ID</button>
       
     </form>
+            </div>
   </body>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
@@ -81,6 +87,7 @@
         var key = data["fname"] + data["lname"] + data["date"];
         var SaveDoc = db.collection("messages").doc(key);
         SaveDoc.set({
+              login: data["login"],
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
@@ -102,6 +109,7 @@
         var db = firebase.firestore();
           var key = data["fname"] + data["lname"] + data["date"];
         db.collection("messages").doc(key).update({
+           login: data["login"],
    firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
@@ -134,6 +142,8 @@
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
+           document.getElementById("login").value = doc.data().login;
+           document.getElementById("login").readOnly = true;
             document.getElementById("fname").value = doc.data().firstname;
             document.getElementById("lname").value = doc.data().lastname;
             document.getElementById("cname").value = doc.data().company;
@@ -146,8 +156,34 @@
         console.log("Error getting documents: ", error);
     });
       }
+      
+       var loaddb = function(){
+         const container = document.getElementById('container');
+         container.innerHTML = '';
+        alert("getting data!")
+        var db = firebase.firestore();
+         var get_login = document.getElementById("login").value ;
+       get_login  = get_login.toString();
+      
+     console.log(get_login);
+
+    db.collection("messages").where("login", "==",get_login)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+           doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message, + "," +  doc.data().id + "<br>";
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+      }
+
 
       var contact_submit = function(){
+         var login = document.getElementById("login");
         var fname = document.getElementById("fname");
         var lname = document.getElementById("lname");
         var cname = document.getElementById("cname");
@@ -156,6 +192,7 @@
         var msg = document.getElementById("message");
 
         var data = {
+          "login": login.value,
           "fname": fname.value,
                "lname": lname.value,
                "cname": cname.value,
@@ -168,6 +205,7 @@
       }
       
        var update_submit = function(){
+           var login = document.getElementById("login");
         var fname = document.getElementById("fname");
         var lname = document.getElementById("lname");
         var cname = document.getElementById("cname");
@@ -176,6 +214,7 @@
         var msg = document.getElementById("message");
 
         var data = {
+            "login": login.value,
           "fname": fname.value,
                "lname": lname.value,
                "cname": cname.value,
@@ -190,6 +229,7 @@
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("get_msg").addEventListener("click", get_firebase);
        document.getElementById("update_db").addEventListener("click",update_submit);
+       document.getElementById("get_id").addEventListener("click",loaddb);
     })();
   </script>
 </html>
