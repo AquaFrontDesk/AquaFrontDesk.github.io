@@ -173,6 +173,31 @@ tr:nth-child(even) {
     });
       }
       
+       var loadfromid = function(data){
+        alert("getting data!")
+        var db = firebase.firestore();
+       var key = data;
+    db.collection("messages").doc(key)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+           document.getElementById("login").value = doc.data().login;
+           document.getElementById("login").readOnly = true;
+            document.getElementById("fname").value = doc.data().firstname;
+            document.getElementById("lname").value = doc.data().lastname;
+            document.getElementById("cname").value = doc.data().company;
+            document.getElementById("date").value = doc.data().date;
+            document.getElementById("email").value = doc.data().email;
+            document.getElementById("message").value = doc.data().message;
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+      }
+      
        var loaddb = function(){
         alert("getting data!")
         var db = firebase.firestore();
