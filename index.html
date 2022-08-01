@@ -158,15 +158,14 @@
       }
       
        var loaddb = function(){
-         const container = document.getElementById('container');
-         container.innerHTML = '';
         alert("getting data!")
         var db = firebase.firestore();
          var get_login = document.getElementById("login").value ;
        get_login  = get_login.toString();
       
      console.log(get_login);
-
+     const container = document.getElementById('container');
+         container.innerHTML = '';
     db.collection("messages").where("login", "==",get_login)
     .get()
     .then((querySnapshot) => {
