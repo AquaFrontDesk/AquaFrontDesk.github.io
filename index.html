@@ -76,6 +76,28 @@
       var push_to_firebase = function(data){
         alert("Schedule was created successfully!")
         var db = firebase.firestore();
+        var key = data["fname"] + data["lname"] + data["date"];
+        db.collection("messages").add.doc(key)({
+            firstname: data["fname"],
+          lastname: data["lname"],
+          company: data["cname"],
+          date: data["date"],
+            email: data["email"],
+            message: data["msg"],
+            timestamp: Date.now()
+        })
+        .then(function(docRef) {
+            console.log("Message sent, ID: ", docRef.id);
+            location.reload();
+        })
+        .catch(function(error) {
+            console.error("Message could not be sent: ", error);
+        });
+      }
+      
+      var update = function(data){
+        alert("Schedule was created successfully!")
+        var db = firebase.firestore();
 
         db.collection("messages").add({
             firstname: data["fname"],
