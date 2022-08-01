@@ -86,7 +86,8 @@
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
-        })
+        });
+        
         .then(function(docRef) {
             console.log("Message sent, ID: ", docRef.id);
             location.reload();
