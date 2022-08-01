@@ -98,16 +98,16 @@
       var update = function(data){
         alert("Schedule was created successfully!")
         var db = firebase.firestore();
-
-        db.collection("messages").add({
-            firstname: data["fname"],
+          var key = data["fname"] + data["lname"] + data["date"];
+        db.collection("messages").doc(key).update({
+   firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
           date: data["date"],
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
-        })
+});
         .then(function(docRef) {
             console.log("Message sent, ID: ", docRef.id);
             location.reload();
