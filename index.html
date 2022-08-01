@@ -77,7 +77,8 @@
         alert("Schedule was created successfully!")
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
-        db.collection("messages").add.doc(key)({
+        var Doc = db.collection("messages").doc(key);
+        Doc.set({
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
