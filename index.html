@@ -87,13 +87,6 @@
             message: data["msg"],
             timestamp: Date.now()
         });
-        .then(function(docRef) {
-            console.log("Message sent, ID: ", docRef.id);
-            location.reload();
-        })
-        .catch(function(error) {
-            console.error("Message could not be sent: ", error);
-        });
       }
       
       var update = function(data){
