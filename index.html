@@ -87,14 +87,9 @@
             message: data["msg"],
             timestamp: Date.now()
         })
-        .then(function(doc) {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-      location.reload();
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
+        .then(function(docRef) {
+    console.log("Message sent, ID: ", docRef.id);
+            location.reload();
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
@@ -112,15 +107,9 @@
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
-})
-          .then(function(doc) {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-      location.reload();
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
+}) .then(function(docRef) {
+    console.log("Message sent, ID: ", docRef.id);
+            location.reload();
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
