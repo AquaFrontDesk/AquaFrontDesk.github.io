@@ -76,6 +76,7 @@ tr:nth-child(even) {
        <button id="get_msg" type="button">Get One Meeting (*** marked fields required)</button>
          <button id="update_db" type="button">Update Meeting</button>
           <button id="get_id" type="button">Get All Meetings By Employee</button>
+      document.getElementById("update_db").disabled = true;
       
     </form>
             </div>
@@ -168,8 +169,10 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         });
+       document.getElementById("update_db").disabled = false;
     })
     .catch((error) => {
+       document.getElementById("update_db").disabled = true;
         console.log("Error getting documents: ", error);
     });
 } else {
@@ -201,9 +204,11 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-        });
+        }); 
+         document.getElementById("update_db").disabled = false;
     })
     .catch((error) => {
+       document.getElementById("update_db").disabled = true;
         console.log("Error getting documents: ", error);
     });
       }
