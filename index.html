@@ -75,9 +75,9 @@ tr:nth-child(even) {
       <textarea id="message" name="message" placeholder="Enter purpose of visit.." style="height:200px"></textarea>
 
       <button id="submit_msg" type="button">Schedule Meeting</button><br>
-       <button id="get_msg" type="button">Get One Meeting (Requires fields marked with ***)</button>
          <button id="update_db" type="button">Update Meeting</button>
           <button id="get_id" type="button">Get All Meetings By Employee (Requires field marked with **)</button>
+         <button id="get_msg" type="button">Reset Form</button>
  
       
     </form>
@@ -101,7 +101,6 @@ tr:nth-child(even) {
       firebase.initializeApp(firebaseConfig);
       
       document.getElementById("update_db").disabled = true;
-      document.getElementById('get_msg').style.visibility = 'hidden';
       document.getElementById('update_db').style.visibility = 'hidden';
       
       var push_to_firebase = function(data){
@@ -221,6 +220,10 @@ tr:nth-child(even) {
         console.log("Error getting documents: ", error);
     });
       }
+       
+       var loadweb = function(){
+         location.reload();
+       }
       
        var loadfromid = function(data){
         var db = firebase.firestore();
@@ -345,11 +348,13 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         update(data);
 
       }
+       
+       
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
-     //  document.getElementById("get_msg").addEventListener("click", get_firebase);
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",loaddb);
+             document.getElementById("get_msg").addEventListener("click", loadweb);
       
       var queryString = window.location.search;
       console.log(queryString);
