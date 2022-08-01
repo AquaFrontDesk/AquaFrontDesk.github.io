@@ -120,10 +120,10 @@
       var get_firebase = function(){
         alert("getting data!")
         var db = firebase.firestore();
-         var fname = document.getElementById("fname");
-        var lname = document.getElementById("lname");
-          var date = document.getElementById("date");
-    db.collection("messages").where("lastname", "==", lname).where("firstname", "==",fname).where("date", "==", date)
+         var get_fname = document.getElementById("fname");
+        var get_lname = document.getElementById("lname");
+          var get_date = document.getElementById("date");
+    db.collection("messages").where("lastname", "==", get_lname).where("firstname", "==",get_fname).where("date", "==", get_date.toDateString())
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
