@@ -213,7 +213,7 @@ tr:nth-child(even) {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
         //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
-       document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + '<a href="javascript:loaddb(' + doc.data().lastname + ',' + doc.data().firstname + ',' + doc.data().date + ')">Edit</a>' + '</td></tr>');
+       document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + '<a href="javascript:loaddb(' + doc.data().lastname + ',' + doc.data().firstname + ','' + doc.data().date + '')">Edit</a>' + '</td></tr>');
         });
                   document.write("</table>");
        document.head.innerHTML = header;
