@@ -173,6 +173,39 @@ tr:nth-child(even) {
     });
       }
       
+       var get_data = function(data){
+        alert("getting data!")
+        var db = firebase.firestore();
+         var get_fname = data["fname"];
+        var get_lname = data["lname"];
+          var get_date = data["date"];
+       get_fname  = get_fname.toString();
+         get_lname  = get_lname.toString();
+         get_date  = get_date.toString();
+     console.log(get_fname);
+         console.log(get_lname);
+         console.log(get_date);
+    db.collection("messages").where("lastname", "==",get_lname).where("firstname", "==",get_fname).where("date", "==", get_date )
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+           document.getElementById("login").value = doc.data().login;
+           document.getElementById("login").readOnly = true;
+            document.getElementById("fname").value = doc.data().firstname;
+            document.getElementById("lname").value = doc.data().lastname;
+            document.getElementById("cname").value = doc.data().company;
+            document.getElementById("date").value = doc.data().date;
+            document.getElementById("email").value = doc.data().email;
+            document.getElementById("message").value = doc.data().message;
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+      }
+      
        var loadfromid = function(data){
         alert("getting data!")
         var db = firebase.firestore();
@@ -299,6 +332,13 @@ console.log(dates);
 // empty string
 if (dates != null && dates != '') {
   console.log('string is NOT empty');
+  var data = {
+          "fname": fname.value,
+               "lname": lname,
+               "cname": fname,
+          "date": dates
+        }
+        get_data(data);
 } else {
   console.log('string IS empty');
 }
