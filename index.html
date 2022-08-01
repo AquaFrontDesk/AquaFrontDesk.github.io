@@ -286,18 +286,18 @@ tr:nth-child(even) {
       const queryString = window.location.search;
       console.log(queryString);
       const urlParams = new URLSearchParams(queryString);
-      const lname = urlParams.get('lname')
+      var lname = urlParams.get('lname')
       console.log(lname);
 // shirt
 
-const fname = urlParams.get('fname')
+var fname = urlParams.get('fname')
 console.log(fname);
 // blue
 
-const date = urlParams.get('date')
-console.log(date);
+var dates = urlParams.get('date')
+console.log(dates);
 // empty string
-if (typeof date === 'string' && date.length === 0) {
+if (dates === null) {
   console.log('string is empty');
 } else {
   console.log('string is NOT empty')
