@@ -179,9 +179,6 @@ tr:nth-child(even) {
          var get_fname = data["fname"];
         var get_lname = data["lname"];
           var get_date = data["date"];
-       get_fname  = get_fname.toString();
-         get_lname  = get_lname.toString();
-         get_date  = get_date.toString();
      console.log(get_fname);
          console.log(get_lname);
          console.log(get_date);
@@ -333,9 +330,9 @@ console.log(dates);
 if (dates != null && dates != '') {
   console.log('string is NOT empty');
   var data = {
-          "fname": fname.ToString(),
-          "lname": lname.ToString(),
-          "date": dates.ToString()
+          "fname": fname,
+          "lname": lname,
+          "date": dates
         }
         get_data(data);
 } else {
