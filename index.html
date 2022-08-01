@@ -119,9 +119,9 @@
       var get_firebase = function(){
         alert("getting data!")
         var db = firebase.firestore();
-         var get_fname = document.getElementById("fname");
-        var get_lname = document.getElementById("lname");
-          var get_date = document.getElementById("date");
+         var get_fname = document.getElementById("fname").value ;
+        var get_lname = document.getElementById("lname").value ;
+          var get_date = document.getElementById("date").value ;
        get_fname  = get_fname.toString();
          get_lname  = get_lname.toString();
          get_date  = get_date.toString();
