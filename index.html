@@ -125,10 +125,10 @@
        get_fname  = get_fname.toString();
          get_lname  = get_lname.toString();
          get_date  = get_date.toString();
-     console.log(`"${get_fname}"`);
-         console.log(`"${get_lname}"`);
-         console.log(`"${get_date}"`);
-    db.collection("messages").where("lastname", "==",`"${get_lname}"`).where("firstname", "==",`"${get_fname}"`).where("date", "==", `"${get_date}"`)
+     console.log(get_fname);
+         console.log(get_lname);
+         console.log(get_date);
+    db.collection("messages").where("lastname", "==",get_lname).where("firstname", "==",get_fname).where("date", "==", get_date )
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
