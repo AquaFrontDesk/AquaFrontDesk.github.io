@@ -87,6 +87,17 @@
             message: data["msg"],
             timestamp: Date.now()
         });
+        .then(function(doc) {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+      location.reload();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
       }
       
       var update = function(data){
@@ -102,7 +113,17 @@
             message: data["msg"],
             timestamp: Date.now()
 });
-       
+        .then(function(doc) {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+      location.reload();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
       }
       
       var get_firebase = function(){
