@@ -55,6 +55,8 @@
 
       <button id="submit_msg" type="button">Schedule Meeting</button><br>
        <button id="get_msg" type="button">Get Meeting</button>
+         <button id="update_db" type="button">Update Meeting</button>
+      
     </form>
   </body>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
@@ -156,9 +158,30 @@
         push_to_firebase(data);
 
       }
+      
+       var update_submit = function(){
+        var fname = document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var cname = document.getElementById("cname");
+          var date = document.getElementById("date");
+        var email = document.getElementById("email");
+        var msg = document.getElementById("message");
+
+        var data = {
+          "fname": fname.value,
+               "lname": lname.value,
+               "cname": cname.value,
+          "email": email.value,
+          "msg": msg.value,
+          "date": date.value
+        }
+        update(data);
+
+      }
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("get_msg").addEventListener("click", get_firebase);
+       document.getElementById("update_db").addEventListener("click",update_submit);
     })();
   </script>
 </html>
