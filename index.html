@@ -77,8 +77,8 @@
         alert("Schedule was created successfully!")
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
-        var Doc = db.collection("messages").doc(key);
-        Doc.set({
+        var SaveDoc = db.collection("messages").doc(key);
+        SaveDoc.set({
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
@@ -87,7 +87,6 @@
             message: data["msg"],
             timestamp: Date.now()
         });
-        
         .then(function(docRef) {
             console.log("Message sent, ID: ", docRef.id);
             location.reload();
