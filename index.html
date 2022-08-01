@@ -76,7 +76,7 @@ tr:nth-child(even) {
        <button id="get_msg" type="button">Get One Meeting (*** marked fields required)</button>
          <button id="update_db" type="button">Update Meeting</button>
           <button id="get_id" type="button">Get All Meetings By Employee</button>
-      document.getElementById("update_db").disabled = true;
+      
       
     </form>
             </div>
@@ -97,6 +97,8 @@ tr:nth-child(even) {
       };
 
       firebase.initializeApp(firebaseConfig);
+      
+      document.getElementById("update_db").disabled = true;
 
       var push_to_firebase = function(data){
         alert("Schedule was created successfully!")
