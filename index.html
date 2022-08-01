@@ -193,10 +193,11 @@ tr:nth-child(even) {
         //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
        document.write("<tr><td>" + doc.data().login + "</td><td>" + doc.data().firstname + "</td><td>" + doc.data().lastname + "</td><td>" + doc.data().company + "</td><td>" + doc.data().date + "</td><td>" + doc.data().email + "</td><td>" + doc.data().message + "</td><td>" + doc.id + "</td>  </tr>");
         });
-    }document.write("</table>");)
+    })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
+         document.write("</table>");
       }
 
 
