@@ -191,13 +191,13 @@ tr:nth-child(even) {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
         //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
-       lines = lines + "<tr><td>" + doc.data().login + "</td><td>" + doc.data().firstname + "</td><td>" + doc.data().lastname + "</td><td>" + doc.data().company + "</td><td>" + doc.data().date + "</td><td>" + doc.data().email + "</td><td>" + doc.data().message + "</td><td>" + doc.id + "</td>  </tr>";
+       document.write("<tr><td>" + doc.data().login + "</td><td>" + doc.data().firstname + "</td><td>" + doc.data().lastname + "</td><td>" + doc.data().company + "</td><td>" + doc.data().date + "</td><td>" + doc.data().email + "</td><td>" + doc.data().message + "</td><td>" + doc.id + "</td></tr>");
         });
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-         document.write(lines);
+        
          document.write("</table>");
       }
 
