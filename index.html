@@ -116,14 +116,13 @@
     console.log("Error getting document:", error);
   });
       }
-      
       var get_firebase = function(){
         alert("getting data!")
         var db = firebase.firestore();
          var get_fname = document.getElementById("fname");
         var get_lname = document.getElementById("lname");
           var get_date = document.getElementById("date");
-    db.collection("messages").where("lastname", "==", get_lname).where("firstname", "==",get_fname).where("date", "==", get_date.toDateString())
+    db.collection("messages").where("lastname", "==","'"+get_lname+"'").where("firstname", "==", "'"+get_fname+"'").where("date", "==", "'"+get_date+"'")
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
