@@ -87,8 +87,8 @@
             message: data["msg"],
             timestamp: Date.now()
         })
-        .then(function(docRef) {
-    console.log("Message sent, ID: ", docRef.id);
+        .then(function(doc) {
+    console.log("Message sent, ID: ", doc.id);
             location.reload();
   }).catch(function(error) {
     console.log("Error getting document:", error);
@@ -107,8 +107,8 @@
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
-}) .then(function(docRef) {
-    console.log("Message sent, ID: ", docRef.id);
+}) .then(function(doc) {
+    console.log("Message sent, ID: ", doc.id);
             location.reload();
   }).catch(function(error) {
     console.log("Error getting document:", error);
