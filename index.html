@@ -149,7 +149,8 @@ tr:nth-child(even) {
        get_fname  = get_fname.toString();
          get_lname  = get_lname.toString();
          get_date  = get_date.toString();
-     console.log(get_fname);
+        if (get_fname != null &&  get_fname != '' && get_lname != null &&  get_lname != '' && get_date  != null &&  get_date  != '') {
+          console.log(get_fname);
          console.log(get_lname);
          console.log(get_date);
     db.collection("messages").where("lastname", "==",get_lname).where("firstname", "==",get_fname).where("date", "==", get_date )
@@ -171,6 +172,10 @@ tr:nth-child(even) {
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
+} else {
+    alert("First Name, Last Name and Meeting Date fields required!")
+}
+
       }
       
        var get_data = function(data){
@@ -228,7 +233,6 @@ tr:nth-child(even) {
       }
       
        var loaddb = function(){
-        alert("getting data!")
         var db = firebase.firestore();
          var get_login = document.getElementById("login").value ;
        get_login  = get_login.toString();
@@ -282,7 +286,14 @@ tr:nth-child(even) {
           "msg": msg.value,
           "date": date.value
         }
-        push_to_firebase(data);
+        
+// empty string
+if (login.value != null &&  login.value != '' && fname.value != null &&  fname.value != '' && lname.value != null &&  lname.value != '' && cname.value != null &&  cname.value != '' && email.value != null &&  email.value != ''  && msg.value != null &&  msg.value != ''   && date.value != null &&  date.value != '') {
+     push_to_firebase(data);
+} else {
+    alert("All fields required!")
+}
+    
 
       }
       
