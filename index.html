@@ -51,6 +51,8 @@ tr:nth-child(even) {
        <div id="container">
     <h1>Schedule Visitor to Aqua-Aerobic Systems, Inc</h1> 
     <form>
+      <input type="hidden" id="id" name="id">  
+    
        <label for="login">Aqua Employee Network Login ID **</label>
       <input type="text" id="login" name="login" placeholder="Example: Chuck Konkol Network Login is: ckonkol">
       
@@ -113,7 +115,8 @@ tr:nth-child(even) {
           date: data["date"],
             email: data["email"],
             message: data["msg"],
-            timestamp: Date.now()
+            timestamp: Date.now(),
+      key: data["fname"] + data["lname"] + data["date"];           
         })
         .then(function(doc) {  
             alert("Schedule was created successfully!")
@@ -126,7 +129,7 @@ tr:nth-child(even) {
       
       var update = function(data){
         var db = firebase.firestore();
-          var key = data["fname"] + data["lname"] + data["date"];
+          var key = data["id"];
         db.collection("messages").doc(key).update({
            login: data["login"],
    firstname: data["fname"],
@@ -186,18 +189,17 @@ tr:nth-child(even) {
       
        var get_data = function(data){
         var db = firebase.firestore();
-         var get_fname = data["fname"];
-        var get_lname = data["lname"];
-          var get_date = data["date"];
-     console.log(get_fname);
-         console.log(get_lname);
-         console.log(get_date);
-    db.collection("messages").where("lastname", "==",get_lname).where("firstname", "==",get_fname).where("date", "==", get_date )
+         var get_id = data["id"];
+   
+     console.log(get_id);
+
+    db.collection("messages").where("key", "==",get_id)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
+            document.getElementById("id").value = doc.data().key;
            document.getElementById("login").value = doc.data().login;
            document.getElementById("login").readOnly = true;
             document.getElementById("fname").value = doc.data().firstname;
@@ -271,7 +273,7 @@ tr:nth-child(even) {
           "msg": doc.data().message,
           "date":doc.data().date
         }
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().timestamp + '">Click here</a></td></tr>');
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
        document.head.innerHTML = header;
@@ -317,6 +319,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       }
       
        var update_submit = function(){
+            var id = document.getElementById("id");
            var login = document.getElementById("login");
         var fname = document.getElementById("fname");
         var lname = document.getElementById("lname");
@@ -326,6 +329,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         var msg = document.getElementById("message");
 
         var data = {
+             "id": id.value,
             "login": login.value,
           "fname": fname.value,
                "lname": lname.value,
@@ -346,23 +350,14 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       var queryString = window.location.search;
       console.log(queryString);
       var urlParams = new URLSearchParams(queryString);
-      var lname = urlParams.get('lname')
-      console.log(lname);
-// shirt
+      var id = urlParams.get('id')
+      console.log(id);
 
-var fname = urlParams.get('fname')
-console.log(fname);
-// blue
-
-var dates = urlParams.get('date')
-console.log(dates);
 // empty string
-if (dates != null && dates != '') {
+if (id != null && id != '') {
   console.log('string is NOT empty');
   var data = {
-          "fname": fname,
-          "lname": lname,
-          "date": dates
+          "id": id
         }
         get_data(data);
 } else {
