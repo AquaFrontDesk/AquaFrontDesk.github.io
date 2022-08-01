@@ -179,7 +179,7 @@ tr:nth-child(even) {
          var get_login = document.getElementById("login").value ;
        get_login  = get_login.toString();
      console.log(get_login);
-         document.write("<style>table, td, th {  border: 1px solid #ddd;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;}</style>")
+  document.write("<head><style>table, td, th {  border: 1px solid #ddd;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;}</style></head>")
     document.write("<h2>Aqua Check-in Schedule</h2><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th>     <th>Edit</th>  </tr>");
     var lines = "";
          db.collection("messages").where("login", "==",get_login)
