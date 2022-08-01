@@ -178,8 +178,6 @@ tr:nth-child(even) {
          var get_login = document.getElementById("login").value ;
        get_login  = get_login.toString();
      console.log(get_login);
-     const container = document.getElementById('container');
-         container.innerHTML = '';
     document.write("<h2>Aqua Check-in Schedule</h2><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th>     <th>Edit</th>  </tr>");
     var lines = "";
          db.collection("messages").where("login", "==",get_login)
@@ -196,6 +194,8 @@ tr:nth-child(even) {
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
+            const container = document.getElementById('container');
+         container.innerHTML = '';
       }
 
 
