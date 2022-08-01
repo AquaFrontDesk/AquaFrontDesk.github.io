@@ -313,9 +313,9 @@ tr:nth-child(even) {
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",loaddb);
       
-      const queryString = window.location.search;
+      var queryString = window.location.search;
       console.log(queryString);
-      const urlParams = new URLSearchParams(queryString);
+      var urlParams = new URLSearchParams(queryString);
       var lname = urlParams.get('lname')
       console.log(lname);
 // shirt
