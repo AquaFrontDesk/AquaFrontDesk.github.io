@@ -128,7 +128,7 @@
      console.log(`"${get_fname}"`);
          console.log(`"${get_lname}"`);
          console.log(`"${get_date}"`);
-    db.collection("messages").where("lastname", "==",get_lname).where("firstname", "==",get_fname).where("date", "==", get_date)
+    db.collection("messages").where("lastname", "==",`"${get_lname}"`).where("firstname", "==",`"${get_fname}"`).where("date", "==", `"${get_date}"`)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
