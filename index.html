@@ -101,7 +101,6 @@ tr:nth-child(even) {
       document.getElementById("update_db").disabled = true;
 
       var push_to_firebase = function(data){
-        alert("Schedule was created successfully!")
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
         var SaveDoc = db.collection("messages").doc(key);
@@ -115,7 +114,8 @@ tr:nth-child(even) {
             message: data["msg"],
             timestamp: Date.now()
         })
-        .then(function(doc) {
+        .then(function(doc) {  
+            alert("Schedule was created successfully!")
             console.log("doc added");
             location.reload();
   }).catch(function(error) {
@@ -144,7 +144,6 @@ tr:nth-child(even) {
   });
       }
       var get_firebase = function(){
-        alert("getting data!")
         var db = firebase.firestore();
          var get_fname = document.getElementById("fname").value ;
         var get_lname = document.getElementById("lname").value ;
