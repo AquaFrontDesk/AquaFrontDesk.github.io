@@ -333,9 +333,9 @@ console.log(dates);
 if (dates != null && dates != '') {
   console.log('string is NOT empty');
   var data = {
-          "fname": fname,
-          "lname": lname,
-          "date": dates
+          "fname": fname.ToString(),
+          "lname": lname.ToString(),
+          "date": dates.ToString()
         }
         get_data(data);
 } else {
