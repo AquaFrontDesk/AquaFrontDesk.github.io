@@ -116,7 +116,7 @@ tr:nth-child(even) {
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now(),
-      key: data["fname"] + data["lname"] + data["date"];           
+            key: data["key"];           
         })
         .then(function(doc) {  
             alert("Schedule was created successfully!")
@@ -306,6 +306,7 @@ tr:nth-child(even) {
           "email": email.value,
           "msg": msg.value,
           "date": date.value
+          "key": fname.value + lname.value + date.value
         }
         
 // empty string
