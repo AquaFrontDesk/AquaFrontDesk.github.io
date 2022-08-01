@@ -297,10 +297,10 @@ console.log(fname);
 var dates = urlParams.get('date')
 console.log(dates);
 // empty string
-if (dates === null) {
-  console.log('string is empty');
+if (data != null && data != '') {
+  console.log('string is NOT empty');
 } else {
-  console.log('string is NOT empty')
+  console.log('string IS empty');
 }
       
     })();
