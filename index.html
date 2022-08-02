@@ -125,8 +125,8 @@ tr:nth-child(even) {
             message: data["msg"],
             timestamp: Date.now(),
             key: data["key"],
-          checkin: "",
-          checkout: ""
+          checkin: null,
+          checkout: null
         })
         .then(function(doc) {  
             alert("Schedule was created successfully!")
