@@ -199,10 +199,8 @@ tr:nth-child(even) {
        var get_data = function(data){
         var db = firebase.firestore();
          var get_id = data["id"];
-   
-     console.log(get_id);
-
-    db.collection("messages").where("key", "==",get_id)
+         console.log(get_id);
+         db.collection("messages").where("key", "==",get_id)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -224,9 +222,34 @@ tr:nth-child(even) {
         document.getElementById("submit_msg").disabled = true;
     })
     .catch((error) => {
-    
-        console.log("Error getting documents: ", error);
+       console.log("Error getting documents: ", error);
     });
+      }
+       
+             var checkin = function(data){
+        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+           checkin: Date.now()
+}) .then(function(doc) {
+    console.log("doc updated");
+            location.reload();
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+      }
+             
+      var checkout = function(data){
+        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+           checkin: Date.now()
+}) .then(function(doc) {
+    console.log("doc updated");
+            location.reload();
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
       }
        
        var loadweb = function(){
@@ -363,8 +386,15 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       var queryString = window.location.search;
       console.log(queryString);
       var urlParams = new URLSearchParams(queryString);
+      
       var id = urlParams.get('id')
       console.log(id);
+      
+            var checkin = urlParams.get('checkin')
+      console.log(checkin);
+      
+            var checkout = urlParams.get('checkout')
+      console.log(checkout);
 
 // empty string
 if (id != null && id != '') {
@@ -373,6 +403,30 @@ if (id != null && id != '') {
           "id": id
         }
         get_data(data);
+} else {
+  console.log('string IS empty');
+}
+      
+      // empty string
+if (checkin != null && checkin != '') {
+  console.log('string is NOT empty');
+  var data = {
+          "checkin": checkin,
+           "id": id
+        }
+        checkin(data);
+} else {
+  console.log('string IS empty');
+}
+      
+      // empty string
+if (checkout != null && checkout != '') {
+  console.log('string is NOT empty');
+  var data = {
+          "checkout": checkout,
+           "id": id
+        }
+        checkout(data);
 } else {
   console.log('string IS empty');
 }
