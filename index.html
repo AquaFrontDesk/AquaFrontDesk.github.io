@@ -108,6 +108,9 @@ tr:nth-child(even) {
       document.getElementById("update_db").disabled = true;
       document.getElementById('update_db').style.visibility = 'hidden';
       
+      var key_checkin = "",
+      var key_checkout = "";
+      
       var push_to_firebase = function(data){
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
@@ -220,6 +223,27 @@ tr:nth-child(even) {
         document.getElementById('submit_msg').style.visibility = 'hidden';
          document.getElementById("update_db").disabled = false;
         document.getElementById("submit_msg").disabled = true;
+    })
+    .catch((error) => {
+       console.log("Error getting documents: ", error);
+    });
+      }
+       
+       var get_checkin_data = function(data){
+        var db = firebase.firestore();
+         var get_id = data["id"];
+         console.log(get_id);
+         db.collection("messages").where("key", "==",get_id)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+           //checkin: "",
+          //checkout: ""
+            console.log(doc.id, " => ", doc.data());
+           key_checkin = doc.data().checkin;
+          key_checkout = doc.data().checkout;
+        }); 
     })
     .catch((error) => {
        console.log("Error getting documents: ", error);
@@ -400,7 +424,14 @@ if (id != null && id != '') {
   var data = {
           "id": id
         }
+        key_id="";
         get_data(data);
+if (key_id != null && key_id != ""){
+  
+  
+  else{
+    
+  }
 } else {
   console.log('string IS empty');
 }
@@ -412,7 +443,18 @@ if (checkin != null && checkin != '') {
           "checkin": checkin,
            "id": id
         }
-        set_checkin(data);
+  get_checkin_data(data);
+  key_checkin="";
+  key_checkout="";
+  if (key_checkin === "" && key_checkout === ""){
+           set_checkin(data);
+  }else if (key_checkin != "" && key_checkout === ""){
+           set_checkout(data);
+  }else if (key_checkin != "" && key_checkout != ""){
+           //qr code used already
+  }else{
+    
+  }
 } else {
   console.log('string IS empty');
 }
