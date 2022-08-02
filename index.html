@@ -226,7 +226,7 @@ tr:nth-child(even) {
     });
       }
        
-             var checkin = function(data){
+             var set_checkin = function(data){
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
@@ -239,7 +239,7 @@ tr:nth-child(even) {
   });
       }
              
-      var checkout = function(data){
+      var set_checkout = function(data){
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
@@ -414,7 +414,7 @@ if (checkin != null && checkin != '') {
           "checkin": checkin,
            "id": id
         }
-        checkin(data);
+        set_checkin(data);
 } else {
   console.log('string IS empty');
 }
@@ -426,7 +426,7 @@ if (checkout != null && checkout != '') {
           "checkout": checkout,
            "id": id
         }
-        checkout(data);
+        set_checkout(data);
 } else {
   console.log('string IS empty');
 }
