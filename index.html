@@ -242,7 +242,7 @@ tr:nth-child(even) {
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
-           checkin: Date().toLocaleString()
+           checkout: Date().toLocaleString()
 }) .then(function(doc) {
     console.log("doc updated");
   }).catch(function(error) {
