@@ -248,15 +248,15 @@ tr:nth-child(even) {
     console.log("keyid" + get_id);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);
-           document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked in!");
-           document.write("You have an appointment with: " + varAqua + " for " + varDT);
-            document.write("Someone will come up to meet you here very soon!");
+           document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked in!<br>");
+           document.write("<br>You have an appointment with: " + varAqua + " for " + varDT);
+            document.write("<br>Someone will come up to meet you here very soon!");
     console.log("checkin successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
            set_checkout(data);
-               document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked out!");
-           document.write("Please dispose of your badge before leaving foyer!");
-            document.write("Have a great day!");
+               document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked out!<br>");
+           document.write("<br>Please dispose of your badge before leaving foyer!");
+            document.write("<br>Have a great day!");
     console.log("checkout successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
