@@ -236,11 +236,24 @@ tr:nth-child(even) {
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log( doc.data().checkin);
-          console.log( doc.data().checkout);
            key_checkin = doc.data().checkin;
            key_checkout = doc.data().checkout;
         }); 
+             console.log("key_checkin:" + key_checkin);
+    console.log("key_checkout:" + key_checkout);
+    console.log("keyid" + get_id);
+  if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
+           set_checkin(data);
+    console.log("checkin successful");
+  }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
+           set_checkout(data);
+    console.log("checkout successful");
+  }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
+           //qr code used already
+        console.log("already used");
+  }else{
+    
+  }
     })
     .catch((error) => {
        console.log("Error getting documents: ", error);
@@ -438,21 +451,6 @@ if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
            "id": keyid
         }
   get_checkin_data(data);
-   console.log("key_checkin:" + key_checkin);
-    console.log("key_checkout:" + key_checkout);
-    console.log("keyid" + keyid);
-  if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
-           set_checkin(data);
-    console.log("checkin successful");
-  }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
-           set_checkout(data);
-    console.log("checkout successful");
-  }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
-           //qr code used already
-        console.log("already used");
-  }else{
-    
-  }
 } else {
   console.log('string IS empty');
 }
