@@ -111,6 +111,46 @@ tr:nth-child(even) {
       var key_checkin = "";
       var key_checkout = "";
       
+         var queryString = window.location.search;
+      console.log(queryString);
+      var urlParams = new URLSearchParams(queryString);
+      
+      var id = urlParams.get('id')
+      console.log(id);
+      
+      var keyid = urlParams.get('key')
+      console.log(keyid);
+      
+            var checkin = urlParams.get('checkin')
+      console.log(checkin);
+      
+            var checkout = urlParams.get('checkout')
+      console.log(checkout);
+
+// empty string
+if (id != null && id != '') {
+  console.log('string is NOT empty');
+  var data = {
+          "id": id
+        }
+        key_id="";
+        get_data(data);
+} else {
+  console.log('string IS empty');
+}
+      
+      // empty string
+if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
+  console.log('string is NOT empty');
+  var data = {
+          "checkin": checkin,
+           "id": keyid
+        }
+  get_checkin_data(data);
+} else {
+  console.log('string IS empty');
+}
+      
       var push_to_firebase = function(data){
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
@@ -426,45 +466,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById("get_id").addEventListener("click",loaddb);
              document.getElementById("get_msg").addEventListener("click", loadweb);
       
-      var queryString = window.location.search;
-      console.log(queryString);
-      var urlParams = new URLSearchParams(queryString);
-      
-      var id = urlParams.get('id')
-      console.log(id);
-      
-      var keyid = urlParams.get('key')
-      console.log(keyid);
-      
-            var checkin = urlParams.get('checkin')
-      console.log(checkin);
-      
-            var checkout = urlParams.get('checkout')
-      console.log(checkout);
-
-// empty string
-if (id != null && id != '') {
-  console.log('string is NOT empty');
-  var data = {
-          "id": id
-        }
-        key_id="";
-        get_data(data);
-} else {
-  console.log('string IS empty');
-}
-      
-      // empty string
-if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
-  console.log('string is NOT empty');
-  var data = {
-          "checkin": checkin,
-           "id": keyid
-        }
-  get_checkin_data(data);
-} else {
-  console.log('string IS empty');
-}
+   
       
 
       
