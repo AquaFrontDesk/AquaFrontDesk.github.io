@@ -440,12 +440,17 @@ if (checkin != null && checkin != '') {
   key_checkin="";
   key_checkout="";
   get_checkin_data(data);
+    console.log(key_checkin);
+    console.log(key_checkout);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);
+    console.log("checkin successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
            set_checkout(data);
+    console.log("checkout successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
+        console.log("already used");
   }else{
     
   }
