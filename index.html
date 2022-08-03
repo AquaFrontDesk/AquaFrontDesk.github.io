@@ -437,9 +437,9 @@ if (checkin != null && checkin != '') {
           "checkin": checkin,
            "id": id
         }
-  get_checkin_data(data);
   key_checkin="";
   key_checkout="";
+  get_checkin_data(data);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
