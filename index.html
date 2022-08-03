@@ -440,12 +440,12 @@ if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
           "checkin": checkin,
            "id": keyid
         }
-  key_checkin="";
-  key_checkout="";
+  key_checkin='';
+  key_checkout='';
   get_checkin_data(data);
-   console.log(key_checkin);
-    console.log(key_checkin);
-    console.log(keyid);
+   console.log("key_checkin:" + key_checkin);
+    console.log("key_checkin:" + key_checkin);
+    console.log("keyid" + keyid);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);
     console.log("checkin successful");
