@@ -250,16 +250,18 @@ tr:nth-child(even) {
     console.log("keyid" + get_id);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);
-           document.write('<body style="font-family: sans-serif;font-size: larger;color: blue;">');
-           document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked in!<br>");
-           document.write("<br>You have an appointment with: " + varAqua + " for " + varDT);
+           document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
+           document.write("Thank you, " + varFName + " " + varLName + "!<br>");
+          document.write("You have been successfully checked in!<br>");
+           document.write("<br>You have an appointment with: " + varAqua + " for " + toTimestamp(varDT));
             document.write("<br>Someone will come up to meet you here very soon!");
     document.write('</body>');
     console.log("checkin successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
            set_checkout(data);
-            document.write('<body style="font-family: sans-serif;font-size: larger;color: blue;">');
-               document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked out!<br>");
+            document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
+                document.write("Thank you, " + varFName + " " + varLName + "!<br>");
+          document.write("You have been successfully checked out!<br>");
            document.write("<br>Please dispose of your badge before leaving foyer!");
             document.write("<br>Have a great day!");
     document.write('</body>');
@@ -267,7 +269,7 @@ tr:nth-child(even) {
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
         console.log("already used");
-        document.write('<body style="font-family: sans-serif;font-size: larger;color: blue;">');
+        document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
          document.write('This QR code has expired!');
          document.write('</body>');
   }else{
@@ -278,6 +280,11 @@ tr:nth-child(even) {
        console.log("Error getting documents: ", error);
     });
       }
+       
+       function toTimestamp(strDate){
+   var datum = Date.parse(strDate);
+   return datum/1000;
+}
        
              var set_checkin = function(data){
         var db = firebase.firestore();
