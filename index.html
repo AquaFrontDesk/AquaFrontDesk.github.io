@@ -250,7 +250,7 @@ tr:nth-child(even) {
     console.log("keyid" + get_id);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);
-           document.write('<body style="font-family: sans-serif;font-size: large;">');
+           document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
            document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked in!<br>");
            document.write("<br>You have an appointment with: " + varAqua + " for " + varDT);
             document.write("<br>Someone will come up to meet you here very soon!");
@@ -258,7 +258,7 @@ tr:nth-child(even) {
     console.log("checkin successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
            set_checkout(data);
-            document.write('<body style="font-family: sans-serif;font-size: large;">');
+            document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
                document.write("Thank you, " + varFName + " " + varLName + "! You have been successfully checked out!<br>");
            document.write("<br>Please dispose of your badge before leaving foyer!");
             document.write("<br>Have a great day!");
@@ -267,7 +267,7 @@ tr:nth-child(even) {
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
         console.log("already used");
-        document.write('<body style="font-family: sans-serif;font-size: large;">');
+        document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
          document.write('This QR code has expired!');
          document.write('</body>');
   }else{
