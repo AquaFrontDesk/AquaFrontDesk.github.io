@@ -222,7 +222,7 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-          var website = 'https://aquafrontdesk.github.io/?id=' + doc.data().key
+          var website = 'https://aquafrontdesk.github.io/?key=' + doc.data().key + '&checkin=Now'
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
   background: '#ffffff',
