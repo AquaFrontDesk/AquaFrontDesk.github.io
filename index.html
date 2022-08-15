@@ -83,7 +83,7 @@ tr:nth-child(even) {
       
        <canvas id="qrcode"></canvas> 
       
-         <div id="link"></div> 
+         <div id="maillink"></div> 
 
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
@@ -238,7 +238,7 @@ tr:nth-child(even) {
   size: 128,
   value: website
 });
-          document.getElementById("link").value = '<a href="mailto:" + doc.data().email + "?body=" + doc.data().firstname + " " + doc.data().lastname + "%0D%0A" + "Meeting QR Code: " + https://aquameeting.github.io>Send mail</a>';
+          document.getElementById("maillink").value = "<a href='mailto:' + doc.data().email + '?body=' + doc.data().firstname + ' ' + doc.data().lastname + '<br>Meeting QR Code: https://aquameeting.github.io'>Send mail</a>";
         }); 
            document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
