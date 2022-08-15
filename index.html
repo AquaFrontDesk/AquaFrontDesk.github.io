@@ -228,7 +228,7 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
            var website = doc.data().key + '&checkin=Now';
-            document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcomimg Meeting on " + doc.data().date + "?body=" + doc.data().firstname + " " + doc.data().lastname + "%0D%0A Meeting QR Code: <a href='https://aquameeting.github.io/?key='" + website + ">Click Here</a>"'>Send mail</a>";
+            document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcomimg Meeting on " + doc.data().date + "?body=" + doc.data().firstname + " " + doc.data().lastname + "%0D%0A Meeting QR Code: <a href='https://aquameeting.github.io/?key='" + doc.data().key + "&checkin=Now>Click Here</a>"'>Send mail</a>";
          
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
