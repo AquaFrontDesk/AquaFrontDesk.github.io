@@ -79,7 +79,7 @@ tr:nth-child(even) {
       <label for="message" style="color: black;font-weight: bold;">Purpose of Visit?</label>
      <textarea id="message" name="message" placeholder="Enter purpose of visit.." style="height: 50px;font-family: sans-serif;"></textarea>
       
-       <input type="hidden" id="qrcode" name="qrcode">  
+       <canvas id="qrcode"></canvas> 
 
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
@@ -188,7 +188,6 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         });
-       document.getElementById('qrcode').style.visibility = 'visible';
         document.getElementById('update_db').style.visibility = 'visible';
        document.getElementById('submit_msg').style.visibility = 'hidden';
        document.getElementById("update_db").disabled = false;
@@ -355,7 +354,6 @@ tr:nth-child(even) {
         });
                  document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
-      document.getElementById('qrcode').style.visibility = 'hidden';
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
