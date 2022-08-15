@@ -82,10 +82,8 @@ tr:nth-child(even) {
       <label for="message" style="color: black;font-weight: bold;">Purpose of Visit?</label>
      <textarea id="message" name="message" placeholder="Enter purpose of visit.." style="height: 50px;font-family: sans-serif;"></textarea>
       
-     <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
-      
        <canvas id="qrcode"></canvas> 
-
+    <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Network Login ID field required!)</button>
@@ -227,7 +225,7 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-            document.getElementById("maillink").value = "Get Meeting QR Code: https://aquameeting.github.io";
+            document.getElementById("emaillink").value = "Get Meeting QR Code: https://aquameeting.github.io";
           var website = doc.data().key + '&checkin=Now';
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
