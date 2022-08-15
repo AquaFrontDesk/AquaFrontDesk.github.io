@@ -78,6 +78,8 @@ tr:nth-child(even) {
 <br><br>
       <label for="message" style="color: black;font-weight: bold;">Purpose of Visit?</label>
      <textarea id="message" name="message" placeholder="Enter purpose of visit.." style="height: 50px;font-family: sans-serif;"></textarea>
+      
+       <input type="hidden" id="qrcode" name="qrcode">  
 
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
@@ -89,6 +91,7 @@ tr:nth-child(even) {
             </div>
     <div id="table"></div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
   <script type="text/javascript">
@@ -185,6 +188,7 @@ tr:nth-child(even) {
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         });
+       document.getElementById('qrcode').style.visibility = 'visible';
         document.getElementById('update_db').style.visibility = 'visible';
        document.getElementById('submit_msg').style.visibility = 'hidden';
        document.getElementById("update_db").disabled = false;
@@ -219,6 +223,18 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
+          var website = 'https://aquafrontdesk.github.io/?id=' + doc.data().key
+          var qrcode = new QRious({
+  element: document.getElementById("qrcode"),
+  background: '#ffffff',
+  backgroundAlpha: 1,
+  foreground: '#5868bf',
+  foregroundAlpha: 1,
+  level: 'H',
+  padding: 0,
+  size: 128,
+  value: website
+});
         }); 
            document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
@@ -339,6 +355,7 @@ tr:nth-child(even) {
         });
                  document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
+      document.getElementById('qrcode').style.visibility = 'hidden';
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
