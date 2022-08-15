@@ -136,7 +136,7 @@ tr:nth-child(even) {
         .then(function(doc) {  
             alert("Schedule was created successfully!")
             console.log("doc added");
-           window.location.href = 'https://aquafrontdesk.github.io/?id=' + doc.data().key;
+           window.location.href = 'https://aquafrontdesk.github.io/?id=' + key;
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
