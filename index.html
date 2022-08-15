@@ -243,8 +243,7 @@ tr:nth-child(even) {
   size: 128,
   value: website
 });
-         <br> <a href="#" id="downloader" onclick="download()" download="image.png">Download!</a>
-<canvas id="qrcode"></canvas>
+         
         }); 
            document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
@@ -256,10 +255,7 @@ tr:nth-child(even) {
     });
       }
        
-       function download(){
-    document.getElementById("downloader").download = "image.png";
-    document.getElementById("downloader").href = document.getElementById("qrcode").toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-}
+  
        
        var get_checkin_data = function(data){
         var db = firebase.firestore();
