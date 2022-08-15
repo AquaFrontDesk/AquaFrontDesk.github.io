@@ -84,7 +84,7 @@ tr:nth-child(even) {
       
        <canvas id="qrcode"></canvas> 
       <br>
-    <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;">Email Link</label>
+    <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
       <br>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
@@ -227,7 +227,7 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-            document.getElementById("emaillink").innerHTML = 'Get Meeting QR Code: https://aquameeting.github.io';
+            document.getElementById("emaillink").innerHTML = "<a href='mailto:'" + doc.data().email + "?body=" + doc.data().firstname + " " + doc.data().lastname + "<br>Meeting QR Code: https://aquameeting.github.io'>Send mail</a>";
           var website = doc.data().key + '&checkin=Now';
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
