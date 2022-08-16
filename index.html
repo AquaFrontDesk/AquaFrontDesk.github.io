@@ -623,6 +623,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'block';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
+                 document.getElementById('inactive').style.display = 'block';
        }
        
        var getall = function(){
@@ -636,6 +637,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'none';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
+          document.getElementById('inactive').style.display = 'block';
        }
        
        
@@ -648,7 +650,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('get_id').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
        document.getElementById('logins').style.display = 'none';
-      
+       document.getElementById('inactive').style.display = 'none';
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
