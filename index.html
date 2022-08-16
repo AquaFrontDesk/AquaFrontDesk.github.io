@@ -90,6 +90,7 @@ tr:nth-child(even) {
       <br>
     <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
       <br>
+    <label id="remove" for="remove" style="color: black;font-weight: bold;"></label>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
@@ -140,7 +141,8 @@ tr:nth-child(even) {
             timestamp: Date.now(),
             key: data["key"],
           checkin: '',
-          checkout: ''
+          checkout: '',
+          remove:'No'
         })
         .then(function(doc) {  
             alert("Schedule was created successfully!")
@@ -155,8 +157,7 @@ tr:nth-child(even) {
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
-           login: data["login"],
-   firstname: data["fname"],
+          firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
           date: data["date"],
@@ -170,6 +171,33 @@ tr:nth-child(even) {
     console.log("Error getting document:", error);
   });
       }
+      
+        var updateremoveYes = function(data){
+        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+           remove: 'Yes'
+}) .then(function(doc) {
+    console.log("doc updated");
+            location.reload();
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+      }
+        
+        var updateremoveNO = function(data){
+        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+           remove: 'No'
+}) .then(function(doc) {
+    console.log("doc updated");
+            location.reload();
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+      }
+      
       var get_firebase = function(){
         var db = firebase.firestore();
          var get_fname = document.getElementById("fname").value ;
@@ -231,7 +259,8 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-          
+            var removewebsite = "https://aquameeting.github.io/?remove=" + doc.data().key;
+           document.getElementById("remove").value = "<a href='" + removewebsite + "'>Remove Meeting</a>";
            var website = doc.data().key + '&checkin=Now';
           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
@@ -448,6 +477,8 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
 
       }
       
+     
+      
        var update_submit = function(){
             var id = document.getElementById("id");
            var login = document.getElementById("login");
@@ -533,6 +564,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       console.log(queryString);
       var urlParams = new URLSearchParams(queryString);
       
+        var id_remove = urlParams.get('remove')
+      console.log(id_remove);
+      
       var id = urlParams.get('id')
       console.log(id);
       
@@ -546,6 +580,25 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       console.log(checkout);
 
 // empty string
+if (id_remove === 'Yes') && (id != null && id != '') {
+  var data = {
+          "id": id
+        }
+      updateremoveYes(data);
+} else {
+  console.log('string IS empty');
+}      
+      
+ if (id_remove === 'No') && (id != null && id != '') {
+  var data = {
+          "id": id
+        }
+      updateremoveNo(data);
+} else {
+  console.log('string IS empty');
+}       
+      
+      
 if (id != null && id != '') {
   console.log('string is NOT empty');
   var data = {
