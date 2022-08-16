@@ -142,6 +142,7 @@ tr:nth-child(even) {
       
       var key_checkin = "";
       var key_checkout = "";
+      var bitly = "";
   
      function createbitly(web){
   var url = web["web"]; 
@@ -162,14 +163,14 @@ tr:nth-child(even) {
         },
         data: JSON.stringify(params)
     }).done(function(data) {
-         alert(data.link);
-         url = data.link;
+         alert("success: " + data.link);
+         bitly = data.link;
     }).fail(function(data) {
-         alert(url);
-         url = url;
+         alert("fail: " + url);
+         bitly = url;
       //alert("ShoppingList URL Copied");
     });
-	     return url;
+	     return bitly;
 }
       
       var push_to_firebase = function(data){
@@ -329,7 +330,8 @@ tr:nth-child(even) {
 		var data = {
           "web": emailwebsite
         }
-          emailwebsite = createbitly(data);
+         createbitly(data);
+	 emailwebsite = bitly;
           console.log("bitly: " + emailwebsite);
           //createbitly
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
