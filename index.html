@@ -143,7 +143,7 @@ tr:nth-child(even) {
       
       var key_checkin = "";
       var key_checkout = "";
-        var get_login = '';
+   
      
       
       var push_to_firebase = function(data){
@@ -441,7 +441,7 @@ tr:nth-child(even) {
       
        var loaddb =  function(data){
         var db = firebase.firestore();
-         get_login = data["userid"];
+          var get_login  = data["userid"];
          if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
@@ -480,22 +480,11 @@ tr:nth-child(even) {
            }
       }
        
-       var getloginname = function(){
-            get_login = document.getElementById("login").value;
-         console.log("LoginName: " + get_login);
-          if (get_login  === null || get_login === '') {
-               alert("Enter your Network Login ID above & try again!");
-          }else{
-             var data = {
-          "userid": get_login,
-        }
-           loaddb(data);
-          }
-       }
+       
        
          var loaddball =  function(data){
         var db = firebase.firestore();
-         get_login = data["userid"];
+         var get_login = data["userid"];
          if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
@@ -535,27 +524,27 @@ tr:nth-child(even) {
       }
        
        var getloginname = function(){
-            get_login = document.getElementById("login").value;
-         console.log("LoginName: " + get_login);
-          if (get_login  === null || get_login === '') {
+            var username = document.getElementById("login").value;
+         console.log("LoginName: " + username);
+          if (username  === null || username === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
              var data = {
-          "userid": get_login
+          "userid": username
         }
            loaddb(data);
           }
        }
        
        var getloginname2 = function(){
-            get_login = document.getElementById("login").value;
-         console.log("LoginName: " + get_login);
-          if (get_login  === null || get_login === '') {
+            var username = document.getElementById("login").value;
+         console.log("LoginName: " + username);
+          if (username  === null || username === '') {
                alert("Enter your Network Login ID above & try again!");
                window.location.href = 'https://aquafrontdesk.github.io';
           }else{
              var data = {
-          "userid": get_login
+          "userid": username
         }
            loaddball(data);
           }
