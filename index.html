@@ -90,11 +90,14 @@ tr:nth-child(even) {
       <br>
     <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
       <br>
-    <div id="remove"></div>
+
+        <label id="remove" for="remove" style="color: black;font-weight: bold;"></label>
        <br>
-     <div  id="removeYes"></div>
+
+        <label id="removeYes" for="removeYes" style="color: black;font-weight: bold;"></label>
        <br>
-       <div id="removeNo"></div>
+
+        <label id="removeNo" for="removeNo" style="color: black;font-weight: bold;"></label>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
@@ -265,10 +268,10 @@ tr:nth-child(even) {
             document.getElementById("message").value = doc.data().message;
             var removewebsiteYes = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=Yes";
            var removewebsiteNo = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=No";
-           document.getElementById("remove").value = doc.data().remove;
+           document.getElementById("remove").innerHTML  = doc.data().remove;
           console.log("Remove:" + doc.data().remove);
-           document.getElementById("removeYes").value = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
-           document.getElementById("removeNo").value = "<a href='" + removewebsiteNo + "'>Remove Meeting</a>";
+           document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
+           document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Remove Meeting</a>";
            var website = doc.data().key + '&checkin=Now';
           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
