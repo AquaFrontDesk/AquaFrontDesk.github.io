@@ -166,7 +166,8 @@ tr:nth-child(even) {
         data: JSON.stringify(params)
     }).done(function(data) {
           alert("success: " + data.link);
-	   myResponse = data.d.responseText;
+	   myResponse = data.link;
+	     alert("success: " + myResponse);
     }).fail(function(ex) {
          //alert("fail: " + url);
         alert(ex.responseText);
