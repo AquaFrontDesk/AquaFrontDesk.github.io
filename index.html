@@ -482,6 +482,18 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       document.getElementById('get_msg').style.display = 'block';
        }
        
+         var updateschedule = function(){
+        document.getElementById('logins').style.display = 'contents';
+          document.getElementById('logins').style.display = 'block';
+        document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+        document.getElementById('meetingfields').style.display = 'block';
+        document.getElementById('submit_msg').style.display = 'none';
+       document.getElementById('update_db').style.display = 'block';
+       document.getElementById('get_id').style.display = 'block';
+      document.getElementById('get_msg').style.display = 'block';
+       }
+       
        var getall = function(){
            
          document.getElementById('logins').style.display = 'contents';
@@ -538,7 +550,7 @@ if (id != null && id != '') {
           "id": id
         }
         key_id="";
-        schedule();
+        updateschedule();
         get_data(data);
 } else {
   console.log('string IS empty');
