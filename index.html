@@ -166,11 +166,10 @@ tr:nth-child(even) {
         data: JSON.stringify(params)
     }).done(function(data) {
           alert("success: " + data.link);
-	   myResponse = data.link.responseText;
-	     alert("success: " + myResponse);
+	  document.getElementById("bitly").value =  data.link;
     }).fail(function(ex) {
-         //alert("fail: " + url);
-        alert(ex.responseText);
+          document.getElementById("bitly").value =  url;
+      //  alert(ex.responseText);
       //alert("ShoppingList URL Copied");
     });
 }
@@ -333,10 +332,10 @@ tr:nth-child(even) {
           "web": emailwebsite
         }
          createbitly(data);
-	 var emailwebsite2 = myResponse; //document.getElementById("bitly").value;
+	 var emailwebsite2 = document.getElementById("bitly"); //document.getElementById("bitly").value;
           console.log("bitly: " + emailwebsite2);
           //createbitly
-          var emailwebsite1 = "<a href=" + emailwebsite2 + ">Click Here for QR Code</a>";
+          var emailwebsite1 = "<a href='" + emailwebsite2 + "'>Click Here for QR Code</a>";
             document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + emailwebsite1 + "'>Click here to create email to guest...</a>";
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
