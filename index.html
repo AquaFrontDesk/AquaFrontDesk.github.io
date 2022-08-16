@@ -142,9 +142,8 @@ tr:nth-child(even) {
       var key_checkin = "";
       var key_checkout = "";
   
-      function createbitly(web)
-{
-var url = web;   //replace YOURGITHUBURL with your Github repo URL example: Konkollist.github.io
+      var createbitly = function(web){
+   var url = web;   //replace YOURGITHUBURL with your Github repo URL example: Konkollist.github.io
    var accessToken = "fca44606568a64c736093bf2404ad2e4048b1d51"; //replace with your NEW Bit.ly TOKEN
    var params = {
        "long_url" : url          
