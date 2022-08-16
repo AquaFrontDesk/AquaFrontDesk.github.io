@@ -163,12 +163,13 @@ tr:nth-child(even) {
         data: JSON.stringify(params)
     }).done(function(data) {
          alert(data.link);
-         return data.link;
+         url = data.link;
     }).fail(function(data) {
          alert(url);
-        return url;
+         url = url;
       //alert("ShoppingList URL Copied");
     });
+	     return url;
 }
       
       var push_to_firebase = function(data){
