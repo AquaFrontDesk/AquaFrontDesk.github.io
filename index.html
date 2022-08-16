@@ -284,6 +284,8 @@ tr:nth-child(even) {
 
           console.log("Remove:" + doc.data().remove);
           if (doc.data().remove === 'Yes'){
+            document.getElementById('qrcode').style.display = 'none';
+            document.getElementById('emaillink').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Meeting Status: InActive";
              document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Click here to update meeting status to: Active</a>";
