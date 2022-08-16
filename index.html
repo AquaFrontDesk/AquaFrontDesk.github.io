@@ -153,7 +153,7 @@ tr:nth-child(even) {
         "long_url" : url           
     };
 
-    var jqxhr = $.ajax({
+   $.ajax({
         url: "https://api-ssl.bitly.com/v4/shorten",
         cache: false,
         dataType: "json",
@@ -170,9 +170,7 @@ tr:nth-child(even) {
          //alert("fail: " + url);
          return  url;
       //alert("ShoppingList URL Copied");
-    }).responseText;
-	     alert(jqxhr);
-            return jqxhr;
+    });
 }
       
       var push_to_firebase = function(data){
