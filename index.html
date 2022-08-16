@@ -476,9 +476,9 @@ tr:nth-child(even) {
           }
        }
        
-        var loaddball = function(data){
+         var loaddball =  function(data){
         var db = firebase.firestore();
-          get_login = data["userid"];
+         get_login = data["userid"];
          if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
@@ -508,14 +508,27 @@ tr:nth-child(even) {
         });
                   document.write("</table>");
        document.head.innerHTML = header;
-        //        document.getElementById('update_db').style.visibility = 'visible';
-       // document.getElementById('submit_msg').style.visibility = 'hidden';
+               // document.getElementById('update_db').style.visibility = 'visible';
+        //document.getElementById('submit_msg').style.visibility = 'hidden';
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
            }
       }
+       
+       var getloginname = function(){
+            get_login = document.getElementById("login").value;
+         console.log("LoginName: " + get_login);
+          if (get_login  === null || get_login === '') {
+               alert("Enter your Network Login ID above & try again!");
+          }else{
+             var data = {
+          "userid": get_login,
+        }
+           loaddb(data);
+          }
+       }
 
 
       var contact_submit = function(){
