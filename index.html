@@ -56,13 +56,15 @@ tr:nth-child(even) {
     <title>Schedule Visitor to Aqua-Aerobic Systems, Inc</title>
   </head>
   <body style="font-family: sans-serif;font-size: large;">
-       <div id="container">
+    
  <h1 style="text-align: center;">Schedule Visitor to Aqua-Aerobic Systems, Inc</h1>
+       <div id="container">
     <form>
       <input type="hidden" id="id" name="id">  
-    <div id="meetingfields">
+   
        <label for="login" style="color: black;font-weight: bold;">Aqua Employee Network ID</label>
      <input type="text" id="login" name="login" placeholder="Please enter your Network Login ID. Example: ckonkol" style="background-color: lightyellow;">
+    <div id="meetingfields">
       <label for="fname" style="color: black;font-weight: bold;">Guest First Name</label>
       <input type="text" id="fname" name="fname" placeholder="Enter their first name..">
       
@@ -481,7 +483,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
         document.getElementById('meetingfields').style.display = 'none';
-        document.getElementById('submit_msg').style.display = 'block';
+        document.getElementById('submit_msg').style.display = 'none';
        document.getElementById('update_db').style.display = 'none';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
