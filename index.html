@@ -422,15 +422,16 @@ tr:nth-child(even) {
     });
       }
       
-       var loaddb = function(){
+       var loaddb =  function(data){
         var db = firebase.firestore();
+         get_login = data["userid"];
          if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=No'>InActive Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=No&userid=" + get_login + "'>InActive Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","desc")
@@ -471,15 +472,16 @@ tr:nth-child(even) {
           }
        }
        
-        var loaddball = function(){
+        var loaddball = function(data){
         var db = firebase.firestore();
+          get_login = data["userid"];
          if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=Yes'>Active Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=Yes&userid=" + get_login + "'>Active Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","desc")
@@ -638,6 +640,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       var id = urlParams.get('id')
       console.log(id);
       
+        var userid = urlParams.get('userid')
+      console.log(userid);
+      
       var keyid = urlParams.get('key')
       console.log(keyid);
       
@@ -648,14 +653,20 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       console.log(checkout);
 
 // empty string
-if ((id_active === 'No')) {
-       loaddball();
+if ((id_active === 'No') && (userid != null && userid != '')) {
+   var data = {
+          "userid": userid,
+        }
+       loaddball(data);
 } else {
   console.log('string IS empty');
 }     
       
-if ((id_active === 'Yes')) {
-       loaddb();
+if ((id_active === 'Yes') && (userid != null && userid != '')) {
+   var data = {
+          "userid": userid,
+        }
+       loaddb(data);
 } else {
   console.log('string IS empty');
 }    
