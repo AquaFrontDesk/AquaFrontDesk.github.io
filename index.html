@@ -165,7 +165,6 @@ tr:nth-child(even) {
         },
         data: JSON.stringify(params)
     }).done(function(data) {
-          alert("success: " + data.link);
 	  document.getElementById("bitly").value =  data.link;
     }).fail(function(ex) {
           document.getElementById("bitly").value =  url;
@@ -327,12 +326,7 @@ tr:nth-child(even) {
           }
          
            var website = doc.data().key + '&checkin=Now';
-           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
-		var data = {
-          "web": emailwebsite
-        }
-		
-         createbitly(data);
+        
 	// var emailwebsite2 = document.getElementById("bitly").value; //document.getElementById("bitly").value;
          // console.log("bitly: " + document.getElementById("bitly").value);
           //createbitly
@@ -774,7 +768,13 @@ if (id != null && id != '') {
         }
         key_id="";
         updateschedule();
-        get_data(data);
+	  var website = id + '&checkin=Now';	
+	   var emailwebsite = "https://aquameeting.github.io/?key=" + website;
+		var data = {
+          "web": emailwebsite
+        }
+         createbitly(data);
+         get_data(data);
 } else {
   console.log('string IS empty');
 }
