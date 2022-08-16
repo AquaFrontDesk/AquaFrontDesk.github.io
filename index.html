@@ -268,10 +268,19 @@ tr:nth-child(even) {
             document.getElementById("message").value = doc.data().message;
             var removewebsiteYes = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=Yes";
            var removewebsiteNo = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=No";
-           document.getElementById("remove").innerHTML  = doc.data().remove;
+
           console.log("Remove:" + doc.data().remove);
-           document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
-           document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Remove Meeting</a>";
+          if (doc.data().remove === 'Yes'){
+             document.getElementById("remove").innerHTML  = "Meeting Status: InActive";
+             document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Restore Meeting</a>";
+             document.getElementById("removeYes").innerHTML = "";
+          }
+           if (doc.data().remove === 'No'){
+             document.getElementById("remove").innerHTML  = "Meeting Status: Active";
+             document.getElementById("removeNo").innerHTML = "";
+              document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
+          }
+         
            var website = doc.data().key + '&checkin=Now';
           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
