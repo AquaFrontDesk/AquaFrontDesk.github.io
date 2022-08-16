@@ -60,10 +60,9 @@ tr:nth-child(even) {
  <h1 style="text-align: center;">Schedule Visitor to Aqua-Aerobic Systems, Inc</h1>
     <form>
       <input type="hidden" id="id" name="id">  
-   
+    <div id="meetingfields">
        <label for="login" style="color: black;font-weight: bold;">Aqua Employee Network ID</label>
      <input type="text" id="login" name="login" placeholder="Please enter your Network Login ID. Example: ckonkol" style="background-color: lightyellow;">
-      <div id="meetingfields">
       <label for="fname" style="color: black;font-weight: bold;">Guest First Name</label>
       <input type="text" id="fname" name="fname" placeholder="Enter their first name..">
       
@@ -90,13 +89,11 @@ tr:nth-child(even) {
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
        <button id="get_msg" type="button" style="background-color: cornflowerblue;">Reset Form</button>
-      
-        <button id="schedule" type="button" style="background-color: orangered;">Schedule Meeting</button>
-       <button id="getall" type="button" style="background-color: navy;">Get Scheduled Meetings</button>
- 
-      
     </form>
+      
             </div>
+         <button id="schedule" type="button" style="background-color: orangered;">Schedule Meeting</button>
+       <button id="getall" type="button" style="background-color: navy;">Get Scheduled Meetings</button>
     <div id="table"></div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
