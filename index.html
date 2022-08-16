@@ -143,28 +143,32 @@ tr:nth-child(even) {
       var key_checkin = "";
       var key_checkout = "";
   
-      var createbitly = function(web){
-   var url = web["web"];   //replace YOURGITHUBURL with your Github repo URL example: Konkollist.github.io
-   console.log("bit:" + url);
-   var accessToken = "fca44606568a64c736093bf2404ad2e4048b1d51"; //replace with your NEW Bit.ly TOKEN
-   var params = {
-       "long_url" : url          
-   };
-   $.ajax({
-       url: "https://api-ssl.bitly.com/v4/shorten",
-       cache: false,
-       dataType: "json",
-       method: "POST",
-       contentType: "application/json",
-       beforeSend: function (xhr) {
-           xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
-       },
-       data: JSON.stringify(params)
-	}).done(function(data) {
-		return data.link;
-	}).fail(function(data) {
-		return  url;
-	});
+     function createbitly(web){
+  var url = web["web"]; 
+    var accessToken = "fca44606568a64c736093bf2404ad2e4048b1d51";
+
+    var params = {
+        "long_url" : url           
+    };
+
+    $.ajax({
+        url: "https://api-ssl.bitly.com/v4/shorten",
+        cache: false,
+        dataType: "json",
+        method: "POST",
+        contentType: "application/json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
+        },
+        data: JSON.stringify(params)
+    }).done(function(data) {
+         alert(data.link);
+         return data.link;
+    }).fail(function(data) {
+         alert(url);
+        return url;
+      //alert("ShoppingList URL Copied");
+    });
 }
       
       var push_to_firebase = function(data){
