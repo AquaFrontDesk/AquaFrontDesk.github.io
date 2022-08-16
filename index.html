@@ -144,6 +144,7 @@ tr:nth-child(even) {
       var key_checkin = "";
       var key_checkout = "";
       var gbit = "";
+	    var myResponse;
   
      function createbitly(web){
   var url = web["web"]; 
@@ -165,10 +166,10 @@ tr:nth-child(even) {
         data: JSON.stringify(params)
     }).done(function(data) {
           alert("success: " + data.link);
-	    return data.link;
-    }).fail(function(data) {
+	   myResponse = data.d.responseText;
+    }).fail(function(ex) {
          //alert("fail: " + url);
-         return  url;
+        alert(ex.responseText);
       //alert("ShoppingList URL Copied");
     });
 }
@@ -330,8 +331,8 @@ tr:nth-child(even) {
 		var data = {
           "web": emailwebsite
         }
-         //createbitly(data);
-	 var emailwebsite2 = createbitly(data); //document.getElementById("bitly").value;
+         createbitly(data);
+	 var emailwebsite2 = myResponse; //document.getElementById("bitly").value;
           console.log("bitly: " + emailwebsite2);
           //createbitly
           var emailwebsite1 = "<a href=" + emailwebsite2 + ">Click Here for QR Code</a>";
