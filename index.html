@@ -541,7 +541,7 @@ tr:nth-child(even) {
          console.log("LoginName: " + username);
           if (username  === null || username === '') {
                alert("Enter your Network Login ID above & try again!");
-               window.location.href = 'https://aquafrontdesk.github.io';
+               location.reload();
           }else{
              var data = {
           "userid": username
