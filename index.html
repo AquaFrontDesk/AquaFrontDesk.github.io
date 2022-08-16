@@ -88,7 +88,7 @@ tr:nth-child(even) {
       <br>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
-        <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Network Login ID field required!)</button>
+        <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
        <button id="get_msg" type="button" style="background-color: cornflowerblue;">Reset Form</button>
  
       
@@ -231,7 +231,7 @@ tr:nth-child(even) {
            var website = doc.data().key + '&checkin=Now';
           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
-            document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcomimg Meeting on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + "%0D%0AFollow Below Link to Get Meeting QR Code:%0D%0A" + emailwebsite + "'>Send mail</a>";
+            document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=QR Code for Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0AThe below QR code will be required to access the building:%0D%0A" + emailwebsite + "'>Send mail</a>";
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
   background: '#ffffff',
