@@ -65,11 +65,11 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
       </style>
-    <title>Schedule Visitor to Aqua-Aerobic Systems, Inc</title>
+    <title>Visitor Schedule:  Aqua-Aerobic Systems</title>
   </head>
   <body style="font-family: sans-serif;font-size: large;">
     
- <h1 style="text-align: center;">Schedule Visitor to Aqua-Aerobic Systems, Inc</h1>
+ <h1 style="text-align: center;">Visitor Schedule:  Aqua-Aerobic Systems</h1>
       <button id="schedule" type="button" style="background-color: orangered;">Schedule Meeting</button>
        <button id="getall" type="button" style="background-color: navy;">Get Scheduled Meetings</button>
        <div id="container">
@@ -448,7 +448,7 @@ tr:nth-child(even) {
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><h2>Active Meetings</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><h2>Active Meeting(s) for: " + get_login + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","desc")
@@ -491,7 +491,7 @@ tr:nth-child(even) {
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><h2>In-Active Meetings</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><h2>In-Active Meeting(s) for: " + get_login + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","desc")
