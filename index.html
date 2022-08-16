@@ -126,7 +126,7 @@ tr:nth-child(even) {
       
       var key_checkin = "";
       var key_checkout = "";
-      
+        var get_login = '';
      
       
       var push_to_firebase = function(data){
@@ -424,8 +424,7 @@ tr:nth-child(even) {
       
        var loaddb = function(){
         var db = firebase.firestore();
-         var get_login = document.getElementById("login").value ;
-          if (get_login  === null || get_login === '') {
+         if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
@@ -463,10 +462,18 @@ tr:nth-child(even) {
            }
       }
        
+       var getloginname = function(){
+            get_login = document.getElementById("login").value ;
+          if (get_login  === null || get_login === '') {
+               alert("Enter your Network Login ID above & try again!");
+          }else{
+            loaddball()
+          }
+       }
+       
         var loaddball = function(){
         var db = firebase.firestore();
-         var get_login = document.getElementById("login").value ;
-          if (get_login  === null || get_login === '') {
+         if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
@@ -612,7 +619,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
-       document.getElementById("get_id").addEventListener("click",loaddb);
+       document.getElementById("get_id").addEventListener("click",getloginname);
              document.getElementById("get_msg").addEventListener("click", loadweb);
       
             document.getElementById("schedule").addEventListener("click", schedule);
