@@ -98,6 +98,7 @@ tr:nth-child(even) {
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
        <button id="get_msg" type="button" style="background-color: cornflowerblue;">Reset Form</button>
+        <button id="inactive" type="button" style="background-color: cornflowerblue;">View Inactive Meetings</button>
     </form>
       
             </div>
@@ -431,7 +432,7 @@ tr:nth-child(even) {
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=No&userid=" + get_login + "'>InActive Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","desc")
@@ -485,7 +486,7 @@ tr:nth-child(even) {
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=Yes&userid=" + get_login + "'>Active Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","desc")
@@ -527,6 +528,19 @@ tr:nth-child(even) {
           "userid": get_login,
         }
            loaddb(data);
+          }
+       }
+       
+       var getloginname2 = function(){
+            get_login = document.getElementById("login").value;
+         console.log("LoginName: " + get_login);
+          if (get_login  === null || get_login === '') {
+               alert("Enter your Network Login ID above & try again!");
+          }else{
+             var data = {
+          "userid": get_login,
+        }
+           loaddball(data);
           }
        }
 
@@ -640,7 +654,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",getloginname);
              document.getElementById("get_msg").addEventListener("click", loadweb);
-      
+            document.getElementById("inactive").addEventListener("click", getloginname2);
             document.getElementById("schedule").addEventListener("click", schedule);
             document.getElementById("getall").addEventListener("click", getall);
    
