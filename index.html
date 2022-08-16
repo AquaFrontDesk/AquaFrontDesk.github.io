@@ -61,9 +61,10 @@ tr:nth-child(even) {
        <div id="container">
     <form>
       <input type="hidden" id="id" name="id">  
-   
+      <div id="login">
        <label for="login" style="color: black;font-weight: bold;">Aqua Employee Network ID</label>
      <input type="text" id="login" name="login" placeholder="Please enter your Network Login ID. Example: ckonkol" style="background-color: lightyellow;">
+      </div>
     <div id="meetingfields">
       <label for="fname" style="color: black;font-weight: bold;">Guest First Name</label>
       <input type="text" id="fname" name="fname" placeholder="Enter their first name..">
@@ -470,6 +471,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       }
        
        var schedule = function(){
+          document.getElementById('login').style.display = 'block';
         document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
         document.getElementById('meetingfields').style.display = 'block';
@@ -480,6 +482,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        }
        
        var getall = function(){
+         document.getElementById('login').style.display = 'block';
        document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
         document.getElementById('meetingfields').style.display = 'none';
@@ -498,6 +501,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'none';
        document.getElementById('get_id').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
+       document.getElementById('login').style.display = 'none';
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
