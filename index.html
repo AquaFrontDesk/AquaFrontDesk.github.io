@@ -266,6 +266,7 @@ tr:nth-child(even) {
             var removewebsiteYes = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=Yes";
            var removewebsiteNo = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=No";
            document.getElementById("remove").value = doc.data().remove;
+          console.log(doc.data().remove;
            document.getElementById("removeYes").value = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
            document.getElementById("removeNo").value = "<a href='" + removewebsiteNo + "'>Remove Meeting</a>";
            var website = doc.data().key + '&checkin=Now';
