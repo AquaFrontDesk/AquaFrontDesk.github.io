@@ -113,7 +113,7 @@ tr:nth-child(even) {
       <br>
       <br>
       <center>
-        <button id="inactive" type="button2" style="display: block;width: fit-content;">**View Inactive Meetings</button>
+        <button id="get_id2" type="button2" style="display: block;width: fit-content;">**View Inactive Meetings</button>
       </center>
     </form>
       
@@ -617,6 +617,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'none';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
+         document.getElementById('get_id2').style.display = 'block';
        }
        
          var updateschedule = function(){
@@ -629,7 +630,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'block';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
-                 document.getElementById('inactive').style.display = 'block';
+                 document.getElementById('get_id2').style.display = 'block';
        }
        
        var getall = function(){
@@ -643,7 +644,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'none';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
-          document.getElementById('inactive').style.display = 'block';
+          document.getElementById('get_id2').style.display = 'block';
        }
        
        
@@ -656,13 +657,13 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('get_id').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
        document.getElementById('logins').style.display = 'none';
-       document.getElementById('inactive').style.display = 'none';
+       document.getElementById('get_id2').style.display = 'none';
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",getloginname);
              document.getElementById("get_msg").addEventListener("click", loadweb);
-            document.getElementById("inactive").addEventListener("click", getloginname2);
+            document.getElementById("get_id2").addEventListener("click", getloginname2);
             document.getElementById("schedule").addEventListener("click", schedule);
             document.getElementById("getall").addEventListener("click", getall);
    
