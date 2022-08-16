@@ -167,11 +167,13 @@ tr:nth-child(even) {
           alert("success: " + data.link);
 	    gbit = data.link;
 	     alert("success: " + gbit);
+	      return gbit;
     }).fail(function(data) {
          //alert("fail: " + url);
          gbit = url;
       //alert("ShoppingList URL Copied");
     });
+	     return gbit;
 }
       
       var push_to_firebase = function(data){
@@ -333,7 +335,7 @@ tr:nth-child(even) {
         }
          createbitly(data);
 	 var emailwebsite2 = gbit; //document.getElementById("bitly").value;
-          console.log("bitly: " + gbit);
+          console.log("bitly: " + createbitly(data));
           //createbitly
           var emailwebsite1 = "<a href=" + gbit + ">Click Here for QR Code</a>";
             document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + emailwebsite1 + "'>Click here to create email to guest...</a>";
