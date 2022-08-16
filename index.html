@@ -91,6 +91,8 @@ tr:nth-child(even) {
     <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
       <br>
     <label id="remove" for="remove" style="color: black;font-weight: bold;"></label>
+     <label id="removeYes" for="remove" style="color: black;font-weight: bold;"></label>
+       <label id="removeNo" for="remove" style="color: black;font-weight: bold;"></label>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
@@ -259,8 +261,11 @@ tr:nth-child(even) {
             document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-            var removewebsite = "https://aquameeting.github.io/?remove=" + doc.data().key;
-           document.getElementById("remove").value = "<a href='" + removewebsite + "'>Remove Meeting</a>";
+            var removewebsiteYes = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=Yes";
+           var removewebsiteNo = "https://aquameeting.github.io/?id=" + doc.data().key + "&Remove=No";
+           document.getElementById("remove").value = doc.data().remove;
+           document.getElementById("removeYes").value = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
+           document.getElementById("removeNo").value = "<a href='" + removewebsiteNo + "'>Remove Meeting</a>";
            var website = doc.data().key + '&checkin=Now';
           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
@@ -276,7 +281,6 @@ tr:nth-child(even) {
   size: 128,
   value: website
 });
-         
         }); 
            document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
@@ -580,7 +584,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       console.log(checkout);
 
 // empty string
-if (id_remove === 'Yes') && (id != null && id != '') {
+if ((id_remove === 'Yes') && (id != null && id != '')) {
   var data = {
           "id": id
         }
@@ -589,7 +593,7 @@ if (id_remove === 'Yes') && (id != null && id != '') {
   console.log('string IS empty');
 }      
       
- if (id_remove === 'No') && (id != null && id != '') {
+ if ((id_remove === 'No') && (id != null && id != '')) {
   var data = {
           "id": id
         }
