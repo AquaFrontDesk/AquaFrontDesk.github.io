@@ -89,15 +89,11 @@ tr:nth-child(even) {
        <canvas id="qrcode"></canvas> 
       <br>
     <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
-      <br><br>
-
+      <br><br><br>
         <label id="remove" for="remove" style="color: black;font-weight: bold;"></label>
-       <br>
-
+      <br><br>
         <label id="removeYes" for="removeYes" style="color: black;font-weight: bold;"></label>
-       <br>
-
-        <label id="removeNo" for="removeNo" style="color: black;font-weight: bold;"></label>
+         <label id="removeNo" for="removeNo" style="color: black;font-weight: bold;"></label>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Meeting (All fields required!)</button>
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
@@ -271,11 +267,13 @@ tr:nth-child(even) {
 
           console.log("Remove:" + doc.data().remove);
           if (doc.data().remove === 'Yes'){
+             document.getElementById('removeYes').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Meeting Status: InActive";
              document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Restore Meeting</a>";
              document.getElementById("removeYes").innerHTML = "";
           }
            if (doc.data().remove === 'No'){
+             document.getElementById('removeNo').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Meeting Status: Active";
              document.getElementById("removeNo").innerHTML = "";
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
