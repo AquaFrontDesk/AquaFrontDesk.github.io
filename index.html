@@ -286,20 +286,20 @@ tr:nth-child(even) {
           if (doc.data().remove === 'Yes'){
              document.getElementById('removeYes').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Meeting Status: InActive";
-             document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Restore Meeting</a>";
+             document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Click here to update meeting status to: Active</a>";
              document.getElementById("removeYes").innerHTML = "";
           }
            if (doc.data().remove === 'No'){
              document.getElementById('removeNo').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Meeting Status: Active";
              document.getElementById("removeNo").innerHTML = "";
-              document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Remove Meeting</a><br>";
+              document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update meeting status to: InActive</a><br>";
           }
          
            var website = doc.data().key + '&checkin=Now';
           var emailwebsite = "https://aquameeting.github.io/?key=" + website;
           var emailwebsite1 = "<a href=" + emailwebsite + ">Click Here for QR Code</a>";
-            document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + emailwebsite + "'>Click here to create email with link to QR code</a>";
+            document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + emailwebsite + "'>Click here to create email to guest...</a>";
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
   background: '#ffffff',
