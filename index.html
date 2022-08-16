@@ -60,10 +60,10 @@ tr:nth-child(even) {
  <h1 style="text-align: center;">Schedule Visitor to Aqua-Aerobic Systems, Inc</h1>
     <form>
       <input type="hidden" id="id" name="id">  
-    
+   
        <label for="login" style="color: black;font-weight: bold;">Aqua Employee Network ID</label>
      <input type="text" id="login" name="login" placeholder="Please enter your Network Login ID. Example: ckonkol" style="background-color: lightyellow;">
-      
+      <div id="meetingfields">
       <label for="fname" style="color: black;font-weight: bold;">Guest First Name</label>
       <input type="text" id="fname" name="fname" placeholder="Enter their first name..">
       
@@ -81,7 +81,7 @@ tr:nth-child(even) {
 <br><br>
       <label for="message" style="color: black;font-weight: bold;">Purpose of Visit?</label>
      <textarea id="message" name="message" placeholder="Enter purpose of visit.." style="height: 50px;font-family: sans-serif;"></textarea>
-      
+      </div>
        <canvas id="qrcode"></canvas> 
       <br>
     <label id="emaillink" for="emaillink" style="color: black;font-weight: bold;"></label>
@@ -90,6 +90,9 @@ tr:nth-child(even) {
          <button id="update_db" type="button">Update Meeting</button>
         <button id="get_id" type="button" style="background-color: navy;">Get All Meetings By Employee (Aqua Employee Network ID required!)</button>
        <button id="get_msg" type="button" style="background-color: cornflowerblue;">Reset Form</button>
+      
+        <button id="schedule" type="button" style="background-color: orangered;">Schedule Meeting</button>
+       <button id="getall" type="button" style="background-color: navy;">Get Scheduled Meetings</button>
  
       
     </form>
@@ -467,13 +470,43 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
 
       }
        
+       var schedule = function(){
+        document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+        document.getElementById('meetingfields').style.display = 'contents';
+        document.getElementById('submit_msg').style.display = 'contents';
+       document.getElementById('update_db').style.display = 'none';
+       document.getElementById('get_id').style.display = 'contents';
+      document.getElementById('get_msg').style.display = 'contents';
+       }
        
+       var getall = function(){
+       document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+        document.getElementById('meetingfields').style.display = 'none';
+        document.getElementById('submit_msg').style.display = 'contents';
+       document.getElementById('update_db').style.display = 'none';
+       document.getElementById('get_id').style.display = 'contents';
+      document.getElementById('get_msg').style.display = 'contents';
+       }
+       
+       
+       
+         document.getElementById('schedule').style.display = 'contents';
+        document.getElementById('getall').style.display = 'contents';
+        document.getElementById('meetingfields').style.display = 'none';
+        document.getElementById('submit_msg').style.display = 'none';
+       document.getElementById('update_db').style.display = 'none';
+       document.getElementById('get_id').style.display = 'none';
+      document.getElementById('get_msg').style.display = 'none';
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",loaddb);
              document.getElementById("get_msg").addEventListener("click", loadweb);
       
+            document.getElementById("schedule").addEventListener("click", schedule);
+            document.getElementById("getall").addEventListener("click", getall);
    
           var queryString = window.location.search;
       console.log(queryString);
