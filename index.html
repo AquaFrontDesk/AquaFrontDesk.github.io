@@ -464,7 +464,8 @@ tr:nth-child(even) {
       }
        
        var getloginname = function(){
-            get_login = document.getElementById("login").value ;
+            get_login = document.getElementById("login").value;
+         console.log("LoginName: " + get_login);
           if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
