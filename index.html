@@ -431,10 +431,51 @@ tr:nth-child(even) {
        get_login  = get_login.toString();
      console.log(get_login);
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=No'>InActive Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("messages").where("login", "==",get_login).orderBy("date","desc")
+         db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","desc")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
+           var data = {
+          "login": doc.data().login,
+          "fname": doc.data().firstname,
+               "lname": doc.data().lastname,
+               "cname": doc.data().company,
+          "email": doc.data().email,
+          "msg": doc.data().message,
+          "date":doc.data().date
+        }
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date.replace("T", " ") + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+        });
+                  document.write("</table>");
+       document.head.innerHTML = header;
+                document.getElementById('update_db').style.visibility = 'visible';
+        document.getElementById('submit_msg').style.visibility = 'hidden';
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+           }
+      }
+       
+        var loaddball = function(){
+        var db = firebase.firestore();
+         var get_login = document.getElementById("login").value ;
+          if (get_login  === null || get_login === '') {
+               alert("Enter your Network Login ID above & try again!");
+          }else{
+       get_login  = get_login.toString();
+     console.log(get_login);
+      var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+    document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Schedule</h1><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br><a href='https://aquafrontdesk.github.io/?Active=Yes'>Active Meetings</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    var lines = "";
+            let today = new Date().toISOString().slice(0, 10);
+         db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -584,6 +625,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         var id_remove = urlParams.get('Remove')
       console.log(id_remove);
       
+        var id_active = urlParams.get('Active')
+      console.log(id_active);
+      
       var id = urlParams.get('id')
       console.log(id);
       
@@ -597,6 +641,18 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       console.log(checkout);
 
 // empty string
+if ((id_active === 'No')) {
+       loaddball();
+} else {
+  console.log('string IS empty');
+}     
+      
+if ((id_active === 'Yes')) {
+       loaddb();
+} else {
+  console.log('string IS empty');
+}    
+      
 if ((id_remove === 'Yes') && (id != null && id != '')) {
   var data = {
           "id": id
