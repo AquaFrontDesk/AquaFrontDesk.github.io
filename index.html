@@ -186,7 +186,7 @@ tr:nth-child(even) {
            remove: 'Yes'
 }) .then(function(doc) {
     console.log("doc updated");
-            location.reload();
+            window.location = "https://aquafrontdesk.github.io/?id=" + key;
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
@@ -199,7 +199,7 @@ tr:nth-child(even) {
            remove: 'No'
 }) .then(function(doc) {
     console.log("doc updated");
-            location.reload();
+             window.location = "https://aquafrontdesk.github.io/?id=" + key;
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
