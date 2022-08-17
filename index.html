@@ -601,8 +601,8 @@ tr:nth-child(even) {
           var date = document.getElementById("date");
         var email = document.getElementById("email");
         var msg = document.getElementById("message");
-	myTime = new Date(date.value).toLocaleTimeString('en-US');
-        console.log(myTime);
+	 var dates = new Date(date.value).toLocaleString();
+        console.log(dates);
 	console.log(date.value);
         var data = {
           "login": login.value,
@@ -611,7 +611,7 @@ tr:nth-child(even) {
                "cname": cname.value,
           "email": email.value,
           "msg": msg.value,
-          "date": date.value,
+          "date": dates,
           "key": fname.value + lname.value + date.value
         }
         
@@ -636,7 +636,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
           var date = document.getElementById("date");
         var email = document.getElementById("email");
         var msg = document.getElementById("message");
-
+        var dates = new Date(date.value).toLocaleString();
         var data = {
              "id": id.value,
             "login": login.value,
@@ -645,7 +645,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
                "cname": cname.value,
           "email": email.value,
           "msg": msg.value,
-          "date": date.value
+          "date": dates
         }
         update(data);
 
