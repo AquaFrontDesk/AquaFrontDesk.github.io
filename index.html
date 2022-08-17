@@ -177,13 +177,13 @@ tr:nth-child(even) {
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
         var SaveDoc = db.collection("messages").doc(key);  
-	 var dates = new Date(data["date"]).toLocaleString();
+	
         SaveDoc.set({
               login: data["login"],
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
-          date: dates,
+          date: data["date"],
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now(),
@@ -305,8 +305,7 @@ tr:nth-child(even) {
             document.getElementById("fname").value = doc.data().firstname;
             document.getElementById("lname").value = doc.data().lastname;
             document.getElementById("cname").value = doc.data().company;
-	     var dates = new Date(doc.data().date).toISOString();
-            document.getElementById("date").value = dates;
+	    document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
             var removewebsiteYes = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=Yes";
@@ -370,7 +369,7 @@ tr:nth-child(even) {
            key_checkout = doc.data().checkout;
            varFName = doc.data().firstname;
            varLName = doc.data().lastname;
-            var dates = new Date(doc.data().date).toISOString();
+            var dates = new Date(doc.data().date).toLocaleString();
            varDT = dates;
            varAqua = doc.data().login;
        
@@ -518,7 +517,8 @@ tr:nth-child(even) {
           "msg": doc.data().message,
           "date":doc.data().date
         }
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date.replace("T", " ") + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+	   var dates = new Date(doc.data().date).toLocaleString();
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
        document.head.innerHTML = header;
