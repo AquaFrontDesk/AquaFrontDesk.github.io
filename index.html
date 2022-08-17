@@ -176,7 +176,7 @@ tr:nth-child(even) {
       var push_to_firebase = function(data){
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
-        var SaveDoc = db.collection("messages").doc(key);
+        var SaveDoc = db.collection("messages").doc(key);  
         SaveDoc.set({
               login: data["login"],
             firstname: data["fname"],
@@ -268,7 +268,8 @@ tr:nth-child(even) {
             document.getElementById("fname").value = doc.data().firstname;
             document.getElementById("lname").value = doc.data().lastname;
             document.getElementById("cname").value = doc.data().company;
-            document.getElementById("date").value = doc.data().date;
+            var dates = new Date(doc.data().date).toISOString();
+            document.getElementById("date").value = dates;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
         });
@@ -303,7 +304,8 @@ tr:nth-child(even) {
             document.getElementById("fname").value = doc.data().firstname;
             document.getElementById("lname").value = doc.data().lastname;
             document.getElementById("cname").value = doc.data().company;
-            document.getElementById("date").value = doc.data().date;
+	     var dates = new Date(doc.data().date).toISOString();
+            document.getElementById("date").value = dates;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
             var removewebsiteYes = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=Yes";
@@ -367,7 +369,8 @@ tr:nth-child(even) {
            key_checkout = doc.data().checkout;
            varFName = doc.data().firstname;
            varLName = doc.data().lastname;
-           varDT = doc.data().date;
+            var dates = new Date(doc.data().date).toISOString();
+           varDT = dates;
            varAqua = doc.data().login;
        
         }); 
@@ -422,7 +425,8 @@ tr:nth-child(even) {
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
-           checkin: Date().toLocaleString()
+	   var myTime = new Date(Date().toLocaleString()).toLocaleString();
+           checkin: myTime
 }) .then(function(doc) {
     console.log("doc updated");
   }).catch(function(error) {
@@ -445,7 +449,8 @@ tr:nth-child(even) {
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
-           checkout: Date().toLocaleString()
+	    var myTime = new Date(Date().toLocaleString()).toLocaleString();
+           checkout: myTime
 }) .then(function(doc) {
     console.log("doc updated");
   }).catch(function(error) {
