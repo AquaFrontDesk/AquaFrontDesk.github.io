@@ -177,12 +177,13 @@ tr:nth-child(even) {
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
         var SaveDoc = db.collection("messages").doc(key);  
+	 var dates = new Date(data["date"]).toLocaleString();
         SaveDoc.set({
               login: data["login"],
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
-          date: data["date"],
+          date: dates,
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now(),
@@ -608,7 +609,6 @@ tr:nth-child(even) {
           var date = document.getElementById("date");
         var email = document.getElementById("email");
         var msg = document.getElementById("message");
-	 var dates = new Date(date.value).toLocaleString();
         console.log(dates);
 	console.log(date.value);
         var data = {
@@ -618,7 +618,7 @@ tr:nth-child(even) {
                "cname": cname.value,
           "email": email.value,
           "msg": msg.value,
-          "date": dates,
+          "date": date.value,
           "key": fname.value + lname.value + date.value
         }
         
