@@ -314,15 +314,15 @@ tr:nth-child(even) {
             document.getElementById('qrcode').style.display = 'none';
             document.getElementById('emaillink').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
-             document.getElementById("remove").innerHTML  = "Meeting Status: InActive";
-             document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Click here to update meeting status to: Active</a>";
+             document.getElementById("remove").innerHTML  = "Status: InActive";
+             document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Click here to update status to: Active</a>";
              document.getElementById("removeYes").innerHTML = "";
           }
            if (doc.data().remove === 'No'){
              document.getElementById('removeNo').style.display = 'none';
-             document.getElementById("remove").innerHTML  = "Meeting Status: Active";
+             document.getElementById("remove").innerHTML  = "Status: Active";
              document.getElementById("removeNo").innerHTML = "";
-              document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update meeting status to: InActive</a><br>";
+              document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
           }
          
            var website = doc.data().key + '&checkin=Now';
