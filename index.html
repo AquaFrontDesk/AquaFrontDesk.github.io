@@ -192,7 +192,7 @@ tr:nth-child(even) {
           remove:'No'
         })
         .then(function(doc) {  
-            alert("Schedule was created successfully!")
+            //alert("Schedule was created successfully!")
             console.log("doc added");
            window.location.href = 'https://aquafrontdesk.github.io/?id=' + key;
   }).catch(function(error) {
@@ -282,7 +282,7 @@ tr:nth-child(even) {
         console.log("Error getting documents: ", error);
     });
 } else {
-    alert("First Name, Last Name and Meeting Date fields required!")
+    alert("All fields required!")
 }
 
       }
