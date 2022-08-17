@@ -182,7 +182,7 @@ tr:nth-child(even) {
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
-          date: data["date"],
+          date: data["date"].toLocaleString([], { hour12: true}),
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now(),
@@ -207,7 +207,7 @@ tr:nth-child(even) {
           firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
-          date: data["date"],
+          date: data["date"].toLocaleString([], { hour12: true}),
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now()
@@ -598,7 +598,7 @@ tr:nth-child(even) {
                "cname": cname.value,
           "email": email.value,
           "msg": msg.value,
-          "date": date.value.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
+          "date": date.value.toLocaleString([], { hour12: true}),
           "key": fname.value + lname.value + date.value
         }
         
@@ -632,7 +632,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
                "cname": cname.value,
           "email": email.value,
           "msg": msg.value,
-          "date": date.value.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          "date": date.value.toLocaleString([], { hour12: true})
         }
         update(data);
 
