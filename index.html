@@ -763,11 +763,9 @@ if ((id_remove === 'Yes') && (id != null && id != '')) {
       
 if (id != null && id != '') {
   console.log('string is NOT empty');
-  var website = id + '&checkin=Now';
-	  alert(website);
+  var website = id + '&checkin=Now';	
 	   var emailwebsite = "https://aquameeting.github.io/?key=" + website;
-	 alert(emailwebsite);
-		var data2 = {
+	var data2 = {
           "web": emailwebsite
         }
          createbitly(data2);
