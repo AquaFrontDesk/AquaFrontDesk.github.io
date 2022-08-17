@@ -425,7 +425,8 @@ tr:nth-child(even) {
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
-	   var myTime = new Date(Date().toLocaleString()).toLocaleString();
+		var d = Date().toLocaleString();
+             myTime = new Date(d).toLocaleString();
            checkin: myTime
 }) .then(function(doc) {
     console.log("doc updated");
@@ -449,7 +450,8 @@ tr:nth-child(even) {
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
-	    var myTime = new Date(Date().toLocaleString()).toLocaleString();
+	  		var d = Date().toLocaleString();
+             myTime = new Date(d).toLocaleString();
            checkout: myTime
 }) .then(function(doc) {
     console.log("doc updated");
