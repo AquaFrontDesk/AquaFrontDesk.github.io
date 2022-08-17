@@ -740,6 +740,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       
             var checkout = urlParams.get('checkout')
       console.log(checkout);
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 // empty string
 if ((id_active === 'No') && (userid != null && userid != '')) {
@@ -787,13 +790,15 @@ if (id != null && id != '') {
           "web": emailwebsite
         }
          createbitly(data2);
-	wait(2000);
-  var data = {
+	sleep(1000).then(() => {
+    // Do something after the sleep!
+		 var data = {
           "id": id
         }
         key_id="";
         updateschedule();
          get_data(data);
+});
 } else {
   console.log('string IS empty');
 }
