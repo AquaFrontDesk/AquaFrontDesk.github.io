@@ -789,6 +789,8 @@ if (id != null && id != '') {
 	var data2 = {
           "web": emailwebsite
         }
+	document.getElementById('schedule').style.display = 'block';
+        document.getElementById('getall').style.display = 'block';
          createbitly(data2);
 	sleep(1000).then(() => {
     // Do something after the sleep!
