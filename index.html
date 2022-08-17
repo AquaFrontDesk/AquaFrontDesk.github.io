@@ -182,7 +182,7 @@ tr:nth-child(even) {
             firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
-          date: data["date"].toLocaleString([], { hour12: true}),
+          date: data["date"],
             email: data["email"],
             message: data["msg"],
             timestamp: Date.now(),
@@ -601,7 +601,8 @@ tr:nth-child(even) {
           var date = document.getElementById("date");
         var email = document.getElementById("email");
         var msg = document.getElementById("message");
-        console.log(ConvertUTCTimeToLocalTime(date.value));
+	myTime = new Date(date.value).toLocaleTimeString('en-US');
+        console.log(myTime);
 	console.log(date.value);
         var data = {
           "login": login.value,
