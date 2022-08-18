@@ -372,7 +372,6 @@ tr:nth-child(even) {
             var dates = new Date(doc.data().date).toLocaleString();
            varDT = dates;
            varAqua = doc.data().login;
-       
         }); 
              console.log("key_checkin:" + key_checkin);
     console.log("key_checkout:" + key_checkout);
@@ -625,7 +624,8 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
      push_to_firebase(data);
 } else {
     alert("All fields required!")
-}
+}}
+	      
 	      
 	      var contact_walkup = function(data){
          var login = 'walkin';
@@ -644,7 +644,6 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
           "msg": msg.value,
           "date": date.value,
           "key": fname.value + lname.value + date.value
-        }
          push_to_firebase(data);
       }
       
