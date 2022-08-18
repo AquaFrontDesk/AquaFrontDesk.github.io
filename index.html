@@ -177,7 +177,7 @@ tr:nth-child(even) {
         var db = firebase.firestore();
         var key = data["fname"] + data["lname"] + data["date"];
         var SaveDoc = db.collection("messages").doc(key);  
-	
+	var login = data["login"];
         SaveDoc.set({
               login: data["login"],
             firstname: data["fname"],
@@ -195,7 +195,9 @@ tr:nth-child(even) {
         .then(function(doc) {  
             //alert("Schedule was created successfully!")
             console.log("doc added");
+           if (login != 'walkin'){
            window.location.href = 'https://aquafrontdesk.github.io/?id=' + key;
+	   }
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
