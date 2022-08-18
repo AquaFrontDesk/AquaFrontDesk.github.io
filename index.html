@@ -851,7 +851,7 @@ if (checkin === 'walkin'){
           "email": g_email,
           "cname": g_cname,
          "message": g_message,
-         "date": g_date,
+         "date": g_date
         }
     contact_walkup(data);
 		sleep(1000).then(() => {
@@ -861,7 +861,6 @@ if (checkin === 'walkin'){
         }
   get_checkin_data(data1);
         });
-    
     }else{
 	 var data3 = {
           "checkin": checkin,
