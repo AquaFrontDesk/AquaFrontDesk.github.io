@@ -858,10 +858,10 @@ if (checkin === 'walkin'){
     push_to_firebase(data);
 		document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
-		sleep(1000).then(() => {
+		sleep(3000).then(() => {
 		 var data1 = {
           "checkin": checkin,
-           "id": keyid
+           "id": g_fname + g_lname + g_date
         }
   get_checkin_data(data1);
         });
