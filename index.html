@@ -852,10 +852,12 @@ if (checkin === 'walkin'){
           "lname": g_lname,
           "email": g_email,
           "cname": g_cname,
-         "message": g_message,
+         "msg": g_message,
          "date": g_date
         }
     push_to_firebase(data);
+		document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
 		sleep(1000).then(() => {
 		 var data1 = {
           "checkin": checkin,
