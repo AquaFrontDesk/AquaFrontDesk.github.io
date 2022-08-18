@@ -626,8 +626,26 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
 } else {
     alert("All fields required!")
 }
-    
-
+	      
+	      var contact_walkup = function(data){
+         var login = 'walkin';
+        var fname =  data["fname"];
+        var lname =  data["lname"];
+        var cname =  data["cname"];
+          var date =  data["date"];
+        var email =  data["email"];
+        var msg =  data["message"];
+        var data = {
+          "login": login.value,
+          "fname": fname.value,
+               "lname": lname.value,
+               "cname": cname.value,
+          "email": email.value,
+          "msg": msg.value,
+          "date": date.value,
+          "key": fname.value + lname.value + date.value
+        }
+         push_to_firebase(data);
       }
       
      
@@ -812,14 +830,13 @@ if (id != null && id != '') {
         document.getElementById('getall').style.display = 'none';
          createbitly(data2);
 	sleep(1000).then(() => {
-    // Do something after the sleep!
 		 var data = {
           "id": id
         }
         key_id="";
         updateschedule();
          get_data(data);
-});
+        });
 } else {
   console.log('string IS empty');
 }
@@ -827,11 +844,32 @@ if (id != null && id != '') {
       // empty string
 if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
   console.log('string is NOT empty');
-  var data = {
+if (checkin === 'walkin){
+     var data = {
+          "fname": g_fname,
+          "lname": g_lname,
+          "email": g_email,
+          "cname": g_cname,
+         "message": g_message,
+         "date": g_date,
+        }
+    contact_walkup(data);
+		sleep(1000).then(() => {
+		 var data1 = {
           "checkin": checkin,
            "id": keyid
         }
-  get_checkin_data(data);
+  get_checkin_data(data1);
+        });
+    
+    }else{
+	 var data3 = {
+          "checkin": checkin,
+           "id": keyid
+        }
+  get_checkin_data(data3);
+}
+ 
 } else {
   console.log('string IS empty');
 }
