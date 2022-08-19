@@ -846,6 +846,10 @@ if (id != null && id != '') {
 if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
   console.log('string is NOT empty');
 if (checkin === 'walkin'){
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
      var data = {
 	   "login": 'walkin',
 	   "key": g_fname + g_lname + g_date,
@@ -857,10 +861,6 @@ if (checkin === 'walkin'){
          "date": g_date
         }
     push_to_firebase(data);
-		document.getElementById('schedule').style.display = 'none';
-        document.getElementById('getall').style.display = 'none';
-	 document.getElementById('header').style.display = 'none';
-	 document.getElementById('logo').style.display = 'none';
 		sleep(3000).then(() => {
 		 var data1 = {
           "checkin": checkin,
