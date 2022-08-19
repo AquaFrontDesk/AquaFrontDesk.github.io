@@ -383,11 +383,10 @@ tr:nth-child(even) {
            document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
            document.write("Thank you, " + varFName + " " + varLName + "<br>");
           document.write("You have been successfully checked in!<br>");
-     document.write("<hr>");
-          varDT = varDT.replace("T", " ");
-         // document.write("Appointment data: " + varAqua);
-          document.write("<br>Appointment date/time: " +  varDT);
-    document.write("<hr>");
+          varDT = varDT.replace("T", " "); // document.write("Appointment data: " + varAqua);
+	  document.write("<hr>");
+          document.write("Appointment date/time: " +  varDT);
+            document.write("<hr>");
             document.write("Someone will come get you very soon!");
     document.write("<br><br>While waiting, please put on generated badge from printer!");
      document.write("<br><br>Thanks for your patience!");
