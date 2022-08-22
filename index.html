@@ -384,7 +384,7 @@ tr:nth-child(even) {
            set_checkin(data);	
            document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
 	   document.write("<center>");
-	  document.write('<canvas id="qrcodes"></canvas><br>');
+	  document.write('<canvas id="qrcodes"></canvas>');
 	   document.write(varFName + " " + varLName + "<br>");
 	   document.write("Company: " + varcp);
    var qrcode = new QRious({
@@ -394,8 +394,8 @@ tr:nth-child(even) {
   foreground: '#5868bf',
   foregroundAlpha: 1,
   level: 'H',
-  padding: 20,
-  size: 180,
+  padding:30,
+  size: 200,
   value: varwebsite
 });
       //return resolve({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]})
