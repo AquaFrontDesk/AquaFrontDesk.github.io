@@ -372,6 +372,7 @@ tr:nth-child(even) {
            varFName = doc.data().firstname;
            varLName = doc.data().lastname;
             var dates = new Date(doc.data().date).toLocaleString();
+	   var website = doc.data().key + '&checkin=Now';
            varDT = dates;
            varAqua = doc.data().login;
         }); 
@@ -379,17 +380,28 @@ tr:nth-child(even) {
     console.log("key_checkout:" + key_checkout);
     console.log("keyid" + get_id);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
-           set_checkin(data);
+           set_checkin(data);	
            document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
            document.write("Thank you, " + varFName + " " + varLName + "<br>");
-          document.write("You have been successfully checked in!<br>");
-          varDT = varDT.replace("T", " "); // document.write("Appointment data: " + varAqua);
-	  document.write("<hr>");
-          document.write("Appointment date/time: " +  varDT);
-            document.write("<hr>");
-            document.write("Someone will come get you very soon!");
-    document.write("<br><br>While waiting, please put on generated badge from printer!");
-     document.write("<br><br>Thanks for your patience!");
+	    getQrCodeImgData (obj) {
+             return new Promise(resolve => {
+              var qr = new QRious({
+              value: website,
+               padding: 0,
+             size: 250
+             })
+      //return resolve({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]})
+	      document.write({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]});
+    })
+  }
+         // document.write("You have been successfully checked in!<br>");
+        //  varDT = varDT.replace("T", " "); // document.write("Appointment data: " + varAqua);
+	 // document.write("<hr>");
+         // document.write("Appointment date/time: " +  varDT);
+         //   document.write("<hr>");
+        //    document.write("Someone will come get you very soon!");
+   // document.write("<br><br>While waiting, please put on generated badge from printer!");
+    // document.write("<br><br>Thanks for your patience!");
     document.write('</body>');
     console.log("checkin successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
