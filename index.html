@@ -372,7 +372,7 @@ tr:nth-child(even) {
            varFName = doc.data().firstname;
            varLName = doc.data().lastname;
             var dates = new Date(doc.data().date).toLocaleString();
-	   var website = doc.data().key + '&checkin=Now';
+	   varwebsite = doc.data().key + '&checkin=Now';
            varDT = dates;
            varAqua = doc.data().login;
 	   varcp =  doc.data().company;
@@ -396,7 +396,7 @@ tr:nth-child(even) {
   level: 'H',
   padding: 0,
   size: 180,
-  value: website
+  value: varwebsite
 });
       //return resolve({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]})
 	 // document.getElementById('qrcode').style.display = 'contents';
