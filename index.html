@@ -383,20 +383,15 @@ tr:nth-child(even) {
            set_checkin(data);	
            document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
            document.write("Thank you, " + varFName + " " + varLName + "<br>");
-	    var qrcode = new QRious({
-  background: '#ffffff',
-  backgroundAlpha: 1,
-  foreground: '#5868bf',
-  foregroundAlpha: 1,
-  level: 'H',
-  padding: 0,
-  size: 250,
-  value: website
-});
+getQrCodeImgData (obj) ({
+             return new Promise(resolve => {
+              var qr = new QRious({
+              value: website,
+               padding: 0,
+             size: 250
+             })
       //return resolve({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]})
-	      document.write(qrcode.toDataURL());
-    })
-  }
+	      document.write({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]});
          // document.write("You have been successfully checked in!<br>");
         //  varDT = varDT.replace("T", " "); // document.write("Appointment data: " + varAqua);
 	 // document.write("<hr>");
