@@ -375,7 +375,7 @@ tr:nth-child(even) {
 	   var website = doc.data().key + '&checkin=Now';
            varDT = dates;
            varAqua = doc.data().login;
-	   var cp =  doc.data().company;
+	   varcp =  doc.data().company;
         }); 
              console.log("key_checkin:" + key_checkin);
     console.log("key_checkout:" + key_checkout);
@@ -386,7 +386,7 @@ tr:nth-child(even) {
 	   document.write("<center>");
 	  document.write('<canvas id="qrcodes"></canvas>');
 	   document.write(varFName + " " + varLName + "<br>");
-	   document.write("Company: " + cp);
+	   document.write("Company: " + varcp);
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
   background: '#ffffff',
