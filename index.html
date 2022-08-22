@@ -382,12 +382,12 @@ tr:nth-child(even) {
     console.log("keyid" + get_id);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);	
-           document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
+           document.write('<body style="font-family: sans-serif;color: blue;">');
 	   document.write("<center>");
-	  document.write('<img id="logo" src="aqua.png" width="200px"><br><br>');
-	    document.write("Guest: " + varFName + " " + varLName + "<br>");
+	  document.write('<img id="logo" src="aqua.png" width="150px"><br><br>');
+	    document.write("<p style='font-size:18px;'>Guest: " + varFName + " " + varLName + "</p>");
 	  document.write('<canvas id="qrcodes"></canvas>');
-	  document.write("<br><p style='font-size:14px;'>Company: " + varcp + "</p>");
+	  document.write("<p style='font-size:14px;'>Company: " + varcp + "</p>");
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
   background: '#ffffff',
