@@ -383,7 +383,7 @@ tr:nth-child(even) {
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
            set_checkin(data);	
            document.write('<body style="font-family: sans-serif;color: blue;">');
-	   document.write('<div id="checkin">Yes</div>');
+	   document.cookie = "checkin=" + get_id;
 	   document.write("<center>");
 	  document.write('<img id="logo" src="aqua.png" width="150px"><br>');
 	    document.write("<p style='font-size:18px;'>Guest: " + varFName + " " + varLName + "</p>");
@@ -416,7 +416,6 @@ tr:nth-child(even) {
 	  
            set_checkout(data);
             document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
-	   document.write('<div id="checkin">No</div>');
                 document.write("Thank you, " + varFName + " " + varLName + "<br>");
           document.write("You have been successfully checked out!<br>");
            document.write("<br>Please dispose of your badge before leaving foyer!");
@@ -427,7 +426,6 @@ tr:nth-child(even) {
            //qr code used already
         console.log("already used");
         document.write('<body style="font-family: sans-serif;font-size: x-large;color: blue;">');
-	   document.write('<div id="checkin">Done</div>');
          document.write('This QR code has expired!');
          document.write('</body>');
   }else{
