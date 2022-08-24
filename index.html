@@ -977,6 +977,10 @@ if (checkin === 'walkin'){
 }
 	    
 if (g_today != null && g_today != '') {
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
 	loaddbtoday();
 }
 
