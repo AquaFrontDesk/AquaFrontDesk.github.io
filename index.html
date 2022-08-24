@@ -982,7 +982,8 @@ if (id != null && id != '') {
       document.getElementById('get_msg').style.display = 'none';
        document.getElementById('logins').style.display = 'none';
        document.getElementById('get_id2').style.display = 'none';
-	document.getElementById("remove").value = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";;
+	document.getElementById("remove").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
+      console.log("loaded g_iPadid");
         });
 } else {
   console.log('string IS empty');
