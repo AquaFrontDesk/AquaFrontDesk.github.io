@@ -580,7 +580,8 @@ end = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).toISOString();
      console.log(start);
      console.log(end);		  
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-      document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + todaysdate + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+       document.head.innerHTML = header;
+		  document.write("<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + todaysdate + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
    document.head.innerHTML = header;
 		  var lines = "";
             let todays = new Date().toISOString().slice(0, 10);
@@ -604,11 +605,13 @@ end = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).toISOString();
           document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
-       document.head.innerHTML = header;
+     //  document.head.innerHTML = header;
                // document.getElementById('update_db').style.visibility = 'visible';
         //document.getElementById('submit_msg').style.visibility = 'hidden';
     })
     .catch((error) => {
+         document.write("</table>");
+		    document.write("<p>NO DATA FOUND for today's date</p>");
         console.log("Error getting documents: ", error);
     });
            }
