@@ -305,8 +305,7 @@ tr:nth-child(even) {
             console.log(doc.id, " => ", doc.data());
             document.getElementById("id").value = doc.data().key;
            document.getElementById("login").value = doc.data().login;
-           document.getElementById("date").readOnly = true;
-              document.getElementById("message").readOnly = true;
+        
 		   document.getElementById("login").readOnly = true;
             document.getElementById("fname").value = doc.data().firstname;
             document.getElementById("lname").value = doc.data().lastname;
@@ -335,6 +334,8 @@ tr:nth-child(even) {
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
           }
          if (get_iPad === 'Yes'){
+		    document.getElementById("date").readOnly = true;
+              document.getElementById("message").readOnly = true;
 		   document.getElementById('qrcode').style.display = 'none';
                document.getElementById('logins').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
@@ -344,7 +345,7 @@ tr:nth-child(even) {
       document.getElementById('get_msg').style.display = 'none';
 		 document.getElementById('update_db').innerText = 'Update';
 		  document.getElementById("emaillink").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
-		 document.getElementById("remove").innerHTML = "If needed, update above information then tap 'Update' below";
+		 document.getElementById("remove").innerHTML = "If needed, update 'Guest' fields above then tap 'Update' button below";
 	 }
            var website = doc.data().key + '&checkin=Now';
 	// var emailwebsite2 = document.getElementById("bitly").value; //document.getElementById("bitly").value;
