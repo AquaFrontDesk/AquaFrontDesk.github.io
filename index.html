@@ -294,7 +294,7 @@ tr:nth-child(even) {
          var get_id = data["id"];
 	  var get_iPad = data["iPad"];
 	   var website = get_id  + '&checkin=Now';	
-	    document.getElementById('logins').style.display = 'none';
+	  
            var cwebsite = "https://aquafrontdesk.github.io/?key=" + website;
          console.log(get_id);
          db.collection("messages").where("key", "==",get_id)
@@ -335,6 +335,7 @@ tr:nth-child(even) {
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
           }
          if (get_iPad === 'Yes'){
+               document.getElementById('logins').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
 	      document.getElementById('removeNo').style.display = 'none'
        document.getElementById('get_id').style.display = 'none';
