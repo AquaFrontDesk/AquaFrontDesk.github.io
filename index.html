@@ -332,14 +332,14 @@ tr:nth-child(even) {
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
           }
          if (get_iPad === 'Yes'){
-		      document.getElementById('emaillink').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
 	      document.getElementById('removeNo').style.display = 'none'
        document.getElementById('get_id').style.display = 'none';
 		  document.getElementById('get_id2').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
-		 document.getElementById('update_db').innerText = 'Update Above Information Then Click/Tap Here';
-		 document.getElementById("remove").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
+		 document.getElementById('update_db').innerText = 'Update';
+		  document.getElementById("emaillink").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
+		 document.getElementById("remove").innerHTML = "If needed, update above information then tap 'Update' below";
 	 }
            var website = doc.data().key + '&checkin=Now';
         
