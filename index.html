@@ -877,9 +877,6 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 	    
-if (g_today != null && g_today != '') {
-	loaddbtoday();
-}
 
 // empty string
 if ((id_active === 'No') && (userid != null && userid != '')) {
@@ -977,6 +974,10 @@ if (checkin === 'walkin'){
  
 } else {
   console.log('string IS empty');
+}
+	    
+if (g_today != null && g_today != '') {
+	loaddbtoday();
 }
 
       
