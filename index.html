@@ -958,6 +958,10 @@ if (id != null && id != '') {
 }
 	    
  if (g_iPadid != null && g_iPadid != '') {
+	  document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
   console.log('string is NOT empty');
   var website = g_iPadid + '&checkin=Now';	
  var cwebsite = "https://aquameeting.github.io/?key=" + website;
@@ -965,8 +969,6 @@ if (id != null && id != '') {
 	var data2 = {
           "web": emailwebsite
         }
-	document.getElementById('schedule').style.display = 'none';
-        document.getElementById('getall').style.display = 'none';
         // createbitly(data2);
 	sleep(1000).then(() => {
 		 var data = {
