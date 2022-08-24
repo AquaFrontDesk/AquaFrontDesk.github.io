@@ -960,15 +960,9 @@ if (id != null && id != '') {
         }
 	     document.getElementById('emaillink').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
-	      document.getElementById('removeNo').style.display = 'none';
-	 document.getElementById("update_db").value = "Update & Check-In";
-	document.getElementById('schedule').style.display = 'none';
-        document.getElementById('getall').style.display = 'none';
-	document.getElementById('submit_msg').style.display = 'none';
+	      document.getElementById('removeNo').style.display = 'none'
        document.getElementById('get_id').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
-       //document.getElementById('logins').style.display = 'none';
-       document.getElementById('get_id2').style.display = 'none';
          createbitly(data2);
 	sleep(1000).then(() => {
 		 var data = {
@@ -978,17 +972,7 @@ if (id != null && id != '') {
         key_id="";
         updateschedule();
          get_data(data);
-		     document.getElementById('emaillink').style.display = 'none';
-             document.getElementById('removeYes').style.display = 'none';
-	      document.getElementById('removeNo').style.display = 'none';
-	 document.getElementById("update_db").value = "Update & Check-In";
-	document.getElementById('schedule').style.display = 'none';
-        document.getElementById('getall').style.display = 'none';
-	document.getElementById('submit_msg').style.display = 'none';
-       document.getElementById('get_id').style.display = 'none';
-      document.getElementById('get_msg').style.display = 'none';
-       //document.getElementById('logins').style.display = 'none';
-       document.getElementById('get_id2').style.display = 'none';
+		    
       console.log("loaded g_iPadid");
         });
 } else {
