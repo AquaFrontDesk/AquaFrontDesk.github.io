@@ -332,6 +332,11 @@ tr:nth-child(even) {
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
           }
          if (get_iPad === 'Yes'){
+		      document.getElementById('emaillink').style.display = 'none';
+             document.getElementById('removeYes').style.display = 'none';
+	      document.getElementById('removeNo').style.display = 'none'
+       document.getElementById('get_id').style.display = 'none';
+      document.getElementById('get_msg').style.display = 'none';
 		 document.getElementById("remove").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
 	 }
            var website = doc.data().key + '&checkin=Now';
@@ -958,11 +963,8 @@ if (id != null && id != '') {
 	var data2 = {
           "web": emailwebsite
         }
-	     document.getElementById('emaillink').style.display = 'none';
-             document.getElementById('removeYes').style.display = 'none';
-	      document.getElementById('removeNo').style.display = 'none'
-       document.getElementById('get_id').style.display = 'none';
-      document.getElementById('get_msg').style.display = 'none';
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
          createbitly(data2);
 	sleep(1000).then(() => {
 		 var data = {
