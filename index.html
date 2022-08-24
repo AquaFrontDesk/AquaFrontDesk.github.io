@@ -996,7 +996,7 @@ if (checkin === 'walkin'){
           "lname": g_lname,
           "email": g_email,
           "cname": g_cname,
-         "msg": g_message,
+         "msg": g_message, 
          "date": g_date
         }
     push_to_firebase(data);
@@ -1008,6 +1008,10 @@ if (checkin === 'walkin'){
   get_checkin_data(data1);
         });
     }else{
+	 document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
 	 var data3 = {
           "checkin": checkin,
            "id": keyid
