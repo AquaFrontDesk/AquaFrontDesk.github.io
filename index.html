@@ -824,13 +824,17 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
             document.getElementById("get_id2").addEventListener("click", getloginname2);
             document.getElementById("schedule").addEventListener("click", schedule);
             document.getElementById("getall").addEventListener("click", getall);
-   
+   //iPadid
+	    
           var queryString = window.location.search;
       console.log(queryString);
       var urlParams = new URLSearchParams(queryString);
       
           var g_fname = urlParams.get('fname')
       console.log(g_fname);
+	    
+	     var g_iPadid = urlParams.get('iPadid')
+      console.log(g_iPadid);
 	    
 	        var g_lname = urlParams.get('lname')
       console.log(g_lname);
@@ -935,6 +939,50 @@ if (id != null && id != '') {
         key_id="";
         updateschedule();
          get_data(data);
+        });
+} else {
+  console.log('string IS empty');
+}
+	    
+ if (g_iPadid != null && g_iPadid != '') {
+  console.log('string is NOT empty');
+  var website = g_iPadid + '&checkin=Now';	
+ var cwebsite = "https://aquameeting.github.io/?key=" + website;
+	var emailwebsite = website; //"https://aquameeting.github.io/?key=" + website;
+	var data2 = {
+          "web": emailwebsite
+        }
+	     document.getElementById('emaillink').style.display = 'none';
+             document.getElementById('removeYes').style.display = 'none';
+	      document.getElementById('removeNo').style.display = 'none';
+	 document.getElementById("update_db").value = "Update & Check-In";
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	document.getElementById('submit_msg').style.display = 'none';
+       document.getElementById('get_id').style.display = 'none';
+      document.getElementById('get_msg').style.display = 'none';
+       document.getElementById('logins').style.display = 'none';
+       document.getElementById('get_id2').style.display = 'none';
+         createbitly(data2);
+	sleep(1000).then(() => {
+		 var data = {
+          "id": id
+        }
+        key_id="";
+        updateschedule();
+         get_data(data);
+		     document.getElementById('emaillink').style.display = 'none';
+             document.getElementById('removeYes').style.display = 'none';
+	      document.getElementById('removeNo').style.display = 'none';
+	 document.getElementById("update_db").value = "Update & Check-In";
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	document.getElementById('submit_msg').style.display = 'none';
+       document.getElementById('get_id').style.display = 'none';
+      document.getElementById('get_msg').style.display = 'none';
+       document.getElementById('logins').style.display = 'none';
+       document.getElementById('get_id2').style.display = 'none';
+	document.getElementById("emaillink").value = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";;
         });
 } else {
   console.log('string IS empty');
