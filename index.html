@@ -313,6 +313,8 @@ tr:nth-child(even) {
             document.getElementById("message").value = doc.data().message;
             var removewebsiteYes = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=Yes";
            var removewebsiteNo = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=No";
+     document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + document.getElementById("bitly").value + "'>Click here to create email to guest...</a>";
+  
 
           console.log("Remove:" + doc.data().remove);
           if (doc.data().remove === 'Yes'){
@@ -344,7 +346,6 @@ tr:nth-child(even) {
          // console.log("bitly: " + document.getElementById("bitly").value);
           //createbitly
          // var emailwebsite1 = "<a href=" + document.getElementById("bitly").value + ">Click Here for QR Code</a>";
-         document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + doc.data().date.replace("T", " ") + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + doc.data().date.replace("T", " ") + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + document.getElementById("bitly").value + "'>Click here to create email to guest...</a>";
           var qrcode = new QRious({
   element: document.getElementById("qrcode"),
   background: '#ffffff',
