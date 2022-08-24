@@ -565,7 +565,7 @@ var utcTime = date.toUTCString();
        var loaddbtoday =  function(){
         var db = firebase.firestore();
 	 let todaysdate = new Date().toISOString().slice(0, 10);
-	       var start = new Date().toISOString().slice(0, 10);
+	       var start = new Date().toISOString();
 start.setHours(0,0,0,0);
 
 var end = new Date(start.getTime());
