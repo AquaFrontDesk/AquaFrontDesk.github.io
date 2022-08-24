@@ -294,6 +294,9 @@ tr:nth-child(even) {
        var get_data = function(data){
         var db = firebase.firestore();
          var get_id = data["id"];
+	  var get_iPad = data["iPad"];
+	   var website = get_id  + '&checkin=Now';	
+           var cwebsite = "https://aquameeting.github.io/?key=" + website;
          console.log(get_id);
          db.collection("messages").where("key", "==",get_id)
     .get()
@@ -328,7 +331,9 @@ tr:nth-child(even) {
              document.getElementById("removeNo").innerHTML = "";
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
           }
-         
+         if (get_iPad === 'Yes'){
+		 document.getElementById("remove").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
+	 }
            var website = doc.data().key + '&checkin=Now';
         
 	// var emailwebsite2 = document.getElementById("bitly").value; //document.getElementById("bitly").value;
@@ -934,7 +939,8 @@ if (id != null && id != '') {
          createbitly(data2);
 	sleep(1000).then(() => {
 		 var data = {
-          "id": id
+          "id": id,
+	  "iPad:" 'No'
         }
         key_id="";
         updateschedule();
@@ -966,7 +972,8 @@ if (id != null && id != '') {
          createbitly(data2);
 	sleep(1000).then(() => {
 		 var data = {
-          "id": g_iPadid
+          "id": g_iPadid,
+          "iPad:" 'Yes'
         }
         key_id="";
         updateschedule();
@@ -982,7 +989,6 @@ if (id != null && id != '') {
       document.getElementById('get_msg').style.display = 'none';
        document.getElementById('logins').style.display = 'none';
        document.getElementById('get_id2').style.display = 'none';
-	document.getElementById("remove").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
       console.log("loaded g_iPadid");
         });
 } else {
