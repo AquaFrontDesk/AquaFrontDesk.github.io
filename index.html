@@ -65,6 +65,7 @@ tr:nth-child(even) {
       </style>
     <title>Visitor Schedule:  Aqua-Aerobic Systems</title>
   </head>
+<div id="loading">
   <body style="font-family: sans-serif;font-size: large;">
     <img id="logo" src="aqua.png" width="250px"></center><br>
       <h1 id="header" style="text-align: center;">Visitor Schedule for Aqua-Aerobic Systems</h1>
@@ -119,6 +120,7 @@ tr:nth-child(even) {
        
     <div id="table"></div>
   </body>
+    </div>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
@@ -939,6 +941,15 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+	    
+if (g_today != null && g_today != '') {
+	document.getElementById('loading').style.display = 'none';
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
+	loaddbtoday();
+}	    
 	
 	    
 // empty string
@@ -1078,14 +1089,7 @@ if (checkin === 'walkin'){
 } else {
   console.log('string IS empty');
 }
-	    
-if (g_today != null && g_today != '') {
-	document.getElementById('schedule').style.display = 'none';
-        document.getElementById('getall').style.display = 'none';
-	 document.getElementById('header').style.display = 'none';
-	 document.getElementById('logo').style.display = 'none';
-	loaddbtoday();
-}
+	   
 
       
     })();
