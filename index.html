@@ -602,6 +602,9 @@ end = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).toISOString();
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+		
+	   console.log("Snapshot:" + querySnapshot.size); 
+
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
         //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
