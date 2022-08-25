@@ -578,9 +578,9 @@ var utcTime = date.toUTCString();
            }
       }
        
-       var loaddbeverything =  function(){
+       var loaddbeverything =  function(data){
        var db = firebase.firestore();
-          var get_login  = "data";
+          var get_login  = data["userid"];
          if (get_login  === null || get_login === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
@@ -713,6 +713,13 @@ var utcTime = date.toUTCString();
     });
            }
       }
+	 
+	  var getall = function(){
+             var data = {
+          "userid": 'walkin'
+        }
+           loaddbeverything(data);
+       }
        
        var getloginname = function(){
             var username = document.getElementById("login").value;
@@ -939,7 +946,10 @@ function sleep (time) {
 	    
 // empty string
 if (g_all != null && g_all != '') {
-       loaddbeverything();
+	 var data = {
+          "userid": 'walkin',
+        }
+       getall(data);
 } else {
   console.log('string IS empty');
 }   	    
