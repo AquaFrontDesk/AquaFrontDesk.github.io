@@ -873,6 +873,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       console.log(queryString);
       var urlParams = new URLSearchParams(queryString);
       
+	      var g_all= urlParams.get('all')
+      console.log(g_all);
+	    
           var g_fname = urlParams.get('fname')
       console.log(g_fname);
 	    
@@ -925,7 +928,14 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+	
 	    
+// empty string
+if (g_all != null && g_all != '') {
+       loaddbeverything();
+} else {
+  console.log('string IS empty');
+}   	    
 
 // empty string
 if ((id_active === 'No') && (userid != null && userid != '')) {
