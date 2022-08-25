@@ -581,14 +581,13 @@ var utcTime = date.toUTCString();
        var loaddbeverything =  function(){
         var db = firebase.firestore();
       var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    document.write("<center><h1>Aqua-Aerobic Systems,Inc.</h1><h2>Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+    document.write("<center><h1>Aqua-Aerobic Systems,Inc.</h1><h2>Active Visitor Schedule(s)</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center><table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
          db.collection("messages").where("remove", "==","No").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
         //   document.write(doc.data().login + "," + doc.data().firstname + "," + doc.data().lastname + "," + doc.data().company + "," + doc.data().date + "," + doc.data().email + "," + doc.data().message + "," +  doc.id + "<br>");
            var data = {
