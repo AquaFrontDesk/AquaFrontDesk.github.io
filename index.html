@@ -714,7 +714,7 @@ var utcTime = date.toUTCString();
            }
       }
 	 
-	  var getall = function(){
+	  var getall = function(data){
              var data = {
           "userid": 'walkin'
         }
@@ -946,10 +946,10 @@ function sleep (time) {
 	    
 // empty string
 if (g_all != null && g_all != '') {
-	 var data = {
-          "userid": 'walkin',
+	 var datass = {
+          "userid": 'walkin'
         }
-       getall(data);
+       getall(datass);
 } else {
   console.log('string IS empty');
 }   	    
