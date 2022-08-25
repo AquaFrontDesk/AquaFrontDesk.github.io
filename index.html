@@ -611,8 +611,8 @@ var utcTime = date.toUTCString();
 		// let sendingText = "https://aquameeting.github.io/?ipad=Yes"
           document.write("<br>If schedule not found above, click <a href='" +  "https://aquameeting.github.io"   + "'>here</a> to continue");
 	});
+		   document.write(nodata);
     })
-	       	  document.write(nodata);
     .catch((error) => {
          console.log("Error getting documents: ", error);
          document.write("</table>");
