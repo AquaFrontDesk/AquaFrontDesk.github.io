@@ -998,9 +998,10 @@ if ((id_remove === 'Yes') && (id != null && id != '')) {
       
       
 if (id != null && id != '') {
-		document.getElementById('loading').style.display = 'none';
-	document.getElementById('schedule').style.display = 'none';
+	  document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
   console.log('string is NOT empty');
   var website = id + '&checkin=Now';	
 	var emailwebsite = "https://aquameeting.github.io/?key=" + website;
@@ -1022,7 +1023,6 @@ if (id != null && id != '') {
 }
 	    
  if (g_iPadid != null && g_iPadid != '') {
-	 	document.getElementById('loading').style.display = 'none';
 	  document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
 	 document.getElementById('header').style.display = 'none';
@@ -1054,7 +1054,6 @@ if (id != null && id != '') {
 if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
   console.log('string is NOT empty');
 if (checkin === 'walkin'){
-	document.getElementById('loading').style.display = 'none';
 	document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
 	 document.getElementById('header').style.display = 'none';
@@ -1078,7 +1077,6 @@ if (checkin === 'walkin'){
   get_checkin_data(data1);
         });
     }else{
-	 document.getElementById('loading').style.display = 'none';
 	 document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
 	 document.getElementById('header').style.display = 'none';
