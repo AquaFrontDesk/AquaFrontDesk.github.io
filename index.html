@@ -106,6 +106,7 @@ tr:nth-child(even) {
         </div>
    <button id="submit_msg" type="button" style="background-color: orangered;">Schedule Visitor (All fields required!)</button>
          <button id="update_db" type="button">Update Visit</button>
+	 <button id="checkin" type="button">Everything look ok? Tap Here to Check-In</button>
         <button id="get_id" type="button" style="background-color: navy;">View Scheduled Visits (Aqua Employee Network ID required!)**</button>
        <button id="get_msg" type="button" style="background-color: cornflowerblue;">Reset Form</button>
       <br>
@@ -344,8 +345,9 @@ tr:nth-child(even) {
 		  document.getElementById('get_id2').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
 		 document.getElementById('update_db').innerText = 'Update';
-		  document.getElementById("emaillink").innerHTML = "<a href='" + cwebsite + "'>Everything look ok? Click here to Check-in</a>";
+		  document.getElementById("emaillink").innerHTML = "";
 		 document.getElementById("remove").innerHTML = "If needed, update 'Guest' fields above then tap 'Update' button below";
+		  document.getElementById('checkin').style.display = 'block';
 	 }
            var website = doc.data().key + '&checkin=Now';
 	// var emailwebsite2 = document.getElementById("bitly").value; //document.getElementById("bitly").value;
@@ -720,6 +722,13 @@ var utcTime = date.toUTCString();
           }
        }
        
+        var gocheckin = function(){
+             var get_id = document.getElementById("login").value;
+	     var website = get_id  + '&checkin=Now';	
+           var cwebsite = "https://aquafrontdesk.github.io/?key=" + website;
+             window.location = cwebsite;
+       }
+       
        var getloginname2 = function(){
             var username = document.getElementById("login").value;
          console.log("LoginName: " + username);
@@ -848,7 +857,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
           document.getElementById('get_id2').style.display = 'block';
        }
        
-       
+       // <button id="checkin" type="button">Everything look ok? Tap Here to Check-In</button>
        
          document.getElementById('schedule').style.display = 'block';
         document.getElementById('getall').style.display = 'block';
@@ -859,6 +868,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       document.getElementById('get_msg').style.display = 'none';
        document.getElementById('logins').style.display = 'none';
        document.getElementById('get_id2').style.display = 'none';
+	     document.getElementById('checkin').style.display = 'none';
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
@@ -867,6 +877,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
             document.getElementById("get_id2").addEventListener("click", getloginname2);
             document.getElementById("schedule").addEventListener("click", schedule);
             document.getElementById("getall").addEventListener("click", getall);
+	    document.getElementById("checkin").addEventListener("click", getall);
    //iPadid
 	    
           var queryString = window.location.search;
