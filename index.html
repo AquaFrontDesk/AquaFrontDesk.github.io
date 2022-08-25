@@ -593,7 +593,7 @@ var utcTime = date.toUTCString();
          let todays = new Date().toISOString().slice(0, 10);
          var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
 	 document.head.innerHTML = header;
-	 var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center>";      
+	 var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + todays + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center>";      
          document.write(title);
 	 var nodata = "<br>No data found<br>";
          db.collection("messages").where("date", ">=",start).where("date", "<=",end).where("remove", "==","No").orderBy("date","desc")
