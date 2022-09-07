@@ -445,6 +445,7 @@ var utcTime = date.toUTCString();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
 	  
            set_checkout(data);
+	    document.write('<body style="font-family: sans-serif;color: blue;">');
             document.write("<br><br><br><br><br><br><br><br><center>");
 	  document.write('<img id="logo" src="aqua.jpg" width="250px"><br>');
 	    document.write("<p style='font-size:24px;'>Thank you, " + varFName + " " + varLName + "</p>");
@@ -458,6 +459,7 @@ var utcTime = date.toUTCString();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
         console.log("already used");
+	    document.write('<body style="font-family: sans-serif;color: blue;">');
         document.write("<br><br><br><br><br><br><br><br><center>");
 	  document.write('<img id="logo" src="aqua.jpg" width="250px"><br>');
 	    document.write("<p style='font-size:24px;'>Hello, " + varFName + " " + varLName + "</p>");
