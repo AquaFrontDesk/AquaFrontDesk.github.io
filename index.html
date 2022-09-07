@@ -418,7 +418,7 @@ var utcTime = date.toUTCString();
 	    document.write("<p style='font-size:24px;'>Guest: " + varFName + " " + varLName + "</p>");
 	  document.write('<canvas id="qrcodes"></canvas>');
 	  document.write("<p style='font-size:18px;color: black;'>Company: " + varcp + "</p>");
-	   document.write("<p style='font-size:12px;color: gray;'><br><br><br>printed: " + NowTime + "</p></center>");
+	   document.write("<p style='font-size:12px;color: black;'><br><br><br>printed: " + NowTime + "</p></center>");
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
   background: '#ffffff',
@@ -452,7 +452,7 @@ var utcTime = date.toUTCString();
           document.write("<p style='font-size:18px;color: black;'>You have been successfully checked out!</p>");
            document.write("<p style='font-size:18px;color: black;'>Please dispose of your badge before leaving reception/lobby!</p>");
             document.write("<p style='font-size:18px;color: blue;'>Have a great day!</p>");
-	  document.write("<p style='font-size:12px;color: gray;'><br><br><br>current date/time: " + NowTime + "</p>");
+	  document.write("<p style='font-size:12px;color: black;'><br><br><br>current date/time: " + NowTime + "</p>");
 	   document.write("</center>");
     document.write('</body>');
     console.log("checkout successful");
@@ -466,7 +466,7 @@ var utcTime = date.toUTCString();
          document.write("<p style='font-size:18px;color: black;'>This QR code has expired!</p>");
 	   document.write("<p style='font-size:18px;color: black;'>Please dispose of your badge before leaving reception/lobby!</p>");
             document.write("<p style='font-size:18px;color: blue;'>Have a great day!</p>");
-	   document.write("<p style='font-size:12px;color: gray;'><br><br><br>current date/time: " + NowTime + "</p></center>");
+	   document.write("<p style='font-size:12px;color: black;'><br><br><br>current date/time: " + NowTime + "</p></center>");
 	   document.write("</center>");
          document.write('</body>');
   }else{
