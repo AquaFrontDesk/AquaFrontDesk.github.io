@@ -415,10 +415,10 @@ var utcTime = date.toUTCString();
 	   document.cookie = "checkin=" + get_id + "; expires=" + utcTime + ";";
 	  //document.cookie = "YOUR_COOKIE=yes; expires=" + utcTime + ";";
 	   document.write("<br><br><center>");
-	  document.write('<img id="logo" src="aqua.jpg" width="320px"><br>');
-	    document.write("<p style='font-size:30px;'>Guest: " + varFName + " " + varLName + "</p>");
+	  document.write('<img id="logo" src="aqua.jpg" width="400px"><br>');
+	    document.write("<p style='font-size:38px;'>Guest: " + varFName + " " + varLName + "</p>");
 	  document.write('<canvas id="qrcodes"></canvas>');
-	  document.write("<p style='font-size:26px;color: black;'>Company: " + varcp + "</p>");
+	  document.write("<p style='font-size:32px;color: black;'>Company: " + varcp + "</p>");
 	  // document.write("<p style='font-size:16px;color: black;'><br><br><br>printed: " + NowTime + "</p></center>");
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
