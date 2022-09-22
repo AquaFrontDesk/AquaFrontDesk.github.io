@@ -1,4 +1,3 @@
-function() {
       var firebaseConfig = {
          apiKey: "AIzaSyC_Wl1RgIWazRk3OhodD5QQTykOcIyZMNs",
     authDomain: "aquacheckin-e0b0b.firebaseapp.com",
@@ -977,8 +976,4 @@ if (checkin === 'walkin'){
  
 } else {
   console.log('string IS empty');
-}
-	   
-
-      
 }
