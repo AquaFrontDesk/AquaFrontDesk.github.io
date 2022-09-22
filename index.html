@@ -414,11 +414,11 @@ date.setTime(expiryTime);
 var utcTime = date.toUTCString();
 	   document.cookie = "checkin=" + get_id + "; expires=" + utcTime + ";";
 	  //document.cookie = "YOUR_COOKIE=yes; expires=" + utcTime + ";";
-	   document.write("<br><br><center>");
+	   document.write("<br><center>");
 	  document.write('<img id="logo" src="aqua.jpg" width="450px"><br>');
-	    document.write("<p style='font-size:45px;'>Guest: " + varFName + " " + varLName + "</p>");
+	    document.write("<p style='font-size:47px;'>Guest: " + varFName + " " + varLName + "</p>");
 	  document.write('<canvas id="qrcodes"></canvas>');
-	  document.write("<p style='font-size:40px;color: black;'>Company: " + varcp + "</p>");
+	  document.write("<p style='font-size:38px;color: black;'>Company: " + varcp + "</p>");
 	  // document.write("<p style='font-size:16px;color: black;'><br><br><br>printed: " + NowTime + "</p></center>");
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
@@ -427,7 +427,7 @@ var utcTime = date.toUTCString();
   foreground: '#000000',
   foregroundAlpha: 1,
   level: 'H',
-  size: 200,
+  size: 220,
   value: varwebsite
 });
       //return resolve({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]})
