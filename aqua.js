@@ -190,7 +190,7 @@
             document.getElementById("message").value = doc.data().message;
             var removewebsiteYes = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=Yes";
            var removewebsiteNo = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=No";
-     document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + dates + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + dates + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code will be required to access the building beyond our lobby.%0D%0APlease use below link to get QR code.%0D%0A" + document.getElementById("bitly").value + "'>Click here to create email to guest...</a>";
+     document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + dates + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + dates + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA A unique QR code can be used to Check-in.%0D%0A<br>Please use the below link to get your QR code.%0D%0A" + document.getElementById("bitly").value + "'>Click here to create email to guest...</a>";
   
 
           console.log("Remove:" + doc.data().remove);
