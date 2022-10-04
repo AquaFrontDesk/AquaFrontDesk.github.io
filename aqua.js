@@ -278,6 +278,7 @@
     console.log("key_checkout:" + key_checkout);
     console.log("keyid" + get_id);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
+	    document.getElementById("checkedin").value = 'No';
            set_checkin(data);	
            document.write('<body style="font-family: sans-serif;color: black;">');
 	  var timeToAdd = 1000 * 60 * 60 * 24 * 7 * 4 * 6;
@@ -317,7 +318,7 @@ var utcTime = date.toUTCString();
     document.write('</body>');
     console.log("checkin successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
-	  
+	    document.getElementById("checkedin").value = 'Yes';
            set_checkout(data);
 	    document.write('<body style="font-family: sans-serif;color: blue;">');
            	   document.write("<center>");
@@ -332,6 +333,7 @@ var utcTime = date.toUTCString();
     console.log("checkout successful");
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
+	     document.getElementById("checkedin").value = 'Yes';
         console.log("already used");
 	    document.write('<body style="font-family: sans-serif;color: blue;">');
              	   document.write("<center>");
