@@ -499,6 +499,36 @@ var utcTime = date.toUTCString();
     });
       }
        
+        var loadinactive =  function(){
+       var db = firebase.firestore();
+      var header = "<head><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+    var lines = "";
+            let today = new Date().toISOString().slice(0, 10);
+	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>In-Active Visitor Schedule(s) </h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center>";
+         db.collection("messages").where("remove", "==","Yes").orderBy("date","desc")
+    .get()
+    .then((querySnapshot) => {
+	   var cnt = querySnapshot.size;
+		 document.write(title);
+	    if (cnt === 0){
+		 var nodata = "<br>No data found<br>";
+	  document.write(nodata);
+	}else{
+	  document.write("<table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+	}
+        querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+	   var dates = new Date(doc.data().date).toLocaleString();
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+	});
+         document.write("</table>");
+         document.head.innerHTML = header;
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+      }
+       
        var loaddbtoday =  function(){
          var db = firebase.firestore();
 	 let todaysdate = new Date().toISOString().slice(0, 10);
@@ -844,11 +874,17 @@ if (g_today != null && g_today != '') {
 	
 	    
 // empty string
-if (g_all != null && g_all != '') {
+if (g_all == 'yes') {
        loaddbeverything();
 } else {
   console.log('string IS empty');
-}   	    
+}   
+
+if (g_all == 'no') {
+       loadinactive();
+} else {
+  console.log('string IS empty');
+}   	
 
 // empty string
 if ((id_active === 'No') && (userid != null && userid != '')) {
