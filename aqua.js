@@ -16,7 +16,7 @@
       var varfrom_name = "";
       var varto_email = "";
       var varto_name = "";
-      var cc_email = "ckonkol@gmail.com;ckonkol@aqua-aerobic.com";
+      var cc_email = "ckonkol@gmail.com;ckonkol@aqua-aerobic.com;SArbisi@aqua-aerobic.com;swilliams@aqua-aerobic.com";
       var key_checkin = "";
       var key_checkout = "";
       var gbit = "";
@@ -123,6 +123,25 @@
           "cc_email" : cc_email
 };
    emailjs.send('service_aqua', 'template_checkedin', templateParams)
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+		
+	}
+   
+    var sendcheckedout = function(){
+	   if (varto_name === 'walkin@aqua-aerobic.com'){
+		varto_name = 'ckonkol@aqua-aerobic.com';   
+	   }
+   var templateParams = {
+     "from_name" : varfrom_name,
+         "to_name" : varto_name,
+         "to_email" : varto_email,
+          "cc_email" : cc_email
+};
+   emailjs.send('service_aqua', 'template_checkedout', templateParams)
     .then(function(response) {
        console.log('SUCCESS!', response.status, response.text);
     }, function(error) {
@@ -353,7 +372,7 @@ var utcTime = date.toUTCString();
 	  document.write('<img id="logo" src="aqua.jpg" width="750px">');
 	    document.write("<p style='font-size:47px;line-height: 0.9;margin: 15;'>Guest: <b>" + varFName + " " + varLName + "</b></p>");
 	  document.write('<canvas id="qrcodes"></canvas>');
-	  document.write("<p style='font-size:25px;color: black;margin: 15;'>Company: " + varcp + "</p>");
+	  document.write("<p style='font-size:30px;color: black;margin: 15;'>Company: " + varcp + "</p>");
 	  // document.write("<p style='font-size:16px;color: black;'><br><br><br>printed: " + NowTime + "</p></center>");
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
@@ -378,7 +397,7 @@ var utcTime = date.toUTCString();
 	     document.write("</center>");
     document.write('</body>');
     console.log("checkin successful");
-   sendcheckedin();
+  sendcheckedin();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
 	   console.log("checkedin ID: Yes");
 	    document.getElementById("checkedin").value = 'Yes';
@@ -394,6 +413,7 @@ var utcTime = date.toUTCString();
 	   document.write("</center>");
     document.write('</body>');
     console.log("checkout successful");
+    sendcheckedout();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
 	   console.log("checkedin ID: Yes");
