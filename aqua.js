@@ -993,6 +993,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       }
        
        var schedule = function(){
+	        document.getElementById("login").addEventListener("keypress", getSchedule);
         document.getElementById('logins').style.display = 'contents';
           document.getElementById('logins').style.display = 'block';
         document.getElementById('schedule').style.display = 'none';
@@ -1034,9 +1035,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
           document.getElementById('get_id2').style.display = 'none';
  document.getElementById('loginlabel').innerText = 'Aqua Employee User ID OR Keyword';
   document.getElementsByName('login')[0].placeholder = '[KEYWORDS] today, name, date, all, inactive';
+	       	          document.getElementById('emaillabel').style.display = 'none';
 	          document.getElementById("login").addEventListener("keypress", getSchedule2);
 	       document.getElementById("login").focus();
-	          document.getElementById('emaillabel').style.display = 'none';
        }
        
        // <button id="checkin" type="button">Everything look ok? Tap Here to Check-In</button>
@@ -1056,7 +1057,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",getloginname);
-   document.getElementById("login").addEventListener("keypress", getSchedule);
+   //document.getElementById("login").addEventListener("keypress", getSchedule);
              document.getElementById("get_msg").addEventListener("click", loadweb);
             document.getElementById("get_id2").addEventListener("click", getloginname2);
             document.getElementById("schedule").addEventListener("click", schedule);
