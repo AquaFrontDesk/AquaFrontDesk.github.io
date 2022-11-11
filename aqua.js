@@ -13,6 +13,10 @@
       document.getElementById("update_db").disabled = true;
       document.getElementById('update_db').style.visibility = 'hidden';
       
+      var varfrom_name = "";
+      var varto_email = "";
+      var varto_name = "";
+      var cc_email = "ckonkol@gmail.com;ckonkol@aqua-aerobic.com";
       var key_checkin = "";
       var key_checkout = "";
       var gbit = "";
@@ -68,7 +72,7 @@
             //alert("Schedule was created successfully!")
             console.log("doc added");
            if (login != 'walkin'){
-           window.location.href = 'https://aquafrontdesk.github.io/?id=' + key;
+           window.location.href = 'https://aquavisitorsystem.github.io/?id=' + key;
 	   }
   }).catch(function(error) {
     console.log("Error getting document:", error);
@@ -94,6 +98,39 @@
   });
       }
       
+         var updatereset = function(data){
+        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+           checkin: "",
+	   checkout:""
+}) .then(function(doc) {
+    console.log("doc updated");
+            window.location = "https://aquavisitorsystem.github.io/?id=" + key;
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+      }
+	 
+   var sendcheckedin = function(){
+	   if (varto_name === 'walkin@aqua-aerobic.com'){
+		varto_name = 'ckonkol@aqua-aerobic.com';   
+	   }
+   var templateParams = {
+     "from_name" : varfrom_name,
+         "to_name" : varto_name,
+         "to_email" : varto_email,
+          "cc_email" : cc_email
+};
+   emailjs.send('service_aqua', 'template_checkedin', templateParams)
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+		
+	}
+      
         var updateremoveYes = function(data){
         var db = firebase.firestore();
           var key = data["id"];
@@ -101,7 +138,7 @@
            remove: 'Yes'
 }) .then(function(doc) {
     console.log("doc updated");
-            window.location = "https://aquafrontdesk.github.io/?id=" + key;
+            window.location = "https://aquavisitorsystem.github.io/?id=" + key;
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
@@ -114,7 +151,7 @@
            remove: 'No'
 }) .then(function(doc) {
     console.log("doc updated");
-             window.location = "https://aquafrontdesk.github.io/?id=" + key;
+             window.location = "https://aquavisitorsystem.github.io/?id=" + key;
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
@@ -152,6 +189,7 @@
        document.getElementById('submit_msg').style.visibility = 'hidden';
        document.getElementById("update_db").disabled = false;
         document.getElementById("submit_msg").disabled = true;
+	document.getElementById('back').style.display = 'block';
     })
     .catch((error) => {
        document.getElementById("update_db").disabled = true;
@@ -169,7 +207,7 @@
 	  var get_iPad = data["iPad"];
 	   var website = get_id  + '&checkin=Now';	
 	  
-           var cwebsite = "https://aquafrontdesk.github.io/?key=" + website;
+           var cwebsite = "https://aquavisitorsystem.github.io/?key=" + website;
          console.log(get_id);
          db.collection("messages").where("key", "==",get_id)
     .get()
@@ -188,28 +226,35 @@
 	    document.getElementById("date").value = doc.data().date;
             document.getElementById("email").value = doc.data().email;
             document.getElementById("message").value = doc.data().message;
-            var removewebsiteYes = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=Yes";
-           var removewebsiteNo = "https://AquaFrontDesk.github.io/?id=" + doc.data().key + "&Remove=No";
+	    var reset = "https://aquavisitorsystem.github.io/?id=" + doc.data().key + "&Remove=Reset";
+	   document.getElementById("reset").innerHTML = "<a href='" + reset + "'>Click here to reset check-in/check-out data</a>";
+            var removewebsiteYes = "https://aquavisitorsystem.github.io/?id=" + doc.data().key + "&Remove=Yes";
+           var removewebsiteNo = "https://aquavisitorsystem.github.io/?id=" + doc.data().key + "&Remove=No";
 	var video = "https://youtu.be/6hxZn-wAfwY";
 	document.getElementById("emaillink").innerHTML = "<a href='mailto:" + doc.data().email + "?subject=Upcoming Meeting at Aqua-Aerobic Systems on " + dates + "&body=" + doc.data().firstname + " " + doc.data().lastname + ",%0D%0A%0D%0AMeeting Date/Time: " + dates + "%0D%0A%0D%0APurpose of Meeting : " + doc.data().message + "%0D%0A%0D%0AA unique QR code can be used to Check-in at the iPad stand in our lobby.%0D%0A%0D%0APlease use the below link to get your QR code.%0D%0A" + document.getElementById("bitly").value + "%0D%0A%0D%0AWatch below video to learn how to use our check-in/check-out system:%0D%0A" + video + "'>Click here to create email to guest...</a>";
         console.log("Remove:" + doc.data().remove);
           if (doc.data().remove === 'Yes'){
+		
             document.getElementById('qrcode').style.display = 'none';
             document.getElementById('emaillink').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Status: InActive";
              document.getElementById("removeNo").innerHTML = "<a href='" + removewebsiteNo + "'>Click here to update status to: Active</a>";
              document.getElementById("removeYes").innerHTML = "";
+		  	 document.getElementById('back').style.display = 'block';
           }
            if (doc.data().remove === 'No'){
+		
              document.getElementById('removeNo').style.display = 'none';
              document.getElementById("remove").innerHTML  = "Status: Active";
              document.getElementById("removeNo").innerHTML = "";
               document.getElementById("removeYes").innerHTML = "<a href='" + removewebsiteYes + "'>Click here to update status to: InActive</a><br>";
+		   	 document.getElementById('back').style.display = 'block';
           }
          if (get_iPad === 'Yes'){
-		    document.getElementById("date").readOnly = true;
-              document.getElementById("message").readOnly = true;
+		
+		    document.getElementById("date").readOnly = false;
+              document.getElementById("message").readOnly = false;
 		   document.getElementById('qrcode').style.display = 'none';
                document.getElementById('logins').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
@@ -219,11 +264,14 @@
       document.getElementById('get_msg').style.display = 'none';
 		 document.getElementById('update_db').innerText = 'Update';
 		  document.getElementById("emaillink").innerHTML = "";
-		 document.getElementById("remove").innerHTML = "If needed, update 'Guest' fields above then tap 'Update' button below";
+		 document.getElementById("remove").innerHTML = "If needed, update above fields > tap 'Update' button. <b style='color: red;'>TAP GREEN BUTTON BELOW TO CHECK-IN/OUT</b>";
+		  document.getElementById('remove').style.fontWeight = 'normal';
 		 document.getElementById('update_db').style.width = 'min-content';
 		  document.getElementById('checkin').style.display = 'block';
-		 
-		  
+		  document.getElementById('back').style.display = 'none';
+		  document.getElementById('update_db').style.backgroundColor = 'CORNFLOWERBLUE';
+		  document.getElementById('checkin').innerText = 'TAP HERE TO CHECK-IN/OUT...';
+		  document.getElementById('checkin').style.fontWeight = '700';		  
 	 }
            var website = doc.data().key + '&checkin=Now';
 	// var emailwebsite2 = document.getElementById("bitly").value; //document.getElementById("bitly").value;
@@ -246,6 +294,7 @@
         document.getElementById('submit_msg').style.visibility = 'hidden';
          document.getElementById("update_db").disabled = false;
         document.getElementById("submit_msg").disabled = true;
+	
     })
     .catch((error) => {
        console.log("Error getting documents: ", error);
@@ -272,10 +321,18 @@
            varDT = dates;
            varAqua = doc.data().login;
 	   varcp =  doc.data().company;
+	   //Send email data
+           varfrom_name = varFName + ' ' + varLName;
+           varto_email = varAqua + '@aqua-aerobic.com';
+           varto_name = doc.data().message;
         }); 
              console.log("key_checkin:" + key_checkin);
     console.log("key_checkout:" + key_checkout);
     console.log("keyid" + get_id);
+		   console.log("varfrom_name" + varfrom_name);
+		   console.log("varto_email" + varto_email);
+		   console.log("varto_name" + varto_name);
+		   console.log("cc_email" + cc_email);
   if ((key_checkin === null || key_checkin === '') && (key_checkout === null || key_checkout === '')){
 	    document.getElementById("checkedin").value = 'No';
 	   console.log("checkedin ID: No");
@@ -289,10 +346,10 @@ var utcTime = date.toUTCString();
 	   document.cookie = "checkin=" + get_id + "; expires=" + utcTime + ";";
 	  //document.cookie = "YOUR_COOKIE=yes; expires=" + utcTime + ";";
 	   document.write("<center>");
-	  document.write('<img id="logo" src="aqua.jpg" width="500px">');
-	    document.write("<p style='font-size:47px;'>Guest: <b>" + varFName + " " + varLName + "</b></p>");
+	  document.write('<img id="logo" src="aqua.jpg" width="750px">');
+	    document.write("<p style='font-size:47px;line-height: 0.9;margin: 15;'>Guest: <b>" + varFName + " " + varLName + "</b></p>");
 	  document.write('<canvas id="qrcodes"></canvas>');
-	  document.write("<p style='font-size:25px;color: black;'>Company: " + varcp + "</p>");
+	  document.write("<p style='font-size:25px;color: black;margin: 15;'>Company: " + varcp + "</p>");
 	  // document.write("<p style='font-size:16px;color: black;'><br><br><br>printed: " + NowTime + "</p></center>");
    var qrcode = new QRious({
   element: document.getElementById("qrcodes"),
@@ -300,7 +357,7 @@ var utcTime = date.toUTCString();
   backgroundAlpha: 1,
   foreground: '#000000',
   foregroundAlpha: 1,
-  level: 'H',
+  level: 'L',
   size: 230,
   value: varwebsite
 });
@@ -317,13 +374,14 @@ var utcTime = date.toUTCString();
 	     document.write("</center>");
     document.write('</body>');
     console.log("checkin successful");
+   sendcheckedin();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
 	   console.log("checkedin ID: Yes");
 	    document.getElementById("checkedin").value = 'Yes';
            set_checkout(data);
 	    document.write('<body style="font-family: sans-serif;color: blue;">');
            	   document.write("<center>");
-	  document.write('<img id="logo" src="aqua.jpg" width="500px">');
+	  document.write('<img id="logo" src="aqua.jpg" width="550px">');
 	    document.write("<p style='font-size:47px;'>Thank you, " + varFName + " " + varLName + "</p>");
           document.write("<p style='font-size:25px;color: black;'>You have been successfully checked out!</p>");
            document.write("<p style='font-size:20px;color: black;'>Please dispose of your badge before leaving reception/lobby!</p>");
@@ -353,6 +411,15 @@ var utcTime = date.toUTCString();
     })
     .catch((error) => {
        console.log("Error getting documents: ", error);
+		  document.write('<body style="font-family: sans-serif;color: blue;">');
+           	   document.write("<center>");
+	  document.write('<img id="logo" src="aqua.jpg" width="550px">');
+            document.write("<p style='font-size:20px;color: blue;'>This QR code has expired or is invalid!</p>");
+	  document.write("<p style='font-size:20px;color: black;'>Please dispose of your badge before leaving reception/lobby!</p>");
+            document.write("<p style='font-size:20px;color: blue;'>Have a great day!</p>");
+	  document.write("<p style='font-size:15px;color: black;'><br><br><br>current date/time: " + NowTime + "</p>");
+	   document.write("</center>");
+    document.write('</body>');
     });
       }
        
@@ -423,6 +490,7 @@ var utcTime = date.toUTCString();
         });
                  document.getElementById('update_db').style.visibility = 'visible';
         document.getElementById('submit_msg').style.visibility = 'hidden';
+	       document.getElementById('back').style.display = 'block';
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
@@ -436,12 +504,12 @@ var utcTime = date.toUTCString();
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
-     var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center>";
+     var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
      console.log(get_login);
-      var header = "<style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+      var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
       var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","desc")
+         db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","asc")
     .get()
     .then((querySnapshot) => {
           var cnt = querySnapshot.size;
@@ -450,14 +518,13 @@ var utcTime = date.toUTCString();
 		 var nodata = "<br>No data found<br>";
 	         document.write(nodata);
 	}else{
-		document.write("<table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
-   
+		document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th  style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th  style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
 	}
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
 	   var dates = new Date(doc.data().date).toLocaleString();
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
        document.head.innerHTML = header;
@@ -470,11 +537,11 @@ var utcTime = date.toUTCString();
        
        var loaddbeverything =  function(){
        var db = firebase.firestore();
-      var header = "<head><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+      var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) </h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center>";
-         db.collection("messages").where("remove", "==","No").orderBy("date","desc")
+	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) </h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
+         db.collection("messages").where("remove", "==","No").orderBy("date","asc")
     .get()
     .then((querySnapshot) => {
 	   var cnt = querySnapshot.size;
@@ -483,12 +550,12 @@ var utcTime = date.toUTCString();
 		 var nodata = "<br>No data found<br>";
 	  document.write(nodata);
 	}else{
-	  document.write("<table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+	  document.write("<table  id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
 	}
         querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
 	   var dates = new Date(doc.data().date).toLocaleString();
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
 	});
          document.write("</table>");
          document.head.innerHTML = header;
@@ -497,14 +564,54 @@ var utcTime = date.toUTCString();
         console.log("Error getting documents: ", error);
     });
       }
+       
+        var loadname =  function(){
+        var db = firebase.firestore();
+		
+		 var get_login=prompt("Enter last name to search","Enter Last Name");
+         if (get_login  === null || get_login === "Enter Last Name") {
+               alert("Enter your Network Login ID above & try again!");
+          }else{
+       get_login  = get_login.toString();
+     var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
+     console.log(get_login);
+      var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+      var lines = "";
+            let today = new Date().toISOString().slice(0, 10);
+         db.collection("messages").where("lastname", "==",get_login).where("remove", "==","No").orderBy("date","asc")
+    .get()
+    .then((querySnapshot) => {
+          var cnt = querySnapshot.size;
+		  document.write(title);
+	 if (cnt === 0){
+		 var nodata = "<br>No data found<br>";
+	         document.write(nodata);
+	}else{
+		document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+	}
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+	   var dates = new Date(doc.data().date).toLocaleString();
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+        });
+                  document.write("</table>");
+       document.head.innerHTML = header;
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+           }
+      }
+		
        
         var loadinactive =  function(){
        var db = firebase.firestore();
-      var header = "<head><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+      var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>In-Active Visitor Schedule(s) </h2><a href='https://aquafrontdesk.github.io/'>Go Home</a><br><br></center>";
-         db.collection("messages").where("remove", "==","Yes").orderBy("date","desc")
+	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>In-Active Visitor Schedule(s) </h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
+         db.collection("messages").where("remove", "==","Yes").orderBy("date","asc")
     .get()
     .then((querySnapshot) => {
 	   var cnt = querySnapshot.size;
@@ -513,12 +620,12 @@ var utcTime = date.toUTCString();
 		 var nodata = "<br>No data found<br>";
 	  document.write(nodata);
 	}else{
-	  document.write("<table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+	  document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
 	}
         querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
 	   var dates = new Date(doc.data().date).toLocaleString();
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
 	});
          document.write("</table>");
          document.head.innerHTML = header;
@@ -528,7 +635,130 @@ var utcTime = date.toUTCString();
     });
       }
        
-       var loaddbtoday =  function(){
+  var loadtoday =  function(){
+           var db = firebase.firestore();
+	 let todaysdate = new Date();
+	 var count = 0;
+	 var strStart;
+	  var strEnd; 
+         var start = new Date();
+	   var end = new Date();
+         var lines = "";
+	var today = new Date();
+	 var x;
+   document.write("");
+   var name=prompt("Please choose one of the following\r\n1) Enter date to search (Example: 10/12/2022) > Click [Ok]\r\n2) Click [Ok] for today's date","Enter Date");
+    if (name!="Enter Date"){
+	  start = new Date(name);
+         start.setHours(0,0,0,0);
+        end = new Date(start.getTime());
+         end.setHours(23,59,59,999);
+       strStart =  start.toISOString();
+       strEnd =  end.toISOString();
+   }else{
+    	 // start = new Date(name);
+         start.setHours(0,0,0,0);
+        end = new Date(start.getTime());
+         end.setHours(23,59,59,999);
+       strStart =  start.toISOString();
+       strEnd =  end.toISOString();
+     var d = new Date();
+     var myDate = new Date(d).toLocaleDateString('en-US');   
+     name = myDate.toString();
+   }	
+	console.log(name);
+	var  todays = new Date().toLocaleDateString('en-US');  
+         var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+	 var title = "<center><h1>Aqua-Aerobic Systems Visitor System</h1><h2>Visitor(s) for: " + name + "</h2></center><center><a href='https://aquavisitorsystem.github.io/'>Go Home</a></center><br>";         
+	 db.collection("messages").where("date", ">=",strStart).where("date", "<=",strEnd).where("remove", "==","No").orderBy("date","asc").orderBy("lastname","asc")
+    .get()
+    .then((querySnapshot) => {
+	 console.log("Snapshot:" + querySnapshot.size); 
+        var cnt = querySnapshot.size;
+	document.write(title);
+	//document.write("<center><h3>Find your name and Tap 'Check-In'</b></center></h3>If your name is not found below, click <a href='" +  "https://ignitemeeting.github.io/?ipad=Yes"   + "'>here</a> to continue!<br><br><center>");
+        if (cnt === 0){
+		 var nodata = "<br>No data found<br>";
+	  document.write(nodata);
+	}else{
+	document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");	
+	}
+         querySnapshot.forEach((doc) => {
+		var nodata = "";
+            // doc.data() is never undefined for query doc snapshots
+         var dates = new Date(doc.data().date).toLocaleString();
+     document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+	 });
+		   document.write("</table>");
+		// let sendingText = "https://ignitemeeting.github.io/?ipad=Yes"
+	           document.head.innerHTML = header;
+    }) 
+    .catch((error) => {
+         console.log("Error getting documents: ", error);
+          document.write(title);
+	  var nodata = "<br>No data found<br>";
+	  document.write(nodata);
+          document.head.innerHTML = header;
+    });
+      }
+  
+var loadtodayschedule =  function(){
+           var db = firebase.firestore();
+	 let todaysdate = new Date();
+	 var count = 0;
+	 var strStart;
+	  var strEnd; 
+         var start = new Date();
+	   var end = new Date();
+         var lines = "";
+	var today = new Date();
+	 var x;
+   document.write("");
+         start.setHours(0,0,0,0);
+        end = new Date(start.getTime());
+         end.setHours(23,59,59,999);
+       strStart =  start.toISOString();
+       strEnd =  end.toISOString();
+     var d = new Date();
+     var myDate = new Date(d).toLocaleDateString('en-US');   
+     name = myDate.toString();
+	console.log(name);
+	var  todays = new Date().toLocaleDateString('en-US');  
+         var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+	 var title = "<center><h1>Aqua-Aerobic Systems Visitor System</h1><h2>Visitor(s) for: " + name + "</h2></center><center><a href='https://aquavisitorsystem.github.io/'>Go Home</a></center><br>";         
+	 db.collection("messages").where("date", ">=",strStart).where("date", "<=",strEnd).where("remove", "==","No").orderBy("date","asc").orderBy("lastname","asc")
+    .get()
+    .then((querySnapshot) => {
+	 console.log("Snapshot:" + querySnapshot.size); 
+        var cnt = querySnapshot.size;
+	document.write(title);
+	//document.write("<center><h3>Find your name and Tap 'Check-In'</b></center></h3>If your name is not found below, click <a href='" +  "https://ignitemeeting.github.io/?ipad=Yes"   + "'>here</a> to continue!<br><br><center>");
+        if (cnt === 0){
+		 var nodata = "<br>No data found<br>";
+	  document.write(nodata);
+	}else{
+	document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");	
+	}
+         querySnapshot.forEach((doc) => {
+		var nodata = "";
+            // doc.data() is never undefined for query doc snapshots
+         var dates = new Date(doc.data().date).toLocaleString();
+     document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+	 });
+		   document.write("</table>");
+		// let sendingText = "https://ignitemeeting.github.io/?ipad=Yes"
+	           document.head.innerHTML = header;
+    }) 
+    .catch((error) => {
+         console.log("Error getting documents: ", error);
+          document.write(title);
+	  var nodata = "<br>No data found<br>";
+	  document.write(nodata);
+          document.head.innerHTML = header;
+    });
+      }
+  
+var loaddbtoday =  function(){
          var db = firebase.firestore();
 	 let todaysdate = new Date().toISOString().slice(0, 10);
 	 var count = 0;
@@ -543,20 +773,23 @@ var utcTime = date.toUTCString();
          var lines = "";
 	       
          let todays = new Date().toLocaleDateString();
-         var header = "<head><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-	 var title = "<center><h2>Active Visitor Schedule(s) for: " + todays + "</h2><a href='https://aquafrontdesk.github.io/'></a><br><br></center>";      
-         db.collection("messages").where("date", ">=",start).where("date", "<=",end).where("remove", "==","No").orderBy("date","desc")
+         var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+	 var title = "<center><h2>Active Visitor Schedule(s) for: " + todays + "</h2></center>";      
+         db.collection("messages").where("date", ">=",start).where("date", "<=",end).where("remove", "==","No").orderBy("date","asc")
     .get()
     .then((querySnapshot) => {
 	 console.log("Snapshot:" + querySnapshot.size); 
         var cnt = querySnapshot.size;
 	document.write(title);
-	document.write("<center><h3>Find your schedule and Tap 'Select'</b></center></h3>If your schedule is not found below, click <a href='" +  "https://aquameeting.github.io/?ipad=Yes"   + "'>here</a> to continue!<br><br>");
+	 var links = "'https://aquameeting.github.io/?ipad=Yes'";
+	  var buttons =  '<button onclick="window.location.href=' + links + ';" style="background-color: yellow;font-weight: bold;border-color: black;font-size: medium;">HERE</button>';
+	document.write("<center><h3>Find your schedule and Tap 'Select'</b></h3>If your schedule is not found below, tap " + buttons + "<br><br></center>"); 
+		       // "https://aquameeting.github.io/?ipad=Yes"   + "'>here</a> to continue!<br><br>");
         if (cnt === 0){
 		 var nodata = "<br>No data found<br>";
 	  document.write(nodata);
 	}else{
-			  document.write("<table>  <tr>   <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th><th></th>  </tr>");
+			  document.write("<table id='report' style='font-size: small;'>  <tr>   <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(1)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(3)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Visiting</th><th></th>  </tr>");
    
 	}
          querySnapshot.forEach((doc) => {
@@ -564,7 +797,10 @@ var utcTime = date.toUTCString();
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
 	    var dates = new Date(doc.data().date).toLocaleString();
-  	    document.write('<tr><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td><a href="https://aquafrontdesk.github.io/?iPadid=' + doc.data().key + '">Select</a></td></tr>');
+	     var links = "'https://aquavisitorsystem.github.io/?iPadid=" + doc.data().key + "'";
+	       var buttons =  '<button onclick="window.location.href=' + links + ';" style="background-color: yellow;font-weight: bold;border-color: black;font-size: medium;">Select</button>';
+	
+  	    document.write('<tr><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().message + '</td><td>' + buttons + '</td></tr>');
 	});
 		   document.write("</table>");
 		// let sendingText = "https://aquameeting.github.io/?ipad=Yes"
@@ -590,12 +826,12 @@ var utcTime = date.toUTCString();
           }else{
        get_login  = get_login.toString();
      console.log(get_login);
-      var header = "<head><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
-    var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>In-Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquafrontdesk.github.io/'>Go Home</a></center>";      
+      var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+    var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>In-Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br></center>";      
      
 		  var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","desc")
+         db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","asc")
     .get()
     .then((querySnapshot) => {
 		   var cnt = querySnapshot.size;
@@ -604,13 +840,13 @@ var utcTime = date.toUTCString();
 		 var nodata = "<br>No data found<br>";
 	  document.write(nodata);
 	}else{
-	   document.write("<table>  <tr>    <th>Aqua Employee</th>    <th>First Name</th>    <th>Last Name</th>    <th>Company</th>     <th>Date/Time</th>      <th>Email</th>       <th>Purpose of Visit</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+	   document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
  
 	}
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date.replace("T", " ") + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquafrontdesk.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + doc.data().date.replace("T", " ") + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
           	   document.write("</table>");
 	           document.head.innerHTML = header;
@@ -633,9 +869,26 @@ var utcTime = date.toUTCString();
        
        var getloginname = function(){
             var username = document.getElementById("login").value;
-         console.log("LoginName: " + username);
-          if (username  === null || username === '') {
-               alert("Enter your Network Login ID above & try again!");
+	   
+         console.log("LoginName: " + username.toLowerCase());
+          if (username.toLowerCase()  === null || username === '') {
+               alert("Please enter Network Login ID or keyword above & try again!");
+			  
+          }else if (username.toLowerCase()  === 'all') {
+		loaddbeverything();
+          }else if (username.toLowerCase()  === 'date') {
+		loadtoday();
+          }else if (username.toLowerCase()  === 'inactive') {
+		loadinactive();
+          }else if (username.toLowerCase()  === 'active') {
+		loaddbeverything();
+          }else if (username.toLowerCase()  === 'today') {
+		loadtodayschedule();
+           }else if (username.toLowerCase()  === 'name') {
+		    var data = {
+          "userid": username
+        }
+		loadname(data);
           }else{
              var data = {
           "userid": username
@@ -647,7 +900,7 @@ var utcTime = date.toUTCString();
         var gocheckin = function(){
              var get_id = document.getElementById("id").value;
 	     var website = get_id  + '&checkin=Now';	
-           var cwebsite = "https://aquafrontdesk.github.io/?key=" + website;
+           var cwebsite = "https://aquavisitorsystem.github.io/?key=" + website;
              window.location = cwebsite;
        }
        
@@ -657,11 +910,11 @@ var utcTime = date.toUTCString();
           if (username  === null || username === '') {
                alert("Enter your Network Login ID above & try again!");
           }else{
-             var data = {
+		 var data = {
           "userid": username
-        }
+		 }
            loaddball(data);
-          }
+	  }
        }
 
 
@@ -747,9 +1000,11 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         document.getElementById('meetingfields').style.display = 'block';
         document.getElementById('submit_msg').style.display = 'block';
        document.getElementById('update_db').style.display = 'none';
-       document.getElementById('get_id').style.display = 'block';
+       document.getElementById('get_id').style.display = 'none';
       document.getElementById('get_msg').style.display = 'block';
-         document.getElementById('get_id2').style.display = 'block';
+         document.getElementById('get_id2').style.display = 'none';
+	 document.getElementById('qrcode').style.display = 'none';      
+	       
        }
        
          var updateschedule = function(){
@@ -760,9 +1015,9 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         document.getElementById('meetingfields').style.display = 'block';
         document.getElementById('submit_msg').style.display = 'none';
        document.getElementById('update_db').style.display = 'block';
-       document.getElementById('get_id').style.display = 'block';
-      document.getElementById('get_msg').style.display = 'block';
-                 document.getElementById('get_id2').style.display = 'block';
+       document.getElementById('get_msg').style.display = 'block';
+           document.getElementById('get_id').style.display = 'none';
+       document.getElementById('get_id2').style.display = 'none';
        }
        
        var getall = function(){
@@ -776,7 +1031,12 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
        document.getElementById('update_db').style.display = 'none';
        document.getElementById('get_id').style.display = 'block';
       document.getElementById('get_msg').style.display = 'block';
-          document.getElementById('get_id2').style.display = 'block';
+          document.getElementById('get_id2').style.display = 'none';
+ document.getElementById('loginlabel').innerText = 'Aqua Employee User ID OR Keyword';
+  document.getElementsByName('login')[0].placeholder = '[KEYWORDS] today, name, date, all, inactive';
+	          document.getElementById("login").addEventListener("keypress", getSchedule2);
+	       document.getElementById("login").focus();
+	          document.getElementById('emaillabel').style.display = 'none';
        }
        
        // <button id="checkin" type="button">Everything look ok? Tap Here to Check-In</button>
@@ -786,20 +1046,42 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         document.getElementById('meetingfields').style.display = 'none';
         document.getElementById('submit_msg').style.display = 'none';
        document.getElementById('update_db').style.display = 'none';
-       document.getElementById('get_id').style.display = 'none';
       document.getElementById('get_msg').style.display = 'none';
        document.getElementById('logins').style.display = 'none';
+       document.getElementById('get_id').style.display = 'none';
        document.getElementById('get_id2').style.display = 'none';
 	     document.getElementById('checkin').style.display = 'none';
+     document.getElementById('back').style.display = 'none';
 
       document.getElementById("submit_msg").addEventListener("click", contact_submit);
        document.getElementById("update_db").addEventListener("click",update_submit);
        document.getElementById("get_id").addEventListener("click",getloginname);
+   document.getElementById("login").addEventListener("keypress", getSchedule);
              document.getElementById("get_msg").addEventListener("click", loadweb);
             document.getElementById("get_id2").addEventListener("click", getloginname2);
             document.getElementById("schedule").addEventListener("click", schedule);
             document.getElementById("getall").addEventListener("click", getall);
 	    document.getElementById("checkin").addEventListener("click", gocheckin);
+
+function getSchedule(e) {
+	console.log(e.keyCode);
+	var key = e.keyCode;
+	      if (key >= 48 && key <= 57 || key >= 65 && key <= 90 || key >= 97 && key <= 122){
+		      console.log("allow")
+              }else{
+		       e.preventDefault();
+		       console.log("block")
+	      }
+}
+
+function getSchedule2(e) {
+	      if (e.key === "Enter") {
+              e.preventDefault();
+		getloginname();      
+	      }
+	
+	
+}
    //iPadid
 	    
           var queryString = window.location.search;
@@ -883,7 +1165,13 @@ if (g_all == 'no') {
        loadinactive();
 } else {
   console.log('string IS empty');
-}   	
+}   
+
+if (g_all == 'today') {
+       loadtoday();
+} else {
+  console.log('string IS empty');
+}  
 
 // empty string
 if ((id_active === 'No') && (userid != null && userid != '')) {
@@ -920,7 +1208,23 @@ if ((id_remove === 'Yes') && (id != null && id != '')) {
       updateremoveNO(data);
 } else {
   console.log('string IS empty');
-}       
+}      
+
+ if ((id_remove === 'Reset') && (id != null && id != '')) {
+  var data = {
+          "id": id
+        }
+   let text = "Are you sure you want to reset check-in/check-out data?\n\nThis cannot be undone!\n\nClick 'OK' to reset data\nClick 'Cancel' to go back!";
+  if (confirm(text) == true) {
+     updatereset(data);
+	  	 alert("Success!\nCheck-in/check-out data has been reset!");
+  } else {
+     alert("Cancelled!\nCheck-in/check-out reset has been cancelled!");
+  }
+     
+} else {
+  console.log('string IS empty');
+}     
       
       
 if (id != null && id != '') {
@@ -953,6 +1257,7 @@ if (id != null && id != '') {
         document.getElementById('getall').style.display = 'none';
 	 document.getElementById('header').style.display = 'none';
 	 document.getElementById('logo').style.display = 'none';
+	 document.getElementById('reset').style.display = 'none';
   console.log('string is NOT empty');
   var website = g_iPadid + '&checkin=Now';	
  var cwebsite = "https://aquameeting.github.io/?key=" + website;
@@ -1016,4 +1321,59 @@ if (checkin === 'walkin'){
  
 } else {
   console.log('string IS empty');
+}
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("report");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
 }
