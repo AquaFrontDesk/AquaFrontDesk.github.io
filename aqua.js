@@ -204,11 +204,14 @@
        var get_data = function(data){
         var db = firebase.firestore();
          var get_id = data["id"];
+	  console.log("get_data207:" + get_id)
 	  var get_iPad = data["iPad"];
+	    console.log("get_data209:" + get_iPad)
 	   var website = get_id  + '&checkin=Now';	
-	  
+	  console.log("get_data211:" + website)
            var cwebsite = "https://aquavisitorsystem.github.io/?key=" + website;
          console.log(get_id);
+	    console.log("get_data214:" + cwebsite)
          db.collection("messages").where("key", "==",get_id)
     .get()
     .then((querySnapshot) => {
@@ -257,6 +260,7 @@
               document.getElementById("message").readOnly = false;
 		   document.getElementById('qrcode').style.display = 'none';
                document.getElementById('logins').style.display = 'none';
+	       document.getElementById('emaillabel').style.display = 'none';
              document.getElementById('removeYes').style.display = 'none';
 	      document.getElementById('removeNo').style.display = 'none'
        document.getElementById('get_id').style.display = 'none';
