@@ -320,7 +320,7 @@ var fldkey;
       document.getElementById('get_msg').style.display = 'none';
 		 document.getElementById('update_db').innerText = 'Update';
 		  document.getElementById("emaillink").innerHTML = "";
-		 document.getElementById("remove").innerHTML = "1) If needed, update above fields 2) <b style='color: red;'>TAP GREEN BUTTON BELOW TO CHECK-IN/OUT</b>";
+		 document.getElementById("remove").innerHTML = "<b style='color: red;'>1) IF NEEDED, UPDATE ABOVE FIELDS 2) TAP GREEN BUTTON BELOW TO CHECK-IN/OUT</b>";
 		  document.getElementById('remove').style.fontWeight = 'normal';
 		 document.getElementById('update_db').style.width = 'min-content';
 		  document.getElementById('checkin').style.display = 'block';
