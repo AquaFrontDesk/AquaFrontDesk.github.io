@@ -356,7 +356,6 @@ var log_create = function(){
             email: fldemail,
             message: fldmessage,
             timestamp: Date.now(),
-            key: fldkey,
           checkin: fldcheckin,
           checkout: fldcheckout,
           remove:fldremove
