@@ -113,6 +113,24 @@ var fldkey;
   });
       }
       
+       var updatecheckin = function(data){
+        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+          firstname: data["fname"],
+          lastname: data["lname"],
+          company: data["cname"],
+          date: data["date"],
+            email: data["email"],
+            message: data["msg"],
+            timestamp: Date.now()
+}) .then(function(doc) {
+    console.log("doc updated");
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+      }
+      
          var updatereset = function(data){
         var db = firebase.firestore();
           var key = data["id"];
