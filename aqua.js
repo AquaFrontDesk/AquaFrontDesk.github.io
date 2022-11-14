@@ -13,6 +13,21 @@
       document.getElementById("update_db").disabled = true;
       document.getElementById('update_db').style.visibility = 'hidden';
       
+//Add Log File
+var fldlogin;
+var fldfirstname;
+var fldlastname;
+var fldcompany;
+var flddate;
+var fldemail;
+var fldmessage;
+var fldtimestamp;
+var fldcheckin;
+var fldcheckout;
+var fldremove;
+var fldkey;
+
+
       var varfrom_name = "";
       var varto_email = "";
       var varto_name = "";
@@ -324,7 +339,36 @@
     });
       }
        
-  
+var log_create = function(data){
+        var db = firebase.firestore();
+        var newdate = new Date().toISOString(); 
+        var key = fldfirstname + fldlastname + newdate;
+        var SaveDoc = db.collection("log").doc(key);  
+        SaveDoc.set({
+              key: key, 
+              sourcekey: fldkey,
+              login: fldlogin,
+            firstname: fldfirstname,
+          lastname: fldlastname,
+          company: fldcompany,
+          date: flddate,
+            email: fldemail,
+            message: fldmessage,
+            timestamp: Date.now(),
+            key: fldkey,
+          checkin: fldcheckin,
+          checkout: fldcheckout,
+          remove:fldremove
+        })
+        .then(function(doc) {  
+            //alert("Schedule was created successfully!")
+            console.log("doc added");
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+      }
+
+
        
        var get_checkin_data = function(data){
 	  var d = new Date();
@@ -348,6 +392,19 @@
            varfrom_name = varFName + ' ' + varLName;
            varto_email = varAqua + '@aqua-aerobic.com';
            varto_name = doc.data().message;
+	   //Get log variables
+	   fldlogin = doc.data().login;
+           fldfirstname = doc.data().firstname;
+           fldlastname = doc.data().lastname;
+           fldcompany = doc.data().company;
+           flddate = doc.data().date;
+           fldemail = doc.data().email;
+           fldmessage = doc.data().message;
+           fldtimestamp = Date.now();
+           fldcheckin = doc.data().checkin;
+           fldcheckout = doc.data().checkout;
+           fldremove =  doc.data().remove;
+           fldkey = doc.data().key;
         }); 
              console.log("key_checkin:" + key_checkin);
     console.log("key_checkout:" + key_checkout);
@@ -384,20 +441,11 @@ var utcTime = date.toUTCString();
   size: 230,
   value: varwebsite
 });
-      //return resolve({fileName: obj.fileName, imgData: qr.toDataURL().split(',')[1]})
-	 // document.getElementById('qrcode').style.display = 'contents';
-         // document.write("You have been successfully checked in!<br>");
-        //  varDT = varDT.replace("T", " "); // document.write("Appointment data: " + varAqua);
-	 // document.write("<hr>");
-         // document.write("Appointment date/time: " +  varDT);
-         //   document.write("<hr>");
-        //    document.write("Someone will come get you very soon!");
-   // document.write("<br><br>While waiting, please put on generated badge from printer!");
-    // document.write("<br><br>Thanks for your patience!");
-	     document.write("</center>");
+    document.write("</center>");
     document.write('</body>');
     console.log("checkin successful");
-  sendcheckedin();
+  //sendcheckedin();
+  log_create();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
 	   console.log("checkedin ID: Yes");
 	    document.getElementById("checkedin").value = 'Yes';
@@ -413,7 +461,8 @@ var utcTime = date.toUTCString();
 	   document.write("</center>");
     document.write('</body>');
     console.log("checkout successful");
-    sendcheckedout();
+    //sendcheckedout();
+    log_create();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
 	   console.log("checkedin ID: Yes");
