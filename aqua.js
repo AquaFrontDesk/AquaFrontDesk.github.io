@@ -1060,6 +1060,7 @@ var loaddbtoday =  function(){
        }
        
         var gocheckin = function(){
+	     update_submit2();
              var get_id = document.getElementById("id").value;
 	     var website = get_id  + '&checkin=Now';	
            var cwebsite = "https://aquavisitorsystem.github.io/?key=" + website;
@@ -1151,6 +1152,30 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
           "date": date.value
         }
         update(data);
+
+      }
+       
+        var update_submit2 = function(){
+            var id = document.getElementById("id");
+           var login = document.getElementById("login");
+        var fname = document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var cname = document.getElementById("cname");
+          var date = document.getElementById("date");
+        var email = document.getElementById("email");
+        var msg = document.getElementById("message");
+        var dates = new Date(date.value).toLocaleString();
+        var data = {
+             "id": id.value,
+            "login": login.value,
+          "fname": fname.value,
+               "lname": lname.value,
+               "cname": cname.value,
+          "email": email.value,
+          "msg": msg.value,
+          "date": date.value
+        }
+        updatecheckin(data);
 
       }
        
