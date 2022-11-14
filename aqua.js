@@ -339,7 +339,7 @@ var fldkey;
     });
       }
        
-var log_create = function(data){
+var log_create = function(){
         var db = firebase.firestore();
         var newdate = new Date().toISOString(); 
         var key = fldfirstname + fldlastname + newdate;
@@ -362,9 +362,9 @@ var log_create = function(data){
         })
         .then(function(doc) {  
             //alert("Schedule was created successfully!")
-            console.log("doc added");
+            console.log("log added");
   }).catch(function(error) {
-    console.log("Error getting document:", error);
+    console.log("Error creating log:", error);
   });
       }
 
