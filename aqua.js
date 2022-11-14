@@ -678,6 +678,44 @@ var utcTime = date.toUTCString();
     });
            }
       }
+	
+	  var loadlogname =  function(){
+        var db = firebase.firestore();
+		 var get_login=prompt("Enter last name to search","Enter Last Name");
+         if (get_login  === null || get_login === "Enter Last Name") {
+               alert("Enter your Network Login ID above & try again!");
+          }else{
+       get_login  = get_login.toString();
+     var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Log</h1><h2>Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
+     console.log(get_login);
+      var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
+      var lines = "";
+            let today = new Date().toISOString().slice(0, 10);
+         db.collection("log").where("lastname", "==",get_login).orderBy("date","asc")
+    .get()
+    .then((querySnapshot) => {
+          var cnt = querySnapshot.size;
+		  document.write(title);
+	 if (cnt === 0){
+		 var nodata = "<br>No data found<br>";
+	         document.write(nodata);
+	}else{
+		document.write("<table id='report' style='font-size: small;'>  <tr>    <th>Emp Email</th>    <th>First Name</th>    <th style='cursor: pointer; color: red;' onclick='sortTable(2)'>Last Name <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>    <th>Company</th>     <th style='cursor: pointer; color: red;' onclick='sortTable(4)'>Date/Time <i class='fa fa-sort' style='font-size:20px;color:blue'></i></th>      <th>Email</th>       <th>Visiting</th><th>CheckIn</th><th>CheckOut</th><th>Edit</th>  </tr>");
+	}
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+	   var dates = new Date(doc.data().date).toLocaleString();
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+        });
+                  document.write("</table>");
+       document.head.innerHTML = header;
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+           }
+      }
 		
        
         var loadinactive =  function(){
@@ -960,10 +998,9 @@ var loaddbtoday =  function(){
           }else if (username.toLowerCase()  === 'today') {
 		loadtodayschedule();
            }else if (username.toLowerCase()  === 'name') {
-		    var data = {
-          "userid": username
-        }
-		loadname(data);
+		loadname();
+	   }else if (username.toLowerCase()  === 'logname') {
+		loadlogname();
           }else{
              var data = {
           "userid": username
@@ -1109,7 +1146,7 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
       document.getElementById('get_msg').style.display = 'block';
           document.getElementById('get_id2').style.display = 'none';
  document.getElementById('loginlabel').innerText = 'Aqua Employee User ID OR Keyword';
-  document.getElementsByName('login')[0].placeholder = '[KEYWORDS] today, name, date, all, inactive';
+  document.getElementsByName('login')[0].placeholder = '[KEYWORDS] today, name, date, all, inactive,logname';
 	       	          document.getElementById('emaillabel').style.display = 'none';
 	          document.getElementById("login").addEventListener("keypress", getSchedule2);
 	       document.getElementById("login").focus();
