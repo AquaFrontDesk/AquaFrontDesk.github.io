@@ -507,6 +507,7 @@ var utcTime = date.toUTCString();
           var key = data["id"];
          		var d = new Date();
              myTime = new Date(d).toLocaleString();
+             fldcheckin = myTime;
         db.collection("messages").doc(key).update({
            checkin: myTime
 }) .then(function(doc) {
@@ -532,6 +533,7 @@ var utcTime = date.toUTCString();
           var key = data["id"];
 	      	    var d = new Date();
              myTime = new Date(d).toLocaleString();
+	    fldcheckout = myTime;
         db.collection("messages").doc(key).update({
            checkout: myTime
 }) .then(function(doc) {
