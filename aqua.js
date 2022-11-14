@@ -719,8 +719,7 @@ var utcTime = date.toUTCString();
 		
 	  var loadlogall =  function(){
         var db = firebase.firestore();
-	     var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Log</h1><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
-     console.log(get_login);
+        var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Log</h1><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
       var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
       var lines = "";
             let today = new Date().toISOString().slice(0, 10);
