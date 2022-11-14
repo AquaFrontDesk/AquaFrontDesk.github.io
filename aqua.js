@@ -340,6 +340,7 @@ var fldkey;
       }
        
 var log_create = function(){
+	console.log("log_create started");
         var db = firebase.firestore();
         var newdate = new Date().toISOString(); 
         var key = fldfirstname + fldlastname + newdate;
@@ -362,7 +363,7 @@ var log_create = function(){
         })
         .then(function(doc) {  
             //alert("Schedule was created successfully!")
-            console.log("log added");
+           	console.log("log_create end");
   }).catch(function(error) {
     console.log("Error creating log:", error);
   });
