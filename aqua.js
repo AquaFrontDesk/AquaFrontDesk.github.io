@@ -714,7 +714,6 @@ var utcTime = date.toUTCString();
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-           }
       }
 		
 	  var loadlogall =  function(){
