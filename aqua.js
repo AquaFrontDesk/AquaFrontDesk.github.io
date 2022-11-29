@@ -98,6 +98,7 @@ var fldkey;
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
+          login: data["login"],
           firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
@@ -117,6 +118,7 @@ var fldkey;
         var db = firebase.firestore();
           var key = data["id"];
         db.collection("messages").doc(key).update({
+	  login: data["login"],
           firstname: data["fname"],
           lastname: data["lname"],
           company: data["cname"],
@@ -145,6 +147,22 @@ var fldkey;
   });
       }
 	 
+	 var updateresetvisit = function(data){
+		 clear()
+	        var db = firebase.firestore();
+          var key = data["id"];
+        db.collection("messages").doc(key).update({
+           checkin: "",
+	   checkout:""
+}) .then(function(doc) {
+    console.log("doc updated");
+    window.location = "https://aquavisitorsystem.github.io/resetsuccess.html";
+    //window.location = "https://aquavisitorsystem.github.io/resetsuccess.html";
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  }); 
+      }
+	 
    var sendcheckedin = function(){
 	   if (varto_name === 'walkin@aqua-aerobic.com'){
 		varto_name = 'ckonkol@aqua-aerobic.com';   
@@ -168,11 +186,13 @@ var fldkey;
 	   if (varto_name === 'walkin@aqua-aerobic.com'){
 		varto_name = 'ckonkol@aqua-aerobic.com';   
 	   }
+	     var reset = "https://aquavisitorsystem.github.io/?resetid=" + fldkey + "&Remove=Return";
    var templateParams = {
      "from_name" : varfrom_name,
          "to_name" : varto_name,
          "to_email" : varto_email,
-          "cc_email" : cc_email
+          "cc_email" : cc_email,
+	   "reset" : reset
 };
    emailjs.send('service_aqua', 'template_checkedout', templateParams)
     .then(function(response) {
@@ -274,7 +294,7 @@ var fldkey;
             document.getElementById("id").value = doc.data().key;
            document.getElementById("login").value = doc.data().login;
         
-		   document.getElementById("login").readOnly = true;
+	//document.getElementById("login").readOnly = true;
             document.getElementById("fname").value = doc.data().firstname;
             document.getElementById("lname").value = doc.data().lastname;
             document.getElementById("cname").value = doc.data().company;
@@ -463,7 +483,7 @@ var utcTime = date.toUTCString();
     document.write('</body>');
     console.log("checkin successful");
   //sendcheckedin();
-  log_create();
+ // log_create();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout === null || key_checkout === '')){
 	   console.log("checkedin ID: Yes");
 	    document.getElementById("checkedin").value = 'Yes';
@@ -479,8 +499,8 @@ var utcTime = date.toUTCString();
 	   document.write("</center>");
     document.write('</body>');
     console.log("checkout successful");
-    //sendcheckedout();
-    log_create();
+   // sendcheckedout();
+   // log_create();
   }else if ((key_checkin !=null && key_checkin != '') && (key_checkout !=null && key_checkout != '') ){
            //qr code used already
 	   console.log("checkedin ID: Yes");
@@ -602,7 +622,7 @@ var utcTime = date.toUTCString();
       var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
       var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","asc")
+         db.collection("messages").where("login", "==",get_login).where("remove", "==","No").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
           var cnt = querySnapshot.size;
@@ -616,7 +636,15 @@ var utcTime = date.toUTCString();
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-	   var dates = new Date(doc.data().date).toLocaleString();
+		 var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loaddb:" + dates);
           document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
@@ -634,7 +662,7 @@ var utcTime = date.toUTCString();
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
 	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) </h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
-         db.collection("messages").where("remove", "==","No").orderBy("date","asc")
+         db.collection("messages").where("remove", "==","No").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
 	   var cnt = querySnapshot.size;
@@ -647,7 +675,15 @@ var utcTime = date.toUTCString();
 	}
         querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-	   var dates = new Date(doc.data().date).toLocaleString();
+	  var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loaddbeverything:" + dates);
           document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
 	});
          document.write("</table>");
@@ -661,17 +697,18 @@ var utcTime = date.toUTCString();
         var loadname =  function(){
         var db = firebase.firestore();
 		
-		 var get_login=prompt("Enter last name to search","Enter Last Name");
+		 var get_login=prompt("Enter Last Name To Search","Enter Last Name");
          if (get_login  === null || get_login === "Enter Last Name") {
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
+       get_login = get_login.trim().toUpperCase();
      var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>Active Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
      console.log(get_login);
       var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
       var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("messages").where("lastname", "==",get_login).where("remove", "==","No").orderBy("date","asc")
+         db.collection("messages").where("lastname", "==",get_login).where("remove", "==","No").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
           var cnt = querySnapshot.size;
@@ -685,7 +722,15 @@ var utcTime = date.toUTCString();
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-	   var dates = new Date(doc.data().date).toLocaleString();
+	    var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loadname:" + dates);
           document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
@@ -699,17 +744,18 @@ var utcTime = date.toUTCString();
 	
 	  var loadlogname =  function(){
         var db = firebase.firestore();
-		 var get_login=prompt("Enter last name to search","Enter Last Name");
+	 var get_login=prompt("Enter Last Name To Search","Enter Last Name");
          if (get_login  === null || get_login === "Enter Last Name") {
                alert("Enter your Network Login ID above & try again!");
           }else{
        get_login  = get_login.toString();
+       get_login = get_login.trim().toUpperCase();
      var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Log</h1><h2>Visitor Schedule(s) for: " + get_login + "</h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
      console.log(get_login);
       var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
       var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("log").where("lastname", "==",get_login).orderBy("date","asc")
+         db.collection("log").where("lastname", "==",get_login).orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
           var cnt = querySnapshot.size;
@@ -723,7 +769,15 @@ var utcTime = date.toUTCString();
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-	   var dates = new Date(doc.data().date).toLocaleString();
+	     var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loadlogname:" + dates);
           document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().sourcekey + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
@@ -741,7 +795,7 @@ var utcTime = date.toUTCString();
       var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
       var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("log").orderBy("date","asc")
+         db.collection("log").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
           var cnt = querySnapshot.size;
@@ -755,8 +809,16 @@ var utcTime = date.toUTCString();
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-	   var dates = new Date(doc.data().date).toLocaleString();
-          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
+	     var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loadlogall:" + dates);
+          document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().sourcekey + '">Click here</a></td></tr>');
         });
                   document.write("</table>");
        document.head.innerHTML = header;
@@ -772,7 +834,7 @@ var utcTime = date.toUTCString();
     var lines = "";
             let today = new Date().toISOString().slice(0, 10);
 	   var title = "<center><h1>Aqua-Aerobic Systems Check-in/out Visitor Schedule</h1><h2>In-Active Visitor Schedule(s) </h2><a href='https://aquavisitorsystem.github.io/'>Go Home</a><br><br></center>";
-         db.collection("messages").where("remove", "==","Yes").orderBy("date","asc")
+         db.collection("messages").where("remove", "==","Yes").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
 	   var cnt = querySnapshot.size;
@@ -785,7 +847,15 @@ var utcTime = date.toUTCString();
 	}
         querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-	   var dates = new Date(doc.data().date).toLocaleString();
+	   var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loadinactive:" + dates);
           document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
 	});
          document.write("</table>");
@@ -847,7 +917,15 @@ var utcTime = date.toUTCString();
          querySnapshot.forEach((doc) => {
 		var nodata = "";
             // doc.data() is never undefined for query doc snapshots
-         var dates = new Date(doc.data().date).toLocaleString();
+           var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loadtoday:" + dates);
      document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
 	 });
 		   document.write("</table>");
@@ -867,19 +945,16 @@ var loadtodayschedule =  function(){
            var db = firebase.firestore();
 	 let todaysdate = new Date();
 	 var count = 0;
-	 var strStart;
-	  var strEnd; 
-         var start = new Date();
-	   var end = new Date();
-         var lines = "";
+	 var lines = "";
 	var today = new Date();
 	 var x;
    document.write("");
+        var start = new Date();
          start.setHours(0,0,0,0);
-        end = new Date(start.getTime());
+         var end = new Date(start.getTime());
          end.setHours(23,59,59,999);
-       strStart =  start.toISOString();
-       strEnd =  end.toISOString();
+         start = new Date(start.getTime() - (start.getTimezoneOffset() * 60000)).toISOString();
+         end = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).toISOString();	 
      var d = new Date();
      var myDate = new Date(d).toLocaleDateString('en-US');   
      name = myDate.toString();
@@ -887,7 +962,7 @@ var loadtodayschedule =  function(){
 	var  todays = new Date().toLocaleDateString('en-US');  
          var header = "<head><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>table, td, th {  border: 1px solid #cbbbbb;  text-align: left;}table {  border-collapse: collapse;  width: 100%;}th, td {  padding: 15px;} tr:nth-child(even) {  background-color: #dddddd;}</style></head>";
 	 var title = "<center><h1>Aqua-Aerobic Systems Visitor System</h1><h2>Visitor(s) for: " + name + "</h2></center><center><a href='https://aquavisitorsystem.github.io/'>Go Home</a></center><br>";         
-	 db.collection("messages").where("date", ">=",strStart).where("date", "<=",strEnd).where("remove", "==","No").orderBy("date","asc").orderBy("lastname","asc")
+	 db.collection("messages").where("date", ">=",start).where("date", "<=",end).where("remove", "==","No").orderBy("date","asc").orderBy("lastname","asc")
     .get()
     .then((querySnapshot) => {
 	 console.log("Snapshot:" + querySnapshot.size); 
@@ -903,7 +978,15 @@ var loadtodayschedule =  function(){
          querySnapshot.forEach((doc) => {
 		var nodata = "";
             // doc.data() is never undefined for query doc snapshots
-         var dates = new Date(doc.data().date).toLocaleString();
+                  var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loadtodayschedule:" + dates);
      document.write('<tr><td>' + doc.data().login + '</td><td>' + doc.data().firstname + '</td><td>' + doc.data().lastname + '</td><td>' + doc.data().company + '</td><td>' + dates + '</td><td>' + doc.data().email + '</td><td>' + doc.data().message + '</td><td>' + doc.data().checkin + '</td><td>' + doc.data().checkout + '</td><td><a href="https://aquavisitorsystem.github.io/?id=' + doc.data().key + '">Click here</a></td></tr>');
 	 });
 		   document.write("</table>");
@@ -957,7 +1040,15 @@ var loaddbtoday =  function(){
 		var nodata = "";
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-	    var dates = new Date(doc.data().date).toLocaleString();
+	                     var options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    };
+	   var dates = new Date(doc.data().date).toLocaleDateString("en", options)
+	   console.log("loaddbtoday:" + dates);
 	     var links = "'https://aquavisitorsystem.github.io/?iPadid=" + doc.data().key + "'";
 	       var buttons =  '<button onclick="window.location.href=' + links + ';" style="background-color: yellow;font-weight: bold;border-color: black;font-size: medium;">Select</button>';
 	
@@ -992,7 +1083,7 @@ var loaddbtoday =  function(){
      
 		  var lines = "";
             let today = new Date().toISOString().slice(0, 10);
-         db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","asc")
+         db.collection("messages").where("login", "==",get_login).where("remove", "==","Yes").orderBy("date","desc")
     .get()
     .then((querySnapshot) => {
 		   var cnt = querySnapshot.size;
@@ -1030,11 +1121,9 @@ var loaddbtoday =  function(){
        
        var getloginname = function(){
             var username = document.getElementById("login").value;
-	   
          console.log("LoginName: " + username.toLowerCase());
           if (username.toLowerCase()  === null || username === '') {
-               alert("Please enter Network Login ID or keyword above & try again!");
-			  
+               alert("Please enter Network Login ID or keyword above & try again!");	  
           }else if (username.toLowerCase()  === 'all') {
 		loaddbeverything();
           }else if (username.toLowerCase()  === 'date') {
@@ -1090,20 +1179,22 @@ var loaddbtoday =  function(){
         var email = document.getElementById("email");
         var msg = document.getElementById("message");
         var data = {
-          "login": login.value,
-          "fname": fname.value,
-               "lname": lname.value,
-               "cname": cname.value,
-          "email": email.value,
-          "msg": msg.value,
+          "login": login.value.trim().toLowerCase(),
+          "fname": fname.value.trim().toUpperCase(),
+               "lname": lname.value.trim().toUpperCase(),
+               "cname": cname.value.trim().toUpperCase(),
+          "email": email.value.trim().toUpperCase(),
+          "msg": msg.value.trim().toUpperCase(),
           "date": date.value,
-          "key": fname.value + lname.value + date.value
+          "key": fname.value.trim().toUpperCase() + lname.value.trim().toUpperCase() + date.value
         }
-        
+          let result = login.value.includes("@");
 // empty string
-if (login.value != null &&  login.value != '' && fname.value != null &&  fname.value != '' && lname.value != null &&  lname.value != '' && cname.value != null &&  cname.value != '' && email.value != null &&  email.value != ''  && msg.value != null &&  msg.value != ''   && date.value != null &&  date.value != '') {
+if (result != true && login.value != null &&  login.value != '' && fname.value != null &&  fname.value != '' && lname.value != null &&  lname.value != '' && cname.value != null &&  cname.value != '' && email.value != null &&  email.value != ''  && msg.value != null &&  msg.value != ''   && date.value != null &&  date.value != '') {
      push_to_firebase(data);
-} else {
+} else if (result === true){
+   alert("Enter Aqua UserID Only. The @ symbol is not allowed.")
+}else {
     alert("All fields required!")
 }}
 	      
@@ -1117,14 +1208,14 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         var email =  data["email"];
         var msg =  data["message"];
         var data = {
-          "login": login.value,
-          "fname": fname.value,
-               "lname": lname.value,
-               "cname": cname.value,
-          "email": email.value,
-          "msg": msg.value,
-          "date": date.value,
-          "key": fname.value + lname.value + date.value
+         "login": login.value.trim().toLowerCase(),
+"fname": fname.value.trim().toUpperCase(),
+"lname": lname.value.trim().toUpperCase(),
+"cname": cname.value.trim().toUpperCase(),
+"email": email.value.trim().toUpperCase(),
+"msg": msg.value.trim().toUpperCase(),
+"date": date.value,
+"key": fname.value.trim().toUpperCase() + lname.value.trim().toUpperCase() + date.value
 	}
          push_to_firebase(data);
       }
@@ -1143,15 +1234,20 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         var dates = new Date(date.value).toLocaleString();
         var data = {
              "id": id.value,
-            "login": login.value,
-          "fname": fname.value,
-               "lname": lname.value,
-               "cname": cname.value,
-          "email": email.value,
-          "msg": msg.value,
+           "login": login.value.trim().toLowerCase(),
+"fname": fname.value.trim().toUpperCase(),
+"lname": lname.value.trim().toUpperCase(),
+"cname": cname.value.trim().toUpperCase(),
+"email": email.value.trim().toUpperCase(),
+"msg": msg.value.trim().toUpperCase(),
           "date": date.value
         }
-        update(data);
+         let result = login.value.includes("@");
+if (result != true) {
+      update(data);
+}else {
+   alert("Enter Aqua UserID Only. The @ symbol is not allowed.")
+}
 
       }
        
@@ -1167,12 +1263,12 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         var dates = new Date(date.value).toLocaleString();
         var data = {
              "id": id.value,
-            "login": login.value,
-          "fname": fname.value,
-               "lname": lname.value,
-               "cname": cname.value,
-          "email": email.value,
-          "msg": msg.value,
+"login": login.value.trim().toLowerCase(),
+"fname": fname.value.trim().toUpperCase(),
+"lname": lname.value.trim().toUpperCase(),
+"cname": cname.value.trim().toUpperCase(),
+"email": email.value.trim().toUpperCase(),
+"msg": msg.value.trim().toUpperCase(),
           "date": date.value
         }
         updatecheckin(data);
@@ -1203,6 +1299,37 @@ if (login.value != null &&  login.value != '' && fname.value != null &&  fname.v
         document.getElementById('meetingfields').style.display = 'block';
         document.getElementById('submit_msg').style.display = 'none';
        document.getElementById('update_db').style.display = 'none';
+       document.getElementById('get_msg').style.display = 'block';
+           document.getElementById('get_id').style.display = 'none';
+       document.getElementById('get_id2').style.display = 'none';
+       }
+	 
+	     var clear = function(){
+        document.getElementById('logins').style.display = 'none';
+          document.getElementById('logins').style.display = 'none';
+        document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+        document.getElementById('meetingfields').style.display = 'none';
+        document.getElementById('submit_msg').style.display = 'none';
+       document.getElementById('update_db').style.display = 'none';
+       document.getElementById('get_msg').style.display = 'none';
+           document.getElementById('get_id').style.display = 'none';
+       document.getElementById('get_id2').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
+	 document.getElementById('reset').style.display = 'none';
+		     document.getElementById('help').style.display = 'none';
+		     document.getElementById('loading').style.display = 'none';
+       }
+	 
+	  var updatescheduleshome = function(){
+        document.getElementById('logins').style.display = 'contents';
+          document.getElementById('logins').style.display = 'block';
+        document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+        document.getElementById('meetingfields').style.display = 'block';
+        document.getElementById('submit_msg').style.display = 'none';
+       document.getElementById('update_db').style.display = 'block';
        document.getElementById('get_msg').style.display = 'block';
            document.getElementById('get_id').style.display = 'none';
        document.getElementById('get_id2').style.display = 'none';
@@ -1278,6 +1405,8 @@ function getSchedule2(e) {
       
 	      var g_all= urlParams.get('all')
       console.log(g_all);
+
+
 	    
           var g_fname = urlParams.get('fname')
       console.log(g_fname);
@@ -1302,13 +1431,16 @@ function getSchedule2(e) {
 	    
 	    
         var id_remove = urlParams.get('Remove')
-      console.log(id_remove);
+      console.log("Remove:" + id_remove);
       
         var id_active = urlParams.get('Active')
       console.log(id_active);
       
       var id = urlParams.get('id')
       console.log(id);
+
+  var resetid = urlParams.get('resetid')
+      console.log(resetid);
       
         var userid = urlParams.get('userid')
       console.log(userid);
@@ -1398,24 +1530,7 @@ if ((id_remove === 'Yes') && (id != null && id != '')) {
   console.log('string IS empty');
 }      
 
- if ((id_remove === 'Reset') && (id != null && id != '')) {
-  var data = {
-          "id": id
-        }
-   let text = "Are you sure you want to reset check-in/check-out data?\n\nThis cannot be undone!\n\nClick 'OK' to reset data\nClick 'Cancel' to go back!";
-  if (confirm(text) == true) {
-     updatereset(data);
-	  	 alert("Success!\nCheck-in/check-out data has been reset!");
-  } else {
-     alert("Cancelled!\nCheck-in/check-out reset has been cancelled!");
-  }
-     
-} else {
-  console.log('string IS empty');
-}     
-      
-      
-if (id != null && id != '') {
+if ((id != null && id != '') && (id_remove === null)) {
 	  document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
 	 document.getElementById('header').style.display = 'none';
@@ -1433,7 +1548,7 @@ if (id != null && id != '') {
 	  "iPad": 'No'
         }
         key_id="";
-        updateschedule();
+        updatescheduleshome();
          get_data(data);
         });
 } else {
@@ -1471,7 +1586,7 @@ if (id != null && id != '') {
       
       // empty string
 if ((checkin != null && checkin != '') &&  (keyid != null && keyid != '')) {
-  console.log('string is NOT empty');
+  console.log('string is NOT empty');	
 if (checkin === 'walkin'){
 	document.getElementById('schedule').style.display = 'none';
         document.getElementById('getall').style.display = 'none';
@@ -1479,19 +1594,19 @@ if (checkin === 'walkin'){
 	 document.getElementById('logo').style.display = 'none';
      var data = {
 	   "login": 'walkin',
-	   "key": g_fname + g_lname + g_date,
-          "fname": g_fname,
-          "lname": g_lname,
-          "email": g_email,
-          "cname": g_cname,
-         "msg": g_message, 
+	   "key": g_fname.trim().toUpperCase() + g_lname.trim().toUpperCase() + g_date,
+          "fname": g_fname.trim().toUpperCase(),
+          "lname": g_lname.trim().toUpperCase(),
+          "email": g_email.trim().toUpperCase(),
+          "cname": g_cname.trim().toUpperCase(),
+         "msg": g_message.trim().toUpperCase(), 
          "date": g_date
         }
     push_to_firebase(data);
 		sleep(3000).then(() => {
 		 var data1 = {
           "checkin": checkin,
-           "id": g_fname + g_lname + g_date
+           "id": g_fname.trim().toUpperCase() + g_lname.trim().toUpperCase() + g_date
         }
   get_checkin_data(data1);
         });
@@ -1510,6 +1625,50 @@ if (checkin === 'walkin'){
 } else {
   console.log('string IS empty');
 }
+
+      // empty string
+if ((checkin === null || checkin === '') &&  (keyid != null && keyid != '')) {
+	document.getElementById('schedule').style.display = 'none';
+        document.getElementById('getall').style.display = 'none';
+	 document.getElementById('header').style.display = 'none';
+	 document.getElementById('logo').style.display = 'none';
+  document.write('<body style="font-family: sans-serif;color: blue;">');
+           	   document.write("<center>");
+	  document.write('<img id="logo" src="aqua.jpg" width="550px">');
+            document.write("<p style='font-size:20px;color: blue;'>This QR code is invalid!</p>");
+	  document.write("<p style='font-size:20px;color: black;'>Please try again!</p>");
+            document.write("<p style='font-size:20px;color: blue;'>Have a great day!</p>");
+	  document.write("<p style='font-size:15px;color: black;'><br><br><br>current date/time: " + NowTime + "</p>");
+	   document.write("</center>");
+    document.write('</body>');
+}
+
+ if ((id_remove === 'Reset') && (id != null && id != '')) {
+  var data = {
+          "id": id
+        }
+   let text = "Are you sure you want to reset check-in/check-out data?\n\nThis cannot be undone!\n\nClick 'OK' to reset data\nClick 'Cancel' to go back!";
+  if (confirm(text) == true) {
+     updatereset(data);
+	  	 alert("Success!\nCheck-in/check-out data has been reset!");
+  } else {
+     alert("Cancelled!\nCheck-in/check-out reset has been cancelled!");
+  }
+     
+} else {
+  console.log('string IS empty');
+}     
+
+ if ((id_remove === 'Return') && (resetid != null && resetid != '')) {
+	clear();
+  var data = {
+          "id": resetid
+        }
+     updateresetvisit(data);
+     
+} else {
+  console.log('string IS empty');
+}     
 
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
